@@ -1,5 +1,6 @@
 package com.project.managementapi.entities.userEntity;
 
+import com.project.managementapi.entities.employee.Employee;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,11 +15,11 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
     private String password;
-    private String firstName;
-    private String lastName;
-
     @Enumerated(EnumType.STRING)
     private EUserRole role;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }
