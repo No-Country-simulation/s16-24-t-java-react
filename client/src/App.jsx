@@ -2,6 +2,8 @@ import Home from "../src/components/home/home.jsx"; // Importa el componente hom
 import axios from "axios";
 import "./App.css";
 
+import CreateUser from "./components/modals/createUser.jsx";
+
 axios.defaults.baseURL = "";
 
 function App() {
@@ -10,6 +12,8 @@ function App() {
 			<div className="App">
 				<Home /> {/* Renderiza el componente home */}
 			</div>
+
+			<CreateUser />
 		</>
 	);
 }
