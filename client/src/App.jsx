@@ -1,6 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
 
 import "./App.css";
+
+axios.defaults.baseURL = "";
 
 function App() {
 	return (
