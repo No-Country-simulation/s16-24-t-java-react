@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Header from "../header/header.jsx";
 import Sidebar from "../sidebar/sidebar.jsx";
 import Footer from "../footer/footer.jsx";
-import Login from "../Login/login.jsx";
+import Login from "../login/login.jsx";
 
 function Home() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+	// TODO: Despues ver bien como hacer el manejo de rutas protegidas react router
 	const handleLogin = () => {
 		setIsLoggedIn(true);
 	};

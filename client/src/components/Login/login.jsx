@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Logo from "../../assets/OIG21.jpeg";
+import { useState } from "react";
 
 function Login({ onLogin }) {
 	const [username, setUsername] = useState("");
@@ -34,9 +33,9 @@ function Login({ onLogin }) {
 			<div className="max-w-md w-full space-y-8">
 				<div>
 					<div className="text-center">
-						<img src={Logo} alt="Logo de la empresa" className="mx-auto h-30" />
+						<img src="src/assets/OIG21.jpeg" alt="Logo de la empresa" className="mx-auto h-30" />
 						<div>
-							<h1 class="text-4xl font-bold text-center mt-8">SportiFy</h1>
+							<h1 className="text-4xl font-bold text-center mt-8">SportiFy</h1>
 						</div>
 						<form className="mt-8 space-y-6" onSubmit={handleSubmit}>
 							<input type="hidden" name="remember" value="true" />
