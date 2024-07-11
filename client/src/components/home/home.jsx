@@ -1,6 +1,7 @@
 import Sidebar from "../sidebar/sidebar.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
+import Login from "../Login/login.jsx";
 
 function Home() {
 	return (
@@ -8,8 +9,8 @@ function Home() {
 			<Header />
 			<div className="flex flex-1 bg-gray-200">
 				<Sidebar />
-				<main className="flex-1 p-10">
-					{/* Contenido principal de la página */}
+				<main className="flex-1 p-0">
+					<Login />
 				</main>
 			</div>
 			<Footer />

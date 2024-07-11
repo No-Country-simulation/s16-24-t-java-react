@@ -15,11 +15,6 @@ function Header() {
 					<h1 className="text-xl font-bold">Sportify</h1>{" "}
 					{/* Nombre en el centro */}
 				</div>
-
-				{/* Botón de login a la derecha */}
-				<button className="bg-white text-gray-800 font-semibold py-2 px-4 rounded">
-					Login
-				</button>
 			</div>
 		</header>
 	);
