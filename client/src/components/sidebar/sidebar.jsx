@@ -7,17 +7,62 @@ function SideBar() {
 			<ul>
 				<li className="mb-3">
 					<a href="#" className="block text-gray-300 hover:text-white">
-						Inicio
+						Alta Clientes
 					</a>
 				</li>
 				<li className="mb-3">
 					<a href="#" className="block text-gray-300 hover:text-white">
-						Perfil
+						Modificar Cliente
 					</a>
 				</li>
 				<li className="mb-3">
 					<a href="#" className="block text-gray-300 hover:text-white">
-						Ajustes
+						Baja Cliente
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Mi Centro
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Alta Empleado
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Modificar Empleado
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Baja Empleado
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Alta Sucursal
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Clases y Horarios
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Reportes
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Ingreso / Salida de dinero
+					</a>
+				</li>
+				<li className="mb-3">
+					<a href="#" className="block text-gray-300 hover:text-white">
+						Soporte
 					</a>
 				</li>
 				{/* Agrega más elementos de menú según sea necesario */}
