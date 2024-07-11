@@ -8,14 +8,14 @@ function Home() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const handleLogin = () => {
-		setIsLoggedIn(true); // Establecer isLoggedIn a true cuando el inicio de sesión es exitoso
+		setIsLoggedIn(true);
 	};
 
 	return (
 		<div className="flex flex-col h-screen">
 			{isLoggedIn ? (
 				<>
-					<Header />
+					<Header backgroundColor="bg-white" />
 					<div className="flex flex-1 bg-gray-200">
 						<Sidebar />
 						<main className="flex-1 p-0"></main>
