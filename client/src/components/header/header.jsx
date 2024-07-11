@@ -10,7 +10,7 @@ function Header() {
 					<img
 						src={logo} // Reemplaza con la URL o ruta de tu logo
 						alt="Logo de la empresa"
-						className="h-20 mr-2" // Clase para ajustar el tamaño del logo
+						className="h-10 mr-2" // Clase para ajustar el tamaño del logo
 					/>
 					<h1 className="text-xl font-bold">Sportify</h1>{" "}
 					{/* Nombre en el centro */}
