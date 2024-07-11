@@ -21,7 +21,7 @@ const deportes = [ //  actividades (esta hardcodeado)
 	},
 ]
 
-const subscriptions = [
+const subscriptions = [ //  subscripciones (esta hardcodeado)
 	{
 		id: "mes",
 		name: "Mensual"
@@ -43,6 +43,50 @@ const FormOption = ({ data }) => {
 	return (<option value={data.id}>{data.name}</option>)
 }
 
+const Modal = ({ children, closeCallback }) => {
+	const backgroundClick = (e) => {
+		e.stopPropagation()
+		if (closeCallback) {
+			closeCallback()
+		}
+	}
+
+	return (
+		<div className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed" onClick={backgroundClick}>{children}</div>
+	)
+}
+// Para componentes invalidos usar estos estilos:  border-red-400 border-[1px]
+const InputData = ({ type, required, onChanged, name, className, placeholder }) => {
+	return (
+		<div className={"bg-transparent h-[64px] flex flex-col gap-[10px] " + (className ? " " + className : "")}>
+			<label className="flex h-[18px] font-medium">{placeholder}</label>
+			<div className={"rounded-full bg-gray-200 h-[55%] flex shadow-inner"}>
+				<input className={"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none focus:bg-transparent"} type={type} name={name} placeholder={""} required={required | true} onChange={(e) => onChanged(name, e)} />
+			</div>
+		</div>
+	)
+}
+
+const Selectable = ({ name, forForm, required, className, onChanged, selectableArray, placeholder }) => {
+	return (
+		<div className={"bg-transparent h-[64px] flex flex-col gap-[10px] " + (className ? " " + className : "")}>
+			<label className="flex h-[18px] left-[5px] font-medium">{placeholder}</label>
+			<div className={"h-[34px] w-[100%] bg-gray-200 rounded-full shadow-inner"}>
+				<select className={"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none cursor-pointer"} name={name} form={forForm} required={required | true} onChange={(e) => onChanged(name, e)} defaultValue={"DEFAULT"}>
+					<option disabled value="DEFAULT">{"Elegir"}</option>
+					{
+						selectableArray.map((element, key) => {
+							return <FormOption data={element} key={key} />
+						})
+					}
+				</select>
+			</div>
+
+		</div>
+
+	)
+}
+
 const CreateUser = () => {
 
 	const [fullname, setFullname] = useState("");
@@ -57,9 +101,6 @@ const CreateUser = () => {
 
 		console.log("Submit button!")
 		if (fullname.length >= 3 && birthDate.length >= 6 && dni.length >= 5 && isEmail(email) && activity.length >= 1 && subscription.length >= 1) {
-
-			console.log(fullname, birthDate, dni, email, activity, subscription)
-
 			const { data } = await axios.post("/api/endpoint/noseIDK", {
 				fullname,
 				birthDate,
@@ -83,9 +124,11 @@ const CreateUser = () => {
 
 		const value = event.target.value
 		if (type == "email") {
+
 			if (isEmail(value)) {
 				console.log("email validado!")
 				setEmail(value)
+				event.target.classList.add("bg")
 			} else {
 				setEmail("")
 			}
@@ -100,50 +143,84 @@ const CreateUser = () => {
 		} else if (type == "subscription") {
 			setSubscription(value)
 		}
-
-
 	}
 
 	//
 	return (
-		<div className="absolute w-[200px] left-[35%] top-[35%]">
-			<form action="" method="post" id="createAlumno" className="flex flex-col">
-				<label htmlFor="fullName">{"Nombre completo:"}</label>
-				<input type="text" name="fullName" id="" required={true} onChange={(e) => onChanged("fullname", e)} />
+		<Modal>
+			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
+				<form action="" method="post" id="createAlumno" className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
+					<InputData type="text"
+						className={"w-[calc(50%-10px)] absolute left-0"}
+						placeholder={"Nombre completo"}
+						required={true}
+						name={"fullname"} onChanged={onChanged}
+					/>
+					<InputData
+						type="text"
+						className={"w-[calc(50%-10px)] absolute right-0"}
+						placeholder={"Numero de documento"}
+						required={true}
+						name={"dni"}
+						onChanged={onChanged}
+					/>
 
-				<label htmlFor="birthDate">{"Fecha de nacimiento:"}</label>
-				<input type="date" name="birthDate" id="" required={true} onChange={(e) => onChanged("birth", e)} />
+					<InputData type="date"
+						className={"w-[calc(33.3%-10px)] absolute left-0 top-[70px]"}
+						placeholder={"Fecha de nacimiento"}
+						required={true}
+						name={"birthDate"}
+						onChanged={onChanged}
+					/>
+					<InputData
+						type="text"
+						className={"w-[calc(33.3%-10px)] absolute left-[calc(35%-5px)] top-[70px]"}
+						placeholder={"Correo Electronico"}
+						required={true}
+						name={"email"}
+						onChanged={onChanged}
+					/>
+					<InputData
+						type="text"
+						className={"w-[calc(33.3%-10px)] absolute right-0 top-[70px]"}
+						placeholder={"Celular/Tel de contacto"}
+						required={true}
+						name={"email"}
+						onChanged={onChanged}
+					/>
 
-				<label htmlFor="dni">{"Numero DNI:"}</label>
-				<input type="text" name="dni" id="" required={true} placeholder="Sin puntos ni comas" onChange={(e) => onChanged("dni", e)} />
+					<Selectable className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
+						placeholder={"Seleccionar actividad"}
+						name={"activity"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={deportes}
+					/>
+					<Selectable
+						className={"w-[calc(50%-10px)] absolute left-0 top-[140px]"}
+						placeholder={"Seleccionar subscripcion"}
+						name={"subscription"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={subscriptions}
+					/>
+				</form>
+				<input type="button" value="Guardar" disabled className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed" />
+				<input type="button" value="Cancelar" className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md" />
+				<p className="absolute h-[40px] bottom-[20px] text-center content-center font-medium ">{"Completa todos los campos!"}</p>
+			</div>
 
-				<label htmlFor="email">{"Correo Electronico:"}</label>
-				<input type="text" name="email" id="" required={true} onChange={(e) => onChanged("email", e)} />
-
-				<label htmlFor="activity">{"Deporte:"}</label>
-				<select name="activity" id="" form="createAlumno" required={true} onChange={(e) => { onChanged("activity", e) }} defaultValue={"DEFAULT"}>
-					<option disabled value="DEFAULT">{"Elige una opcion"}</option>
-					{
-						deportes.map((element, key) => {
-							return <FormOption data={element} key={key} />
-						})
-					}
-				</select>
-
-				<label htmlFor="subscription">{"Subscripcion:"}</label>
-				<select name="subscription" id="" form="createAlumno" required={true} onChange={(e) => { onChanged("subscription", e) }} defaultValue={"DEFAULT"}>
-					<option disabled value="DEFAULT">{"Elige una opcion"}</option>
-					{
-						subscriptions.map((element, key) => {
-							return <FormOption data={element} key={key} />
-						})
-					}
-				</select>
-
-				<input type="submit" value="Crear alumno" onClick={onSubmit} />
-			</form>
-		</div>
+		</Modal>
 	)
+}
+
+export const NoUsarEsteModal = Modal
+export {
+	Selectable,
+	InputData
 }
 
 export default CreateUser
