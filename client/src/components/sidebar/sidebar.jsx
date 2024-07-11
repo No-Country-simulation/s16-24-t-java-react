@@ -1,5 +1,3 @@
-import React from "react";
-
 function SideBar() {
 	return (
 		<div className="bg-gray-800 text-white h-screen w-64 py-6 px-4">

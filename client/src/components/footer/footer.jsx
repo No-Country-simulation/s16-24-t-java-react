@@ -1,6 +1,3 @@
-// Importa React y Tailwind CSS en tu componente
-import React from "react";
-
 function Footer() {
 	return (
 		<footer className="bg-gray-800 text-white py-4">
