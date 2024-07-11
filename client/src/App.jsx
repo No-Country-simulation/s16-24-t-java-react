@@ -12,8 +12,6 @@ function App() {
 			<div className="App">
 				<Home /> {/* Renderiza el componente home */}
 			</div>
-
-			<CreateUser />
 		</>
 	);
 }
