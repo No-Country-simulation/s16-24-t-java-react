@@ -87,7 +87,7 @@ function Login({ onLogin }) {
 										htmlFor="remember_me"
 										className="ml-2 block text-sm text-gray-900"
 									>
-										Remember me
+										Recuerdame
 									</label>
 								</div>
 
