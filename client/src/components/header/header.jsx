@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../.././../src/assets/OIG2.jpeg";
+import logo from "../.././../src/assets/OIG21.jpeg";
 
 function Header() {
 	return (
@@ -7,11 +7,7 @@ function Header() {
 			<div className="container mx-auto px-4 flex items-center justify-between">
 				{/* Logo a la izquierda */}
 				<div className="flex items-center">
-					<img
-						src={logo} // Reemplaza con la URL o ruta de tu logo
-						alt="Logo de la empresa"
-						className="h-10 mr-2" // Clase para ajustar el tamaño del logo
-					/>
+					<img src={logo} alt="Logo de la empresa" className="h-10 mr-2" />
 					<h1 className="text-xl font-bold">Sportify</h1>{" "}
 					{/* Nombre en el centro */}
 				</div>
