@@ -22,8 +22,9 @@ public class UserEntityService implements IUserEntityService {
         userEntityRepository.save(UserEntity
                 .builder()
                 .employee(employee)
-                .role(EUserRole.RECEPCIONIST)
+                .role(EUserRole.USER)
                 .password(passwordEncoder.encode(employee.getPersonalInfo().getDni()))
                 .build());
     }
+
 }
