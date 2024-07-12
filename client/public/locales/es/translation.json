@@ -2,6 +2,19 @@
   "login": {
     "saludo": "Hola, Mundo!"
   },
+"createUserModal": {
+		"nombrecompleto": "Nombre completo:",
+		"dni": "Numero de documento:",
+		"fechaNacimiento": "Fecha de nacimiento:",
+		"email": "Email:",
+		"telContacto": "Celular/Tel. de contacto:",
+		"seleccionarActividad": "Seleccionar actividad:",
+		"seleccionarSubscripcion": "Seleccionar subscripcion",
+		"guardar": "Guardar",
+		"cancelar": "Cancelar",
+		"elegirSelectable": "Elegir",
+		"completarAviso": "Completar todos los campos!"
+	},
   "tableHeader": {
     "full_name": "Nombre completo",
     "birth_date": "Fecha de nacimiento",
@@ -38,4 +51,3 @@
     "platinum": "Platinum"
   }
 }
-
