@@ -6,17 +6,19 @@ import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.exceptions.ResourceNotFoundException;
 import com.project.managementapi.repositories.EmployeeRepository;
 import com.project.managementapi.services.IEmployeeService;
+import com.project.managementapi.specifications.EmployeeSpecification;
 import com.project.managementapi.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
@@ -29,7 +31,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private UserEntityService userEntityService;
 
     @Override
-    public EmployeeDTO createEmploye(EmployeeDTO dto) {
+    public EmployeeDTO createEmployee(EmployeeDTO dto) {
 
         boolean isValidStaff = Arrays.stream(EStaff.values())
                 .anyMatch(eStaff -> eStaff.name().equals(dto.getStaff()));
@@ -47,21 +49,56 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .build());
 
         //Si el empleado es un recepcionista crea un usuario.
-        if(employee.getEStaff() == EStaff.RECEPTIONIST) userEntityService.createUserEntity(employee);
+        if (employee.getEStaff() == EStaff.RECEPTIONIST) userEntityService.createUserEntity(employee);
 
         return Mapper.employeeToDTO(employee);
     }
 
-    @Override
-    public Page<EmployeeDTO> findAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
 
-        Page<Employee> employees = this.employeeRepository.findAll(pageable);
-        if(employees.isEmpty()) throw new ResourceNotFoundException("Employees empty list");
+    @Override
+    public Page<EmployeeDTO> findEmployees(
+                                            String firstName,
+                                            String lastName,
+                                            String dni,
+                                            Boolean status,
+                                            String email,
+                                            Pageable pageable) {
+        Specification<Employee> spec = Specification.where(EmployeeSpecification.hasFirstName(firstName))
+                .and(EmployeeSpecification.hasLastName(lastName))
+                .and(EmployeeSpecification.hasDni(dni))
+                .and(EmployeeSpecification.hasStatus(status))
+                .and(EmployeeSpecification.hasEmail(email));
+
+        Page<Employee> employees = this.employeeRepository.findAll(spec, pageable);
+
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
-        for(Employee e: employees){
+        for (Employee e : employees) {
             employeeDTOS.add(Mapper.employeeToDTO(e));
         }
-        return new PageImpl<>(employeeDTOS);
+
+        return new PageImpl<>(employeeDTOS, pageable, employees.getTotalElements());
+    }
+
+    @Override
+    public void updateEmployee(EmployeeDTO employeeDTO) {
+        Optional<Employee> empOpt = employeeRepository.findByPersonalInfoDni(employeeDTO.getPersonalInfo().getDni());
+        if(empOpt.isEmpty())
+            throw new ResourceNotFoundException("Employee with " + employeeDTO.getPersonalInfo().getDni() + " dni doesn't exists.");
+
+        Employee employee = empOpt.get();
+
+        employee.setSalary(employeeDTO.getSalary());
+        employee.getPersonalInfo().setDni(employeeDTO.getPersonalInfo().getDni());
+        employee.getPersonalInfo().setEmail(employeeDTO.getPersonalInfo().getEmail());
+        employee.getPersonalInfo().setFirstName(employeeDTO.getPersonalInfo().getFirstName());
+        employee.getPersonalInfo().setLastName(employeeDTO.getPersonalInfo().getLastName());
+        employee.getPersonalInfo().setPhoneNumber(employeeDTO.getPersonalInfo().getPhoneNumber());
+        employee.getPersonalInfo().getAddress().setCountry(employeeDTO.getPersonalInfo().getAddress().getCountry());
+        employee.getPersonalInfo().getAddress().setCity(employeeDTO.getPersonalInfo().getAddress().getCity());
+        employee.getPersonalInfo().getAddress().setState(employeeDTO.getPersonalInfo().getAddress().getState());
+        employee.getPersonalInfo().getAddress().setStreet(employeeDTO.getPersonalInfo().getAddress().getStreet());
+        employee.getPersonalInfo().getAddress().setStreetNumber(employeeDTO.getPersonalInfo().getAddress().getStreetNumber());
+        employee.getPersonalInfo().getAddress().setPostalCode(employeeDTO.getPersonalInfo().getAddress().getPostalCode());
+        employeeRepository.save(employee);
     }
 }
