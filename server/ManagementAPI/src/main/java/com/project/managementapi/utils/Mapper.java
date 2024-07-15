@@ -1,11 +1,13 @@
 package com.project.managementapi.utils;
 
 import com.project.managementapi.dtos.AddressDTO;
+import com.project.managementapi.dtos.CustomerDTO;
 import com.project.managementapi.dtos.ComplexDTO;
 import com.project.managementapi.dtos.EmployeeDTO;
 import com.project.managementapi.dtos.PersonalInfoDTO;
 import com.project.managementapi.entities.Address;
 import com.project.managementapi.entities.Complex;
+import com.project.managementapi.entities.Customer;
 import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
 
@@ -55,4 +57,10 @@ public class Mapper {
     }
 
 
+    public static CustomerDTO customerToDTO(Customer customer) {
+        return CustomerDTO.builder()
+                .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
+                .status(customer.getStatus())
+                .build();
+    }
 }
