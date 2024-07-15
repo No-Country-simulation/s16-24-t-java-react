@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Login({ onLogin }) {
 	const [username, setUsername] = useState("");
@@ -18,7 +18,7 @@ function Login({ onLogin }) {
 		// Aquí podrías verificar el usuario y la contraseña
 		if (username === "usuario" && password === "contraseña") {
 			console.log("Login exitoso!");
-			onLogin(); // Llamar a la función onLogin proporcionada por Home para indicar que el inicio de sesión fue exitoso
+			onLogin(); // Llamar a la función onLogin proporcionada por App para indicar que el inicio de sesión fue exitoso
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 		}
@@ -33,7 +33,11 @@ function Login({ onLogin }) {
 			<div className="max-w-md w-full space-y-8">
 				<div>
 					<div className="text-center">
-						<img src="src/assets/OIG21.jpeg" alt="Logo de la empresa" className="mx-auto h-30" />
+						<img
+							src="src/assets/OIG21.jpeg"
+							alt="Logo de la empresa"
+							className="mx-auto h-30"
+						/>
 						<div>
 							<h1 className="text-4xl font-bold text-center mt-8">SportiFy</h1>
 						</div>
@@ -86,7 +90,7 @@ function Login({ onLogin }) {
 										htmlFor="remember_me"
 										className="ml-2 block text-sm text-gray-900"
 									>
-										Recuerdame
+										Recuérdame
 									</label>
 								</div>
 
