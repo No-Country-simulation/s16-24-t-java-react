@@ -19,6 +19,9 @@ function Login({ onLogin }) {
 		if (username === "usuario" && password === "contraseña") {
 			console.log("Login exitoso!");
 			onLogin(); // Llamar a la función onLogin proporcionada por App para indicar que el inicio de sesión fue exitoso
+
+			// Guardar estado de sesión en localStorage
+			localStorage.setItem("loggedIn", "true");
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 		}

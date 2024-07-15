@@ -1,8 +1,8 @@
 {
-  "login": {
-    "saludo": "Hola, Mundo!"
-  },
-"createUserModal": {
+	"login": {
+		"saludo": "Hola, Mundo!"
+	},
+	"createUserModal": {
 		"nombrecompleto": "Nombre completo:",
 		"dni": "Numero de documento:",
 		"fechaNacimiento": "Fecha de nacimiento:",
@@ -15,39 +15,39 @@
 		"elegirSelectable": "Elegir",
 		"completarAviso": "Completar todos los campos!"
 	},
-  "tableHeader": {
-    "full_name": "Nombre completo",
-    "birth_date": "Fecha de nacimiento",
-    "id": "DNI",
-    "sport": "Deporte",
-    "subscription": "Tipo de membresía (subscripción)",
-    "payment": "Couta",
-    "due_date": "Fecha de vencimiento de la cuota",
-    "days_from_due": "Días desde el vencimiento",
-    "created_at": "Fecha de alta"
-  },
-  "filter": {
-    "all": "Todos",
-    "sport": "Deporte",
-    "subscription": "Membresia",
-    "payment": "Couta",
-    "search": "Buscar",
-    "football": "Fútbol",
-    "tennis": "Tenis",
-    "swimming": "Natación",
-    "gymnastics": "Gimnasia",
-    "cycling": "Ciclismo",
-    "yoga": "Yoga",
-    "pilates": "Pilates",
-    "boxing": "Boxeo",
-    "running": "Running",
-    "crossfit": "CrossFit",
-    "monthly": "Mensual",
-    "quarterly": "Trimestral",
-    "semiannual": "Semestral",
-    "annual": "Anual",
-    "black": "Black",
-    "gold": "Gold",
-    "platinum": "Platinum"
-  }
+	"tableHeader": {
+		"full_name": "Nombre completo",
+		"birth_date": "Fecha de nacimiento",
+		"id": "DNI",
+		"sport": "Deporte",
+		"subscription": "Tipo de membresía (subscripción)",
+		"payment": "Cuota",
+		"due_date": "Fecha de vencimiento de la cuota",
+		"days_from_due": "Días desde el vencimiento",
+		"created_at": "Fecha de alta"
+	},
+	"filter": {
+		"all": "Todos",
+		"sport": "Deporte",
+		"subscription": "Membresia",
+		"payment": "Cuota",
+		"search": "Buscar",
+		"football": "Fútbol",
+		"tennis": "Tenis",
+		"swimming": "Natación",
+		"gymnastics": "Gimnasia",
+		"cycling": "Ciclismo",
+		"yoga": "Yoga",
+		"pilates": "Pilates",
+		"boxing": "Boxeo",
+		"running": "Running",
+		"crossfit": "CrossFit",
+		"monthly": "Mensual",
+		"quarterly": "Trimestral",
+		"semiannual": "Semestral",
+		"annual": "Anual",
+		"black": "Black",
+		"gold": "Gold",
+		"platinum": "Platinum"
+	}
 }
