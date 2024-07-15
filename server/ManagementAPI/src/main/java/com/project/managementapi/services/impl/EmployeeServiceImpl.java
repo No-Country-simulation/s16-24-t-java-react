@@ -94,7 +94,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         employee.setSalary(employeeDTO.getSalary());
         employee.getPersonalInfo().setDni(employeeDTO.getPersonalInfo().getDni());
-        employee.getPersonalInfo().setEmail(employeeDTO.getPersonalInfo().getEmail());
         employee.getPersonalInfo().setFirstName(employeeDTO.getPersonalInfo().getFirstName());
         employee.getPersonalInfo().setLastName(employeeDTO.getPersonalInfo().getLastName());
         employee.getPersonalInfo().setPhoneNumber(employeeDTO.getPersonalInfo().getPhoneNumber());
