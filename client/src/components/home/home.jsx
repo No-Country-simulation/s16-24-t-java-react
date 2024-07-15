@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "../header/header.jsx";
 import Sidebar from "../sidebar/sidebar.jsx";
 import Footer from "../footer/footer.jsx";
-import Login from "../login/login.jsx";
+import Login from "../Login/login.jsx";
 import Table from "../table/table.jsx";
 
 function Home() {
@@ -21,7 +21,7 @@ function Home() {
 					<div className="flex flex-1 bg-gray-200">
 						<Sidebar />
 						<main className="flex-1 p-0">
-							<Table/>
+							<Table />
 						</main>
 					</div>
 					<Footer />
