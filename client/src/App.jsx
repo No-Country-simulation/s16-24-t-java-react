@@ -1,8 +1,7 @@
 import Home from "../src/components/home/home.jsx"; // Importa el componente home
 import axios from "axios";
 import "./App.css";
-
-// import CreateUser from "./components/Modals/createUser.jsx";
+import CreateUser from "./components/modals/createUser.jsx";
 
 axios.defaults.baseURL = "";
 
