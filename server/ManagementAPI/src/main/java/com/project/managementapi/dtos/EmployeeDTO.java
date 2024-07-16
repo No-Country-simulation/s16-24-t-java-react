@@ -19,6 +19,8 @@ public class EmployeeDTO {
     @Positive(message = "Salary must be positive")
     private Double salary;
 
+    private Boolean status;
+
     @Valid
     @NotNull(message = "Personal info is mandatory")
     private PersonalInfoDTO personalInfo;
