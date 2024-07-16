@@ -1,7 +1,4 @@
 {
-	"login": {
-		"saludo": "Hola, Mundo!"
-	},
 	"createUserModal": {
 		"nombrecompleto": "Nombre completo:",
 		"dni": "Numero de documento:",
