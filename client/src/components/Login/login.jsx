@@ -38,7 +38,7 @@ function Login({ onLogin }) {
 	};
 
 	const handleForgetPasswordClick = () => {
-		setShowForgetPasswordModal(true); // Al hacer clic, muestra el modal de recuperación de contraseña
+		setShowForgetPasswordModal(!showForgetPasswordModal); // Al hacer clic, muestra el modal de recuperación de contraseña
 	};
 
 	return (
@@ -130,7 +130,7 @@ function Login({ onLogin }) {
 			</div>
 
 			{/* Modal de recuperación de contraseña */}
-			{showForgetPasswordModal && <ForgetPassword />}
+			{showForgetPasswordModal && <ForgetPassword handleCloseModal={handleForgetPasswordClick}/>}
 		</div>
 	);
 }
