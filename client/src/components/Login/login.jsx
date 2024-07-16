@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import ForgetPassword from "../modals/forget-password.jsx"; // Importa el componente ForgetPassword
 
 function Login({ onLogin }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false); // Estado para controlar la visibilidad del modal
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -33,6 +35,10 @@ function Login({ onLogin }) {
 
 		setUsername("");
 		setPassword("");
+	};
+
+	const handleForgetPasswordClick = () => {
+		setShowForgetPasswordModal(true); // Al hacer clic, muestra el modal de recuperación de contraseña
 	};
 
 	return (
@@ -111,9 +117,20 @@ function Login({ onLogin }) {
 								</div>
 							</div>
 						</form>
+
+						{/* Botón de Recuperar contraseña */}
+						<button
+							onClick={handleForgetPasswordClick}
+							className="mt-4 text-sm text-indigo-600 hover:text-indigo-700 focus:outline-none"
+						>
+							¿Olvidaste tu contraseña?
+						</button>
 					</div>
 				</div>
 			</div>
+
+			{/* Modal de recuperación de contraseña */}
+			{showForgetPasswordModal && <ForgetPassword />}
 		</div>
 	);
 }
