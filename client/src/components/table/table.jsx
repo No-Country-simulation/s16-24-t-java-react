@@ -6,6 +6,7 @@ import TableRow from './table-row.jsx'
 import { useTranslation } from "react-i18next"
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
+import ProfileButton from './profile.jsx'
 
 const MainFilter = [
   "sport",
@@ -291,7 +292,6 @@ function Table() {
 
     if (mainFilter === "sport") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        console.log(selectedSubFilter, "selectedSubFilter");
         usersToFilter = usersToFilter.filter((user) => user.deporte === t(`filter.${selectedSubFilter}`))
       } else {
         usersToFilter = [...Users];
@@ -308,7 +308,6 @@ function Table() {
 
     if (mainFilter === "payment") {
       if (selectedSubFilter && selectedSubFilter !== "Todos") {
-        console.log(selectedSubFilter, "selectedSubFilter");
         usersToFilter = usersToFilter.filter((user) => user.tipoCuota === t(`filter.${selectedSubFilter}`).toLowerCase());
       } else {
         usersToFilter = [...Users];
@@ -366,6 +365,7 @@ function Table() {
         <Filter filters={subFilter} handleChange={handleSubFilter} />
         <NewMemberButton />
         <ReportButton />
+        <ProfileButton />
       </div>
       <table className="w-full text-left text-sm text-gray-500">
         <TableHeader />
