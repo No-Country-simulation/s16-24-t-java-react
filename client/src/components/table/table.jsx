@@ -6,7 +6,7 @@ import TableRow from './table-row.jsx'
 import { useTranslation } from "react-i18next"
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
-import ProfileButton from './profile.jsx'
+import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
 
 const MainFilter = [
@@ -275,7 +275,7 @@ const Users = [
   }
 ];
 
-function Table() {
+function Table({handleLogOut}) {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
@@ -370,7 +370,7 @@ function Table() {
         <Filter filters={subFilter} handleChange={handleSubFilter} />
         <NewMemberButton handleNewMember={handleNewMember}/>
         <ReportButton />
-        <ProfileButton />
+        <ProfileButton handleLogOut={handleLogOut}/>
       </div>
       <table className="w-full text-left text-sm text-gray-500">
         <TableHeader />

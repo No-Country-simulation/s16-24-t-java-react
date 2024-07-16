@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -9,10 +9,10 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { styled, useTheme } from "@mui/material/styles";
+import CreateUser from "../modals/createUser.jsx"; // Adjust the path as per your project structure
 
 const drawerWidth = 240;
 
@@ -57,6 +57,7 @@ const Drawer = styled(MuiDrawer, {
 function SideBar() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+	const [showCreateUserModal, setShowCreateUserModal] = React.useState(false);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -64,6 +65,11 @@ function SideBar() {
 
 	const handleDrawerClose = () => {
 		setOpen(false);
+	};
+
+	const handleNewMember = () => {
+		setOpen(false); // Close the sidebar if it's open
+		setShowCreateUserModal(true);
 	};
 
 	return (
@@ -76,7 +82,7 @@ function SideBar() {
 					<div className="py-6 px-2">
 						<div className="text-lg font-bold mb-8">Menu</div>
 						<List>
-							<ListItem button>
+							<ListItem button onClick={handleNewMember}>
 								<ListItemIcon sx={{ color: "white" }}>
 									<InboxIcon />
 								</ListItemIcon>
@@ -142,7 +148,7 @@ function SideBar() {
 								</ListItemIcon>
 								<ListItemText primary="Soporte" />
 							</ListItem>
-							{/* Agregar más elementos de lista según sea necesario */}
+							{/* Add more list items as needed */}
 						</List>
 					</div>
 				</div>
@@ -173,6 +179,9 @@ function SideBar() {
 					)}
 				</IconButton>
 			</Box>
+			{showCreateUserModal && (
+				<CreateUser handleNewMember={() => setShowCreateUserModal(false)} />
+			)}
 		</Box>
 	);
 }
