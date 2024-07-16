@@ -21,16 +21,22 @@ function ForgetPassword() {
 			{showForgetPasswordModal && (
 				<NoUsarEsteModal>
 					<div className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75">
-						<div className="bg-white w-[800px] h-[310px] rounded-[32px] shadow-2xl flex flex-col items-center gap-5 p-8 relative">
+						<div className="bg-white w-[800px] h-[360px] rounded-[32px] shadow-2xl flex flex-col items-center gap-5 p-8 relative">
 							<button
 								className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
 								onClick={handleCloseModal}
 							>
 								<Icon iconName="x" />
 							</button>
+							<img
+								src="src/assets/OIG21.jpeg"
+								alt="Logo de la empresa"
+								className="mx-auto h-20"
+							/>
 							<h3 className="text-2xl font-bold mb-4">
 								Ingresa tu correo electrónico
 							</h3>
+
 							<InputData
 								type="text"
 								name="email"
