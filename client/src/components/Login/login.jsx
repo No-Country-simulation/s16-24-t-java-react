@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 function Login({ onLogin }) {
 	const [username, setUsername] = useState("");
@@ -15,15 +16,21 @@ function Login({ onLogin }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// Aquí podrías verificar el usuario y la contraseña
 		if (username === "usuario" && password === "contraseña") {
 			console.log("Login exitoso!");
-			onLogin(); // Llamar a la función onLogin proporcionada por Home para indicar que el inicio de sesión fue exitoso
+			onLogin();
+			localStorage.setItem("loggedIn", "true");
 		} else {
 			console.log("Usuario o contraseña incorrectos");
+
+			// Mostrar modal de SweetAlert2
+			Swal.fire({
+				icon: "error",
+				title: "Error de inicio de sesión",
+				text: "Usuario o contraseña incorrectos",
+			});
 		}
 
-		// Resetear los campos después del envío (opcional)
 		setUsername("");
 		setPassword("");
 	};
@@ -33,7 +40,11 @@ function Login({ onLogin }) {
 			<div className="max-w-md w-full space-y-8">
 				<div>
 					<div className="text-center">
-						<img src="src/assets/OIG21.jpeg" alt="Logo de la empresa" className="mx-auto h-30" />
+						<img
+							src="src/assets/OIG21.jpeg"
+							alt="Logo de la empresa"
+							className="mx-auto h-30"
+						/>
 						<div>
 							<h1 className="text-4xl font-bold text-center mt-8">SportiFy</h1>
 						</div>
@@ -86,7 +97,7 @@ function Login({ onLogin }) {
 										htmlFor="remember_me"
 										className="ml-2 block text-sm text-gray-900"
 									>
-										Recuerdame
+										Recuérdame
 									</label>
 								</div>
 

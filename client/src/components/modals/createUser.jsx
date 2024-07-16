@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import axios from "axios"
 
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../languageSelector/laguage-selector.jsx";
+
 const deportes = [ //  actividades (esta hardcodeado)
 	{
 		id: "football1",
@@ -39,11 +42,12 @@ const subscriptions = [ //  subscripciones (esta hardcodeado)
 		name: "Anual"
 	},
 ]
+
 const FormOption = ({ data }) => {
 	return (<option value={data.id}>{data.name}</option>)
 }
 
-const Modal = ({ children, closeCallback }) => {
+ const Modal = ({ children, closeCallback }) => {
 	const backgroundClick = (e) => {
 		e.stopPropagation()
 		if (closeCallback) {
@@ -67,13 +71,13 @@ const InputData = ({ type, required, onChanged, name, className, placeholder }) 
 	)
 }
 
-const Selectable = ({ name, forForm, required, className, onChanged, selectableArray, placeholder }) => {
+const Selectable = ({ name, forForm, required, className, onChanged, selectableArray, placeholder, t }) => {
 	return (
 		<div className={"bg-transparent h-[64px] flex flex-col gap-[10px] " + (className ? " " + className : "")}>
 			<label className="flex h-[18px] left-[5px] font-medium">{placeholder}</label>
 			<div className={"h-[34px] w-[100%] bg-gray-200 rounded-full shadow-inner"}>
 				<select className={"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none cursor-pointer"} name={name} form={forForm} required={required | true} onChange={(e) => onChanged(name, e)} defaultValue={"DEFAULT"}>
-					<option disabled value="DEFAULT">{"Elegir"}</option>
+					<option disabled value="DEFAULT">{t("createUserModal.elegirSelectable")}</option>
 					{
 						selectableArray.map((element, key) => {
 							return <FormOption data={element} key={key} />
@@ -87,7 +91,7 @@ const Selectable = ({ name, forForm, required, className, onChanged, selectableA
 	)
 }
 
-const CreateUser = () => {
+const CreateUser = ({handleNewMember}) => {
 
 	const [fullname, setFullname] = useState("");
 	const [birthDate, setBirthdate] = useState("");
@@ -95,6 +99,8 @@ const CreateUser = () => {
 	const [email, setEmail] = useState("");
 	const [activity, setActivity] = useState("");
 	const [subscription, setSubscription] = useState("");
+
+	const { t } = useTranslation()
 
 	const onSubmit = async (e) => {
 		e.preventDefault()
@@ -148,18 +154,19 @@ const CreateUser = () => {
 	//
 	return (
 		<Modal>
+			<LanguageSelector />
 			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
 				<form action="" method="post" id="createAlumno" className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
 					<InputData type="text"
 						className={"w-[calc(50%-10px)] absolute left-0"}
-						placeholder={"Nombre completo"}
+						placeholder={t("createUserModal.nombrecompleto")}
 						required={true}
 						name={"fullname"} onChanged={onChanged}
 					/>
 					<InputData
 						type="text"
 						className={"w-[calc(50%-10px)] absolute right-0"}
-						placeholder={"Numero de documento"}
+						placeholder={t("createUserModal.dni")}
 						required={true}
 						name={"dni"}
 						onChanged={onChanged}
@@ -167,7 +174,7 @@ const CreateUser = () => {
 
 					<InputData type="date"
 						className={"w-[calc(33.3%-10px)] absolute left-0 top-[70px]"}
-						placeholder={"Fecha de nacimiento"}
+						placeholder={t("createUserModal.fechaNacimiento")}
 						required={true}
 						name={"birthDate"}
 						onChanged={onChanged}
@@ -175,7 +182,7 @@ const CreateUser = () => {
 					<InputData
 						type="text"
 						className={"w-[calc(33.3%-10px)] absolute left-[calc(35%-5px)] top-[70px]"}
-						placeholder={"Correo Electronico"}
+						placeholder={t("createUserModal.email")}
 						required={true}
 						name={"email"}
 						onChanged={onChanged}
@@ -183,34 +190,37 @@ const CreateUser = () => {
 					<InputData
 						type="text"
 						className={"w-[calc(33.3%-10px)] absolute right-0 top-[70px]"}
-						placeholder={"Celular/Tel de contacto"}
+						placeholder={t("createUserModal.telContacto")}
 						required={true}
-						name={"email"}
+						name={"phone"}
 						onChanged={onChanged}
 					/>
 
 					<Selectable className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
-						placeholder={"Seleccionar actividad"}
+						placeholder={t("createUserModal.seleccionarActividad")}
 						name={"activity"}
 						forForm={"createAlumno"}
 						required={true}
 						onChanged={onChanged}
 						selectableArray={deportes}
+						t={t}
 					/>
 					<Selectable
 						className={"w-[calc(50%-10px)] absolute left-0 top-[140px]"}
-						placeholder={"Seleccionar subscripcion"}
+						placeholder={t("createUserModal.seleccionarSubscripcion")}
 						name={"subscription"}
 						forForm={"createAlumno"}
 						required={true}
 						onChanged={onChanged}
 						selectableArray={subscriptions}
+						t={t}
 					/>
 				</form>
-				<input type="button" value="Guardar" disabled className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
-				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed" />
-				<input type="button" value="Cancelar" className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md" />
-				<p className="absolute h-[40px] bottom-[20px] text-center content-center font-medium ">{"Completa todos los campos!"}</p>
+				<input type="button" disabled value={t("createUserModal.guardar")} className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300" />
+				<input type="button" onClick={handleNewMember} value={t("createUserModal.cancelar")} className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+				hover:bg-red-600" />
+				<p className="absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium ">{t("createUserModal.completarAviso")}</p>
 			</div>
 
 		</Modal>

@@ -1,5 +1,15 @@
 {
-  "login": {
-    "saludo": "Hello, World!"
-  }
+	"createUserModal": {
+		"nombrecompleto": "Full name",
+		"dni": "DNI Number:",
+		"fechaNacimiento": "Birth date:",
+		"email": "Email:",
+		"telContacto": "Phone number:",
+		"seleccionarActividad": "Select activity:",
+		"seleccionarSubscripcion": "Select subscription",
+		"guardar": "Save",
+		"cancelar": "Cancel",
+		"elegirSelectable": "Select",
+		"completarAviso": "Complete all fields!"
+	}
 }
