@@ -105,4 +105,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employee.getPersonalInfo().getAddress().setPostalCode(employeeDTO.getPersonalInfo().getAddress().getPostalCode());
         employeeRepository.save(employee);
     }
+
+    @Override
+    public EmployeeDTO toggleStatus(String dni) {
+        Optional<Employee> empOpt= this.employeeRepository.findByPersonalInfoDni(dni);
+        if(empOpt.isEmpty()) throw new ResourceNotFoundException("Employee with dni " + dni + " doesn't exists.");
+
+        Employee saved = empOpt.get();
+        saved.setStatus(!saved.getStatus());
+
+        return Mapper.employeeToDTO(employeeRepository.save(saved));
+    }
 }

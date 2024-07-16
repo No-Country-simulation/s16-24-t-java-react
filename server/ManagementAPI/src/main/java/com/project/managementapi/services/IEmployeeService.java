@@ -14,4 +14,6 @@ public interface IEmployeeService {
     Page<EmployeeDTO> findEmployees(String firstName, String lastName, String dni, Boolean status, String email, Pageable pageable);
 
     void updateEmployee(EmployeeDTO employeeDTO) throws BadRequestException;
+
+    EmployeeDTO toggleStatus(String dni);
 }
