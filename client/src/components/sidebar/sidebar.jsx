@@ -80,7 +80,32 @@ function SideBar() {
 					style={{ width: drawerWidth }}
 				>
 					<div className="py-6 px-2">
-						<div className="text-lg font-bold mb-8">Menu</div>
+					<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+				<IconButton
+					color="inherit"
+					aria-label="open drawer"
+					onClick={handleDrawerOpen}
+					edge="start"
+					sx={{
+						marginRight: 5,
+						display: open ? "none" : "inherit",
+					}}
+				>
+					<MenuIcon />
+				</IconButton>
+				<IconButton
+					onClick={handleDrawerClose}
+					sx={{
+						display: open ? "inherit" : "none",
+					}}
+				>
+					{theme.direction === "rtl" ? (
+						<ChevronRightIcon />
+					) : (
+						<ChevronLeftIcon />
+					)}
+				</IconButton>
+			</Box>
 						<List>
 							<ListItem button onClick={handleNewMember}>
 								<ListItemIcon sx={{ color: "white" }}>
@@ -153,32 +178,7 @@ function SideBar() {
 					</div>
 				</div>
 			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					onClick={handleDrawerOpen}
-					edge="start"
-					sx={{
-						marginRight: 5,
-						display: open ? "none" : "inherit",
-					}}
-				>
-					<MenuIcon />
-				</IconButton>
-				<IconButton
-					onClick={handleDrawerClose}
-					sx={{
-						display: open ? "inherit" : "none",
-					}}
-				>
-					{theme.direction === "rtl" ? (
-						<ChevronRightIcon />
-					) : (
-						<ChevronLeftIcon />
-					)}
-				</IconButton>
-			</Box>
+			
 			{showCreateUserModal && (
 				<CreateUser handleNewMember={() => setShowCreateUserModal(false)} />
 			)}

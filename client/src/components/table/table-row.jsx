@@ -1,7 +1,7 @@
 function TableRow ({user}) {
   return (
-    <tr className="text-center">
-      <td>{user.nombreCompleto}</td>
+    <tr className="text-center [&>td]:py-3  [&>td]:border-b [&>td]:border-primary-0">
+      <td className="border-l">{user.nombreCompleto}</td>
       <td>{user.fechaNacimiento}</td>
       <td>{user.dni}</td>
       <td>{user.deporte}</td>
@@ -9,7 +9,7 @@ function TableRow ({user}) {
       <td>{user.tipoCuota}</td>
       <td>{user.fechaVencimientoCuota}</td>
       <td>{user.diasDesdeVencimiento}</td>
-      <td>{user.fechaAlta}</td>
+      <td className="border-r">{user.fechaAlta}</td>
     </tr>
   )
 }

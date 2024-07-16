@@ -12,10 +12,10 @@ function ForgetPassword({handleCloseModal}) {
 
 	return (
 			<NoUsarEsteModal>
-				<div className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75">
-					<div className="bg-white w-[800px] h-[360px] rounded-[32px] shadow-2xl flex flex-col items-center gap-5 p-8 relative">
+				<div className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 p-10">
+					<div className="bg-white w-[800px] h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
 						<button
-							className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+							className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
 							onClick={handleCloseModal}
 						>
 							<Icon iconName="x" />

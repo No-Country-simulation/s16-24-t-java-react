@@ -6,8 +6,8 @@ function TableHeader() {
   return (
 
     <>
-      <thead className="text-center">
-        <tr>
+      <thead className="text-center text-base bg-primary-0 text-secondary-0 sticky top-0 left-0">
+        <tr className='[&>th]:py-4 [&>th]:px-6'>
           <th>{t('tableHeader.full_name')}</th>
           <th>{t('tableHeader.birth_date')}</th>
           <th>{t('tableHeader.id')}</th>

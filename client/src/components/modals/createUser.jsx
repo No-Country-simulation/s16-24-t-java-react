@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import axios from "axios"
 
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "../languageSelector/laguage-selector.jsx";
 
 const deportes = [ //  actividades (esta hardcodeado)
 	{
@@ -154,7 +153,6 @@ const CreateUser = ({handleNewMember}) => {
 	//
 	return (
 		<Modal>
-			<LanguageSelector />
 			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
 				<form action="" method="post" id="createAlumno" className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
 					<InputData type="text"
