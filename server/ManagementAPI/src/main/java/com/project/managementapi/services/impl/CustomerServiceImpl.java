@@ -27,4 +27,16 @@ public class CustomerServiceImpl implements ICustomerService {
 
         return Mapper.customerToDTO(customer);
     }
+
+    @Override
+    public void updateCustomer(CustomerDTO customer) {
+
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow();
+        customer.setStatus(false);
+        customerRepository.save(customer);
+    }
 }
