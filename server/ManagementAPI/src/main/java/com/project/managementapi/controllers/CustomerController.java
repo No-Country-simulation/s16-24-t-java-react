@@ -19,7 +19,7 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
-    private final String url = "/api/v1/employees";
+    private final String url = "/api/v1/customers";
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
