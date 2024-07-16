@@ -1,11 +1,19 @@
-import Icon from "../accesories/icon"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import Icon from "../accesories/icon"
+import Settings from "../modals/settings"
 
 function ProfileMenu({ handleClick, handleLogOut }) {
+  const [settingsClicked, setSettingsClicked] = useState(false)
+
+  const handleClickSettings = () => {
+    setSettingsClicked(!settingsClicked)
+  }
 
   const { t } = useTranslation()
 
   return (
+    <>
     <div className="absolute top-0 right-0 w-[250px] flex flex-col gap-5 text-white transition-transform translate-x-100 translate-y-100 ease-in-out duration-200 bg-tertiary-0">
       <div className="flex w-full justify-end gap-8">
         <p className="bg-primary-40 py-2 px-4 text-center">Nombre de usuario</p>
@@ -14,10 +22,13 @@ function ProfileMenu({ handleClick, handleLogOut }) {
         </button>
       </div>
       <div className="flex flex-col gap-5">
-        <button className="bg-primary-40 py-2 px-4">{t('profileMenu.settings')}</button>
+        <button onClick={handleClickSettings} className="bg-primary-40 py-2 px-4">{t('profileMenu.settings')}</button>
         <button onClick={handleLogOut} className="bg-primary-40 py-2 px-4">{t('profileMenu.logout')}</button>
       </div>
     </div>
+    {settingsClicked && <Settings handleClose={handleClickSettings}/>}
+    </>
+    
 
   )
 }
