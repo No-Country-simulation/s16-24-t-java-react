@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../src/components/header/header.jsx";
 import Sidebar from "../src/components/sidebar/sidebar.jsx";
 import Footer from "../src/components/footer/footer.jsx";
-import Login from "../src/components/login/login.jsx";
+import Login from "../src/components/Login/login.jsx";
 import Table from "../src/components/table/table.jsx";
 
 function App() {
