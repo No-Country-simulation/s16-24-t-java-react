@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-function LanguageSelector() {
+function LanguageSelector({className}) {
 
   const { i18n } = useTranslation()
 
@@ -15,7 +15,7 @@ function LanguageSelector() {
 
   return (
     <>
-      <select name="Language" id="laguage-selector" onChange={handleChange}>
+      <select className={className} name="Language" id="laguage-selector" onChange={handleChange}>
         <option className="text-gray-500" disabled defaultValue=""  selected>Seleccionar Lenguaje</option>
         {Object.keys(lngs).map((lng) => <option key={lng} value={lng}>{lngs[lng].nativeName}</option>)}
       </select>

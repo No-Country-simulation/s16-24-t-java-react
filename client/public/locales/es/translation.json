@@ -50,5 +50,20 @@
 	"profileMenu":{
 		"logout": "Cerrar sesión",
 		"settings": "Configuraciones"
+	},
+	"settings":{
+		"profile_title": "Perfil",
+		"notifications_title": "Notificaciones",
+		"system_title": "Sistema",
+		"new_report": "Nuevo reporte",
+		"withdrawal": "Nuevo retiro",
+		"income": "Nuevo ingreso",
+		"new_member": "Nuevo miembro",
+		"save_changes": "Cambios guardados",
+		"dark_theme": "Tema oscuro",
+		"light_theme": "Tema claro",
+		"language": "Idioma",
+		"save": "Guardar",
+		"cancel": "Cancelar"
 	}
 }
