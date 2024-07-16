@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile.jsx'
+import CreateUser from '../modals/createUser.jsx'
 
 const MainFilter = [
   "sport",
@@ -280,6 +281,7 @@ function Table() {
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
   const [users, setUsers] = useState(Users);
   const [search, setSearch] = useState("");
+  const [newMember, setNewMember] = useState(false);
 
   const {t} = useTranslation();
 
@@ -356,6 +358,9 @@ function Table() {
     setSelectedSubFilter(e.target.value);
   };
 
+  const handleNewMember = () => {
+    setNewMember(!newMember);
+  };
 
   return (
     <>
@@ -363,7 +368,7 @@ function Table() {
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
-        <NewMemberButton />
+        <NewMemberButton handleNewMember={handleNewMember}/>
         <ReportButton />
         <ProfileButton />
       </div>
@@ -375,6 +380,7 @@ function Table() {
           ))}
         </tbody>
       </table>
+      {newMember && <CreateUser handleNewMember={handleNewMember}/>}
     </>
 
   )
