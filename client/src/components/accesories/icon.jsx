@@ -1,4 +1,4 @@
-function Icon({ width = 32, height = width, fill = 'currentColor', iconName }) {
+function Icon({ width = 32, height = width, fill = 'currentColor', iconName, className }) {
 
   const ICONS = {
     magnifyingGlass: {
@@ -28,7 +28,7 @@ function Icon({ width = 32, height = width, fill = 'currentColor', iconName }) {
   }
 
   return (
-    <svg width={width} height={height} fill={fill} viewBox={ICONS[iconName].viewBox}>
+    <svg className={className} width={width} height={height} fill={fill} viewBox={ICONS[iconName].viewBox}>
       <g dangerouslySetInnerHTML={{ __html: `${ICONS[iconName].path}` }} />
     </svg>
   )
