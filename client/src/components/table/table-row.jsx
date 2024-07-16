@@ -1,6 +1,6 @@
 function TableRow ({user}) {
   return (
-    <tr className="text-center [&>td]:py-3  [&>td]:border-b [&>td]:border-primary-0">
+    <tr className="text-center [&>td]:py-4  [&>td]:border-b [&>td]:border-primary-0">
       <td className="border-l">{user.nombreCompleto}</td>
       <td>{user.fechaNacimiento}</td>
       <td>{user.dni}</td>
