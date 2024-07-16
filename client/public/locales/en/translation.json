@@ -1,7 +1,4 @@
 {
-	"login": {
-		"saludo": "Hello, World!"
-	},
 	"createUserModal": {
 		"nombrecompleto": "Full name",
 		"dni": "DNI Number:",
