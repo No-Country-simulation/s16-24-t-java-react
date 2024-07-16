@@ -1,6 +1,4 @@
-import React from "react";
-
-function Header({ onLogout }) {
+function Header() {
 	return (
 		<header className="py-4 shadow-md bg-white">
 			<div className="container mx-auto px-60 flex items-center justify-between">
@@ -13,17 +11,6 @@ function Header({ onLogout }) {
 					/>
 					<h1 className="text-xl font-bold">Sportify</h1>
 				</div>
-				{/* Botón de logout */}
-				{onLogout && (
-					<div>
-						<button
-							onClick={onLogout}
-							className="px-4 py-2 bg-red-500 text-white rounded-md"
-						>
-							Logout
-						</button>
-					</div>
-				)}
 			</div>
 		</header>
 	);
