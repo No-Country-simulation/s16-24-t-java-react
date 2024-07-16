@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Header from "../src/components/header/header.jsx";
-import Sidebar from "../src/components/sidebar/sidebar.jsx";
-import Footer from "../src/components/footer/footer.jsx";
-import Login from "../src/components/login/login.jsx";
-import Table from "../src/components/table/table.jsx";
+import { useState, useEffect } from "react";
+import Login from "./components/login/login.jsx";
+import Home from "./components/home/home.jsx";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,24 +26,15 @@ function App() {
 	};
 
 	return (
-		<>
-			<div className="App">
-				{isLoggedIn && <Header onLogout={handleLogout} />}
-				<div className="flex flex-col h-screen">
-					{isLoggedIn ? (
-						<div className="flex flex-1 bg-gray-200">
-							<Sidebar />
-							<main className="flex-1 p-0">
-								<Table />
-							</main>
-						</div>
-					) : (
-						<Login onLogin={handleLogin} />
-					)}
-					<Footer />
-				</div>
-			</div>
-		</>
+		<div className="App">
+			{isLoggedIn ?
+				(
+					<Home handleLogOut={handleLogout} />
+				) :
+				(
+					<Login onLogin={handleLogin} />
+				)}
+		</div>
 	);
 }
 
