@@ -6,6 +6,8 @@ import TableRow from './table-row.jsx'
 import { useTranslation } from "react-i18next"
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
+import ProfileButton from './profile.jsx'
+import CreateUser from '../modals/createUser.jsx'
 
 const MainFilter = [
   "sport",
@@ -279,6 +281,7 @@ function Table() {
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
   const [users, setUsers] = useState(Users);
   const [search, setSearch] = useState("");
+  const [newMember, setNewMember] = useState(false);
 
   const {t} = useTranslation();
 
@@ -291,7 +294,6 @@ function Table() {
 
     if (mainFilter === "sport") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        console.log(selectedSubFilter, "selectedSubFilter");
         usersToFilter = usersToFilter.filter((user) => user.deporte === t(`filter.${selectedSubFilter}`))
       } else {
         usersToFilter = [...Users];
@@ -308,7 +310,6 @@ function Table() {
 
     if (mainFilter === "payment") {
       if (selectedSubFilter && selectedSubFilter !== "Todos") {
-        console.log(selectedSubFilter, "selectedSubFilter");
         usersToFilter = usersToFilter.filter((user) => user.tipoCuota === t(`filter.${selectedSubFilter}`).toLowerCase());
       } else {
         usersToFilter = [...Users];
@@ -357,6 +358,9 @@ function Table() {
     setSelectedSubFilter(e.target.value);
   };
 
+  const handleNewMember = () => {
+    setNewMember(!newMember);
+  };
 
   return (
     <>
@@ -364,8 +368,9 @@ function Table() {
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
-        <NewMemberButton />
+        <NewMemberButton handleNewMember={handleNewMember}/>
         <ReportButton />
+        <ProfileButton />
       </div>
       <table className="w-full text-left text-sm text-gray-500">
         <TableHeader />
@@ -375,6 +380,7 @@ function Table() {
           ))}
         </tbody>
       </table>
+      {newMember && <CreateUser handleNewMember={handleNewMember}/>}
     </>
 
   )

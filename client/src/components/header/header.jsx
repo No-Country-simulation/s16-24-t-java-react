@@ -1,5 +1,3 @@
-import React from "react";
-
 function Header({ onLogout }) {
 	return (
 		<header className="py-4 shadow-md bg-white">

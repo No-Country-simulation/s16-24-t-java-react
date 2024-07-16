@@ -47,7 +47,7 @@ const FormOption = ({ data }) => {
 	return (<option value={data.id}>{data.name}</option>)
 }
 
-const Modal = ({ children, closeCallback }) => {
+ const Modal = ({ children, closeCallback }) => {
 	const backgroundClick = (e) => {
 		e.stopPropagation()
 		if (closeCallback) {
@@ -91,7 +91,7 @@ const Selectable = ({ name, forForm, required, className, onChanged, selectableA
 	)
 }
 
-const CreateUser = () => {
+const CreateUser = ({handleNewMember}) => {
 
 	const [fullname, setFullname] = useState("");
 	const [birthDate, setBirthdate] = useState("");
@@ -218,7 +218,7 @@ const CreateUser = () => {
 				</form>
 				<input type="button" disabled value={t("createUserModal.guardar")} className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300" />
-				<input type="button" value={t("createUserModal.cancelar")} className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+				<input type="button" onClick={handleNewMember} value={t("createUserModal.cancelar")} className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600" />
 				<p className="absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium ">{t("createUserModal.completarAviso")}</p>
 			</div>
