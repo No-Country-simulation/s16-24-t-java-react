@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 function Login({ onLogin }) {
 	const [username, setUsername] = useState("");
@@ -15,18 +16,21 @@ function Login({ onLogin }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// Aquí podrías verificar el usuario y la contraseña
 		if (username === "usuario" && password === "contraseña") {
 			console.log("Login exitoso!");
-			onLogin(); // Llamar a la función onLogin proporcionada por App para indicar que el inicio de sesión fue exitoso
-
-			// Guardar estado de sesión en localStorage
+			onLogin();
 			localStorage.setItem("loggedIn", "true");
 		} else {
 			console.log("Usuario o contraseña incorrectos");
+
+			// Mostrar modal de SweetAlert2
+			Swal.fire({
+				icon: "error",
+				title: "Error de inicio de sesión",
+				text: "Usuario o contraseña incorrectos",
+			});
 		}
 
-		// Resetear los campos después del envío (opcional)
 		setUsername("");
 		setPassword("");
 	};
