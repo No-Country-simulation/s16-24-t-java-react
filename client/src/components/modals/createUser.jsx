@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import axios from "axios";
 
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "../languageSelector/laguage-selector.jsx";
 
 import Modal from "./modal.jsx";
 
