@@ -3,9 +3,8 @@ import isEmail from "validator/lib/isEmail";
 import axios from "axios";
 
 import { useTranslation } from "react-i18next";
+import LanguageSelector from "../languageSelector/laguage-selector.jsx";
 
-const deportes = [
-	//  actividades (esta hardcodeado)
 const deportes = [
 	//  actividades (esta hardcodeado)
 	{
@@ -25,61 +24,40 @@ const deportes = [
 		name: "Natacion 222222222",
 	},
 ];
-];
 
-const subscriptions = [
-	//  subscripciones (esta hardcodeado)
 const subscriptions = [
 	//  subscripciones (esta hardcodeado)
 	{
 		id: "mes",
 		name: "Mensual",
-		name: "Mensual",
 	},
 	{
 		id: "trimestre",
-		name: "Trimestral",
 		name: "Trimestral",
 	},
 	{
 		id: "semestre",
 		name: "Semestral",
-		name: "Semestral",
 	},
 	{
 		id: "anual",
 		name: "Anual",
-		name: "Anual",
 	},
-];
 ];
 
 const FormOption = ({ data }) => {
-	return <option value={data.id}>{data.name}</option>;
-};
 	return <option value={data.id}>{data.name}</option>;
 };
 
 const Modal = ({ children, closeCallback }) => {
 	const backgroundClick = (e) => {
 		e.stopPropagation();
-		e.stopPropagation();
 		if (closeCallback) {
-			closeCallback();
 			closeCallback();
 		}
 	};
-	};
 
 	return (
-		<div
-			className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed"
-			onClick={backgroundClick}
-		>
-			{children}
-		</div>
-	);
-};
 		<div
 			className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed"
 			onClick={backgroundClick}
@@ -97,21 +75,7 @@ const InputData = ({
 	className,
 	placeholder,
 }) => {
-const InputData = ({
-	type,
-	required,
-	onChanged,
-	name,
-	className,
-	placeholder,
-}) => {
 	return (
-		<div
-			className={
-				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
-				(className ? " " + className : "")
-			}
-		>
 		<div
 			className={
 				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
@@ -130,20 +94,8 @@ const InputData = ({
 					required={required | true}
 					onChange={(e) => onChanged(name, e)}
 				/>
-				<input
-					className={
-						"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none focus:bg-transparent"
-					}
-					type={type}
-					name={name}
-					placeholder={""}
-					required={required | true}
-					onChange={(e) => onChanged(name, e)}
-				/>
 			</div>
 		</div>
-	);
-};
 	);
 };
 
@@ -157,45 +109,7 @@ const Selectable = ({
 	placeholder,
 	t,
 }) => {
-const Selectable = ({
-	name,
-	forForm,
-	required,
-	className,
-	onChanged,
-	selectableArray,
-	placeholder,
-	t,
-}) => {
 	return (
-		<div
-			className={
-				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
-				(className ? " " + className : "")
-			}
-		>
-			<label className="flex h-[18px] left-[5px] font-medium">
-				{placeholder}
-			</label>
-			<div
-				className={"h-[34px] w-[100%] bg-gray-200 rounded-full shadow-inner"}
-			>
-				<select
-					className={
-						"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none cursor-pointer"
-					}
-					name={name}
-					form={forForm}
-					required={required | true}
-					onChange={(e) => onChanged(name, e)}
-					defaultValue={"DEFAULT"}
-				>
-					<option disabled value="DEFAULT">
-						{t("createUserModal.elegirSelectable")}
-					</option>
-					{selectableArray.map((element, key) => {
-						return <FormOption data={element} key={key} />;
-					})}
 		<div
 			className={
 				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
@@ -229,8 +143,6 @@ const Selectable = ({
 		</div>
 	);
 };
-	);
-};
 
 const CreateUser = () => {
 	const [fullname, setFullname] = useState("");
@@ -241,11 +153,9 @@ const CreateUser = () => {
 	const [subscription, setSubscription] = useState("");
 
 	const { t } = useTranslation();
-	const { t } = useTranslation();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		e.preventDefault();
 
 		console.log("Submit button!");
 		if (
@@ -271,74 +181,35 @@ const CreateUser = () => {
 					},
 				},
 			);
-		console.log("Submit button!");
-		if (
-			fullname.length >= 3 &&
-			birthDate.length >= 6 &&
-			dni.length >= 5 &&
-			isEmail(email) &&
-			activity.length >= 1 &&
-			subscription.length >= 1
-		) {
-			const { data } = await axios.post(
-				"/api/endpoint/noseIDK",
-				{
-					fullname,
-					birthDate,
-					dni,
-					email,
-					activity,
-				},
-				{
-					headers: {
-						["Content-Type"]: "Application/json",
-					},
-				},
-			);
 
-			console.log("Estos datos devuelve el backend:");
-			console.log(data);
 			console.log("Estos datos devuelve el backend:");
 			console.log(data);
 		} else {
 			console.log("Hay datos que faltan por completar o se rellenaron mal");
-			console.log("Hay datos que faltan por completar o se rellenaron mal");
 		}
-	};
 	};
 
 	const onChanged = (type, event) => {
-		const value = event.target.value;
 		const value = event.target.value;
 		if (type == "email") {
 			if (isEmail(value)) {
 				console.log("email validado!");
 				setEmail(value);
 				event.target.classList.add("bg");
-				console.log("email validado!");
-				setEmail(value);
-				event.target.classList.add("bg");
 			} else {
-				setEmail("");
 				setEmail("");
 			}
 		} else if (type == "birth") {
 			setBirthdate(value);
-			setBirthdate(value);
 		} else if (type == "dni" && value.length >= 5) {
-			setDNI(value);
 			setDNI(value);
 		} else if (type == "fullname") {
 			setFullname(value);
-			setFullname(value);
 		} else if (type == "activity") {
-			setActivity(value);
 			setActivity(value);
 		} else if (type == "subscription") {
 			setSubscription(value);
-			setSubscription(value);
 		}
-	};
 	};
 
 	//
@@ -378,8 +249,6 @@ const CreateUser = () => {
 
 					<InputData
 						type="date"
-					<InputData
-						type="date"
 						className={"w-[calc(33.3%-10px)] absolute left-0 top-[70px]"}
 						placeholder={t("createUserModal.fechaNacimiento")}
 						required={true}
@@ -405,8 +274,6 @@ const CreateUser = () => {
 						onChanged={onChanged}
 					/>
 
-					<Selectable
-						className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
 					<Selectable
 						className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
 						placeholder={t("createUserModal.seleccionarActividad")}
@@ -448,14 +315,8 @@ const CreateUser = () => {
 		</Modal>
 	);
 };
-	);
-};
 
 export const NoUsarEsteModal = Modal;
 export { Selectable, InputData };
-export const NoUsarEsteModal = Modal;
-export { Selectable, InputData };
-
-export default CreateUser;
 
 export default CreateUser;
