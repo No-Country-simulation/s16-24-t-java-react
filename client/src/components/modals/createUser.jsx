@@ -5,6 +5,8 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../languageSelector/laguage-selector.jsx";
 
+import Modal from "./modal.jsx";
+
 const deportes = [
 	//  actividades (esta hardcodeado)
 	{
@@ -49,23 +51,6 @@ const FormOption = ({ data }) => {
 	return <option value={data.id}>{data.name}</option>;
 };
 
-const Modal = ({ children, closeCallback }) => {
-	const backgroundClick = (e) => {
-		e.stopPropagation();
-		if (closeCallback) {
-			closeCallback();
-		}
-	};
-
-	return (
-		<div
-			className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed"
-			onClick={backgroundClick}
-		>
-			{children}
-		</div>
-	);
-};
 // Para componentes invalidos usar estos estilos:  border-red-400 border-[1px]
 const InputData = ({
 	type,
@@ -144,7 +129,7 @@ const Selectable = ({
 	);
 };
 
-const CreateUser = () => {
+const CreateUser = ({ closeCallback }) => {
 	const [fullname, setFullname] = useState("");
 	const [birthDate, setBirthdate] = useState("");
 	const [dni, setDNI] = useState("");
@@ -214,7 +199,7 @@ const CreateUser = () => {
 
 	//
 	return (
-		<Modal>
+		<Modal closeCallback={closeCallback}>
 			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
 				<form
 					action=""
@@ -305,6 +290,7 @@ const CreateUser = () => {
 				<input
 					type="button"
 					value={t("createUserModal.cancelar")}
+					onClick={() => closeCallback()}
 					className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
 				/>
@@ -316,7 +302,6 @@ const CreateUser = () => {
 	);
 };
 
-export const NoUsarEsteModal = Modal;
 export { Selectable, InputData };
 
 export default CreateUser;
