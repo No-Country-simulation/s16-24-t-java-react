@@ -1,6 +1,11 @@
 {
+	"login": {
+		"saludo": "Hola, Mundo!"
+	},
 	"createUserModal": {
 		"nombrecompleto": "Nombre completo:",
+		"firstname": "Nombre:",
+		"lastname": "Apellido:",
 		"dni": "Numero de documento:",
 		"fechaNacimiento": "Fecha de nacimiento:",
 		"email": "Email:",

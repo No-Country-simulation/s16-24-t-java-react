@@ -1,7 +1,9 @@
 {
 	"createUserModal": {
-		"nombrecompleto": "Full name:",
-		"dni": "Document number:",
+		"nombrecompleto": "Full name",
+		"firstname": "First Name:",
+		"lastname": "Last Name:",
+		"dni": "DNI Number:",
 		"fechaNacimiento": "Birth date:",
 		"email": "Email:",
 		"telContacto": "Phone number:",

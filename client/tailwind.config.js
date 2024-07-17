@@ -1,8 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+
+import twscrollbar from "tailwind-scrollbar"
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  plugins: [
+    twscrollbar
   ],
   theme: {
     extend: {
@@ -41,7 +47,7 @@ export default {
           80: "#FDFBFF"
         }
       },
-    },
-    plugins: [],
+    }
+
   }
 }
