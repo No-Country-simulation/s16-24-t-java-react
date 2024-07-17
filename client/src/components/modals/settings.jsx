@@ -7,6 +7,7 @@ import LanguageSelector from "../languageSelector/laguage-selector"
 function Settings({ handleClose }) {
 
   const { t } = useTranslation()
+  
   return (
     <Modal closeCallback={handleClose}>
       <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-[32px] shadow-2xl flex-col p-10 gap-10" onClick={(e) => e.stopPropagation()} >
@@ -57,7 +58,6 @@ function Settings({ handleClose }) {
           <button onClick={handleClose} className="text-tertiary-20 font-bold text-xl px-4 py-1 bg-red-400 rounded-lg">{t("settings.cancel")}</button>
           <button className="text-tertiary-20 font-bold text-xl px-4 py-1 bg-primary-0 rounded-lg">{t("settings.save")}</button>
         </div>
-
       </div>
     </Modal>
   )
