@@ -4,7 +4,7 @@ import "./App.css";
 
 import { useState, useEffect } from "react";
 
-import Login from "./components/Login/login.jsx";
+import Login from "./components/login/login.jsx";
 
 axios.defaults.baseURL = "";
 
