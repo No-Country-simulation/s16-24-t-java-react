@@ -76,7 +76,7 @@ public class EmployeeController {
     //                              PUT
     // =====================================================================
     @PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<SuccessResponse> updateEmployee(@Valid @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) throws BadRequestException {
 
         if(bindingResult.hasErrors()){
@@ -90,6 +90,23 @@ public class EmployeeController {
                 .message("Employee successfully updated.")
                 .object(employeeDTO)
                 .url(url+"/update")
+                .build(), HttpStatus.OK);
+    }
+
+    // =====================================================================
+    //                              PATCH
+    // =====================================================================
+    @PatchMapping("/toggle-status")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<SuccessResponse> toggleStatusEmployee(@RequestParam String dni){
+
+        EmployeeDTO response = employeeService.toggleStatus(dni);
+        return new ResponseEntity<>(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .message("Successful request.")
+                .object(response)
+                .url(url+"/toggle-status")
                 .build(), HttpStatus.OK);
     }
 

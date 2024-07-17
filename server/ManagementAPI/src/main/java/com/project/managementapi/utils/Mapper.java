@@ -45,6 +45,7 @@ public class Mapper {
                 .personalInfo(personalInfoToDTO(employee.getPersonalInfo()))
                 .salary(employee.getSalary())
                 .staff(employee.getEStaff().name())
+                .status(employee.getStatus())
                 .build();
     }
 

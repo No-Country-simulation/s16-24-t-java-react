@@ -99,10 +99,21 @@ public class GlobalExceptionManager {
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
                 .dateTime(LocalDateTime.now())
-                .message("UNAUTHORIZED")
+                .message(ex.getMessage())
                 .url(webRequest.getDescription(false).replace("uri=", ""))
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handlerIllegalStateException(IllegalStateException ex, WebRequest webRequest){
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .dateTime(LocalDateTime.now())
+                .message(ex.getMessage())
+                .url(webRequest.getDescription(false).replace("uri=", ""))
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
 }

@@ -8,6 +8,7 @@ import com.project.managementapi.repositories.EmployeeRepository;
 import com.project.managementapi.services.IEmployeeService;
 import com.project.managementapi.specifications.EmployeeSpecification;
 import com.project.managementapi.utils.Mapper;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -80,16 +81,19 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public void updateEmployee(EmployeeDTO employeeDTO) {
+    public void updateEmployee(EmployeeDTO employeeDTO) throws BadRequestException {
         Optional<Employee> empOpt = employeeRepository.findByPersonalInfoDni(employeeDTO.getPersonalInfo().getDni());
         if(empOpt.isEmpty())
             throw new ResourceNotFoundException("Employee with " + employeeDTO.getPersonalInfo().getDni() + " dni doesn't exists.");
 
+
         Employee employee = empOpt.get();
+        if (!employee.getEStaff().equals(employeeDTO.getStaff())) {
+            throw new IllegalArgumentException("Cannot change staff role. Existing role: " + employee.getEStaff() + ", Provided role: " + employeeDTO.getStaff());
+        }
 
         employee.setSalary(employeeDTO.getSalary());
         employee.getPersonalInfo().setDni(employeeDTO.getPersonalInfo().getDni());
-        employee.getPersonalInfo().setEmail(employeeDTO.getPersonalInfo().getEmail());
         employee.getPersonalInfo().setFirstName(employeeDTO.getPersonalInfo().getFirstName());
         employee.getPersonalInfo().setLastName(employeeDTO.getPersonalInfo().getLastName());
         employee.getPersonalInfo().setPhoneNumber(employeeDTO.getPersonalInfo().getPhoneNumber());
@@ -100,5 +104,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employee.getPersonalInfo().getAddress().setStreetNumber(employeeDTO.getPersonalInfo().getAddress().getStreetNumber());
         employee.getPersonalInfo().getAddress().setPostalCode(employeeDTO.getPersonalInfo().getAddress().getPostalCode());
         employeeRepository.save(employee);
+    }
+
+    @Override
+    public EmployeeDTO toggleStatus(String dni) {
+        Optional<Employee> empOpt= this.employeeRepository.findByPersonalInfoDni(dni);
+        if(empOpt.isEmpty()) throw new ResourceNotFoundException("Employee with dni " + dni + " doesn't exists.");
+
+        Employee saved = empOpt.get();
+        saved.setStatus(!saved.getStatus());
+
+        return Mapper.employeeToDTO(employeeRepository.save(saved));
     }
 }
