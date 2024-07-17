@@ -15,12 +15,12 @@ import lombok.*;
 @Schema(description = "Data Transfer Object for employee details.")
 public class EmployeeDTO {
     @Schema(description = "The staff type of the employee. Required and must not be blank.",
-            example = "COACH", required = true)
+            example = "COACH")
     @NotBlank(message = "Staff type is mandatory")
     private String staff;
 
     @Schema(description = "The salary of the employee. Required, must be positive, and cannot be null.",
-            example = "3500.00", required = true)
+            example = "3500.00")
     @NotNull(message = "Salary is mandatory")
     @Positive(message = "Salary must be positive")
     private Double salary;
@@ -30,7 +30,7 @@ public class EmployeeDTO {
     private Boolean status;
 
     @Schema(description = "Personal information of the employee. Required and must not be null.",
-            implementation = PersonalInfoDTO.class, required = true)
+            implementation = PersonalInfoDTO.class)
     @Valid
     @NotNull(message = "Personal info is mandatory")
     private PersonalInfoDTO personalInfo;

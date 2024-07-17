@@ -3,18 +3,17 @@ package com.project.managementapi.controllers;
 import com.project.managementapi.dtos.ComplexDTO;
 import com.project.managementapi.dtos.responses.SuccessResponse;
 import com.project.managementapi.services.impl.ComplexServiceImpl;
-import com.project.managementapi.services.impl.EmployeeServiceImpl;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/complexes")
@@ -42,4 +41,27 @@ public class ComplexController {
                 .url(url+"/create")
                 .build(), HttpStatus.CREATED);
     }
+
+    // =====================================================================
+    //                              GET
+    // =====================================================================
+    @GetMapping("/findAll")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<SuccessResponse> findAll(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String cuit,
+            @RequestBody(required = false) Pageable pageable){
+        if(pageable == null) pageable = PageRequest.of(0, 10);
+
+        Page<ComplexDTO> response = this.complexService.findComplexes(cuit, title, pageable);
+
+        return new ResponseEntity<>(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .message("Successful request.")
+                .object(response)
+                .url(url+"/findAll")
+                .build(), HttpStatus.OK);
+    }
+
 }
