@@ -1,6 +1,15 @@
+import Home from "../src/components/home/home.jsx"; // Importa el componente home
+import axios from "axios";
+import "./App.css";
+
 import { useState, useEffect } from "react";
-import Login from "./components/login/login.jsx";
+
+import Login from "./components/Login/login.jsx";
 import Home from "./components/home/home.jsx";
+
+import CreateUser from "./components/modals/createUser.jsx";
+
+axios.defaults.baseURL = "";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,13 +36,11 @@ function App() {
 
 	return (
 		<div className="App min-h-dvh flex flex-col max-h-dvh">
-			{isLoggedIn ?
-				(
-					<Home handleLogOut={handleLogout} />
-				) :
-				(
-					<Login onLogin={handleLogin} />
-				)}
+			{isLoggedIn ? (
+				<Home handleLogOut={handleLogout} />
+			) : (
+				<Login onLogin={handleLogin} />
+			)}
 		</div>
 	);
 }
