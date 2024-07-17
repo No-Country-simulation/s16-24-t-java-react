@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import Icon from "../accesories/icon"
-import { NoUsarEsteModal } from "./createUser"
+import Modal from "./modal.jsx"
 import NotificationRow from "./notification-row"
 import LanguageSelector from "../languageSelector/laguage-selector"
 
@@ -8,7 +8,7 @@ function Settings({ handleClose }) {
 
   const { t } = useTranslation()
   return (
-    <NoUsarEsteModal>
+    <Modal closeCallback={handleClose}>
       <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-[32px] shadow-2xl flex-col p-10 gap-10">
        
         <div className="flex flex-col gap-4 justify-center items-start">
@@ -60,7 +60,7 @@ function Settings({ handleClose }) {
         </div>
 
       </div>
-    </NoUsarEsteModal>
+    </Modal>
   )
 }
 
