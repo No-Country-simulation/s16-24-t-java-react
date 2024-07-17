@@ -200,7 +200,7 @@ const CreateUser = ({ closeCallback }) => {
 	//
 	return (
 		<Modal closeCallback={closeCallback}>
-			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
+			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation() }>
 				<form
 					action=""
 					method="post"
