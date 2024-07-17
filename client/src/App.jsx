@@ -5,9 +5,6 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 import Login from "./components/Login/login.jsx";
-import Home from "./components/home/home.jsx";
-
-import CreateUser from "./components/modals/createUser.jsx";
 
 axios.defaults.baseURL = "";
 
