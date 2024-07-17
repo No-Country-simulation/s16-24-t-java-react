@@ -97,11 +97,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employee.getPersonalInfo().setFirstName(employeeDTO.getPersonalInfo().getFirstName());
         employee.getPersonalInfo().setLastName(employeeDTO.getPersonalInfo().getLastName());
         employee.getPersonalInfo().setPhoneNumber(employeeDTO.getPersonalInfo().getPhoneNumber());
-        employee.getPersonalInfo().getAddress().setCountry(employeeDTO.getPersonalInfo().getAddress().getCountry());
+        employee.getPersonalInfo().setBirthDate(employeeDTO.getPersonalInfo().getBirthDate());
         employee.getPersonalInfo().getAddress().setCity(employeeDTO.getPersonalInfo().getAddress().getCity());
-        employee.getPersonalInfo().getAddress().setState(employeeDTO.getPersonalInfo().getAddress().getState());
         employee.getPersonalInfo().getAddress().setStreet(employeeDTO.getPersonalInfo().getAddress().getStreet());
-        employee.getPersonalInfo().getAddress().setStreetNumber(employeeDTO.getPersonalInfo().getAddress().getStreetNumber());
         employee.getPersonalInfo().getAddress().setPostalCode(employeeDTO.getPersonalInfo().getAddress().getPostalCode());
         employeeRepository.save(employee);
     }

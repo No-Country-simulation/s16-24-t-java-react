@@ -16,12 +16,9 @@ public class AddressService implements IAddressService {
     @Override
     public Address createAddress(AddressDTO dto) {
         return addressRepository.save(Address.builder()
-                .country(dto.getCountry())
-                .state(dto.getState())
                 .city(dto.getCity())
                 .postalCode(dto.getPostalCode())
                 .street(dto.getStreet())
-                .streetNumber(dto.getStreetNumber())
                 .build());
     }
 
