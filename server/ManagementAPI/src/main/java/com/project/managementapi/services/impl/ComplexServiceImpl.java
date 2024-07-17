@@ -2,6 +2,7 @@ package com.project.managementapi.services.impl;
 
 import com.project.managementapi.dtos.ComplexDTO;
 import com.project.managementapi.entities.Complex;
+import com.project.managementapi.exceptions.ResourceAlreadyExistsException;
 import com.project.managementapi.repositories.ComplexRepository;
 import com.project.managementapi.services.IComplexService;
 import com.project.managementapi.utils.Mapper;
@@ -21,9 +22,14 @@ public class ComplexServiceImpl implements IComplexService {
     @Override
     public ComplexDTO createComplex(ComplexDTO complexDTO) {
 
+        if(complexRepository.existsByCuit(complexDTO.getCuit())) throw new ResourceAlreadyExistsException("Complex cuit already exists.");
+
         Complex complex = complexRepository.save(Complex
                 .builder()
                 .title(complexDTO.getTitle())
+                .cuit(complexDTO.getCuit())
+                .apertureDate(complexDTO.getApertureDate())
+                .phoneNumber(complexDTO.getPhoneNumber())
                 .attendances(new HashSet<>())
                 .address(addressService.createAddress(complexDTO.getAddress()))
                 .build());

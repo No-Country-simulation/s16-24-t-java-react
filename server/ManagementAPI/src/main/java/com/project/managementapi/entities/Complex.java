@@ -4,6 +4,7 @@ package com.project.managementapi.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -19,6 +20,10 @@ public class Complex {
     private Long id;
 
     private String title;
+    private LocalDate apertureDate;
+    private String phoneNumber;
+    @Column(unique = true)
+    private String cuit;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")

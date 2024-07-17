@@ -51,6 +51,9 @@ public class Mapper {
         return ComplexDTO
                 .builder()
                 .title(complex.getTitle())
+                .cuit(complex.getCuit())
+                .phoneNumber(complex.getPhoneNumber())
+                .apertureDate(complex.getApertureDate())
                 .address(addressToDTO(complex.getAddress()))
                 .build();
     }

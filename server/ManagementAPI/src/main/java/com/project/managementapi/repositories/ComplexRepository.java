@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComplexRepository extends JpaRepository<Complex, Long> {
+    boolean existsByCuit(String cuit);
 }
