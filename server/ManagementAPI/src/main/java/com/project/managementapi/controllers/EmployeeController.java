@@ -2,7 +2,13 @@ package com.project.managementapi.controllers;
 
 import com.project.managementapi.dtos.EmployeeDTO;
 import com.project.managementapi.dtos.responses.SuccessResponse;
+import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.services.impl.EmployeeServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +34,24 @@ public class EmployeeController {
     // =====================================================================
     //                              POST
     // =====================================================================
+    @Operation(
+            summary = "Create a new employee",
+            description = "This endpoint allows for the creation of a new employee. Allowed roles are 'COACH', 'CLEANING_STAFF', 'RECEPTIONIST', and 'ADMIN'."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Employee created successfully."),
+            @ApiResponse(responseCode = "400", description = "Bad request. Example: invalid parameters.")
+    })
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<SuccessResponse> create(@Valid @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) throws BadRequestException {
+    public ResponseEntity<SuccessResponse> create(
+            @Parameter(
+                    description = "Details of the employee to create.",
+                    required = true,
+                    schema = @Schema(implementation = EmployeeDTO.class)
+            ) @Valid @RequestBody EmployeeDTO employeeDTO,
+            BindingResult bindingResult
+    ) throws BadRequestException {
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
         }
