@@ -26,7 +26,7 @@ function App() {
 	};
 
 	return (
-		<div className="App">
+		<div className="App min-h-dvh flex flex-col max-h-dvh">
 			{isLoggedIn ?
 				(
 					<Home handleLogOut={handleLogout} />
