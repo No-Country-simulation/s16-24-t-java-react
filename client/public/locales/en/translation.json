@@ -67,5 +67,12 @@
 		"language": "Language",
 		"save": "Save",
 		"cancel": "Cancel"
+	},
+	"sidebar": {
+		"home": "Home",
+		"staff": "Staff",
+		"activities": "Activities",
+		"headquarters": "My Headquarters",
+		"technicalSupport": "Technical Support"
 	}
 }

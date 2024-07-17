@@ -70,5 +70,12 @@
 		"language": "Idioma",
 		"save": "Guardar",
 		"cancel": "Cancelar"
+	},
+	"sidebar": {
+		"home": "Inicio",
+		"staff": "Personal",
+		"activities": "Actividades",
+		"headquarters": "Mi sede",
+		"technicalSupport": "Soporte técnico"
 	}
 }
