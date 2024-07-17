@@ -3,6 +3,7 @@ package com.project.managementapi.controllers;
 import com.project.managementapi.dtos.CustomerDTO;
 import com.project.managementapi.dtos.responses.SuccessResponse;
 import com.project.managementapi.services.ICustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CustomerController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<SuccessResponse> createCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<SuccessResponse> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
 
         CustomerDTO response = customerService.createCustomer(customerDTO);
 
@@ -44,6 +45,20 @@ public class CustomerController {
                 .message("Successful request.")
                 .url(url+"/delete")
                 .build(), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<SuccessResponse> updateCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        customerService.updateCustomer(customerDTO);
+
+        return new ResponseEntity<>(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .message("Customer successfully updated.")
+                .object(customerDTO)
+                .url(url+"/update")
+                .build(), HttpStatus.OK);
     }
 
 }

@@ -11,7 +11,7 @@ import org.springframework.http.HttpHeaders;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Booklyn API",
+                title = "Sportify API",
                 description = "",
                 version = "1.0.0"
         ),

@@ -17,11 +17,8 @@ public class Mapper {
         if(address == null) return null;
         return AddressDTO
                 .builder()
-                .country(address.getCountry())
-                .state(address.getState())
                 .city(address.getCity())
                 .street(address.getStreet())
-                .streetNumber(address.getStreetNumber())
                 .postalCode(address.getPostalCode())
                 .build();
     }
@@ -34,6 +31,7 @@ public class Mapper {
                 .email(personalInfo.getEmail())
                 .firstName(personalInfo.getFirstName())
                 .lastName(personalInfo.getLastName())
+                .birthDate(personalInfo.getBirthDate())
                 .phoneNumber(personalInfo.getPhoneNumber())
                 .address(addressToDTO(personalInfo.getAddress()))
                 .build();
@@ -45,6 +43,7 @@ public class Mapper {
                 .personalInfo(personalInfoToDTO(employee.getPersonalInfo()))
                 .salary(employee.getSalary())
                 .staff(employee.getEStaff().name())
+                .status(employee.getStatus())
                 .build();
     }
 
@@ -52,6 +51,9 @@ public class Mapper {
         return ComplexDTO
                 .builder()
                 .title(complex.getTitle())
+                .cuit(complex.getCuit())
+                .phoneNumber(complex.getPhoneNumber())
+                .apertureDate(complex.getApertureDate())
                 .address(addressToDTO(complex.getAddress()))
                 .build();
     }
