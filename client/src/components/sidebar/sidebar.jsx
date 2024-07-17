@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -9,10 +9,13 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import HomeIcon from "@mui/icons-material/Home";
+import GroupIcon from "@mui/icons-material/Group";
+import ClassIcon from "@mui/icons-material/Class";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
-import CreateUser from "../modals/createUser.jsx"; // Adjust the path as per your project structure
+import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
 
 const drawerWidth = 240;
 
@@ -56,8 +59,8 @@ const Drawer = styled(MuiDrawer, {
 
 function SideBar() {
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
-	const [showCreateUserModal, setShowCreateUserModal] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [showCreateUserModal, setShowCreateUserModal] = useState(false);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -68,9 +71,23 @@ function SideBar() {
 	};
 
 	const handleNewMember = () => {
-		setOpen(false); // Close the sidebar if it's open
+		setOpen(false); // Cerrar la barra lateral si está abierta
 		setShowCreateUserModal(true);
 	};
+
+	const handleOutsideClick = (event) => {
+		if (open && event.target.closest(".MuiDrawer-root") === null) {
+			setOpen(false);
+		}
+	};
+
+	React.useEffect(() => {
+		document.addEventListener("click", handleOutsideClick);
+
+		return () => {
+			document.removeEventListener("click", handleOutsideClick);
+		};
+	}, [open]);
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -80,105 +97,76 @@ function SideBar() {
 					style={{ width: drawerWidth }}
 				>
 					<div className="py-6 px-2">
-						<div className="text-lg font-bold mb-8">Menu</div>
+						<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+							<IconButton
+								color="inherit"
+								aria-label="open drawer"
+								onClick={handleDrawerOpen}
+								edge="start"
+								sx={{
+									marginRight: 5,
+									display: open ? "none" : "inherit",
+								}}
+							>
+								<MenuIcon />
+							</IconButton>
+							<IconButton
+								onClick={handleDrawerClose}
+								sx={{
+									display: open ? "inherit" : "none",
+								}}
+							>
+								{theme.direction === "rtl" ? (
+									<ChevronRightIcon />
+								) : (
+									<ChevronLeftIcon />
+								)}
+							</IconButton>
+						</Box>
 						<List>
-							<ListItem button onClick={handleNewMember}>
+							{/* Lista de elementos que se mantienen */}
+							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
+									<HomeIcon />
 								</ListItemIcon>
-								<ListItemText primary="Alta Clientes" />
+								<ListItemText primary="Inicio" />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
-									<MailIcon />
+									<GroupIcon />
 								</ListItemIcon>
-								<ListItemText primary="Modificar Cliente" />
+								<ListItemText primary="Empleados" />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
+									<ClassIcon />
 								</ListItemIcon>
-								<ListItemText primary="Baja Cliente" />
+								<ListItemText primary="Clases" />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
-									<MailIcon />
+									<BusinessCenterIcon />
 								</ListItemIcon>
 								<ListItemText primary="Mi Centro" />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
-								</ListItemIcon>
-								<ListItemText primary="Alta Empleado" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<MailIcon />
-								</ListItemIcon>
-								<ListItemText primary="Modificar Empleado" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
-								</ListItemIcon>
-								<ListItemText primary="Baja Empleado" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<MailIcon />
-								</ListItemIcon>
-								<ListItemText primary="Alta Sucursal" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
-								</ListItemIcon>
-								<ListItemText primary="Clases y Horarios" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<MailIcon />
-								</ListItemIcon>
-								<ListItemText primary="Reportes" />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<InboxIcon />
+									<HelpIcon />
 								</ListItemIcon>
 								<ListItemText primary="Soporte" />
 							</ListItem>
-							{/* Add more list items as needed */}
 						</List>
+						<div className="flex justify-center mt-40">
+							<img
+								src="src/assets/OIG21.jpeg"
+								alt="Logo de la empresa"
+								className="h-20 rounded-full mt-4"
+							/>
+						</div>
 					</div>
 				</div>
 			</Drawer>
-			<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					onClick={handleDrawerOpen}
-					edge="start"
-					sx={{
-						marginRight: 5,
-						display: open ? "none" : "inherit",
-					}}
-				>
-					<MenuIcon />
-				</IconButton>
-				<IconButton
-					onClick={handleDrawerClose}
-					sx={{
-						display: open ? "inherit" : "none",
-					}}
-				>
-					{theme.direction === "rtl" ? (
-						<ChevronRightIcon />
-					) : (
-						<ChevronLeftIcon />
-					)}
-				</IconButton>
-			</Box>
+
 			{showCreateUserModal && (
 				<CreateUser handleNewMember={() => setShowCreateUserModal(false)} />
 			)}

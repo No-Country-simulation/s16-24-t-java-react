@@ -377,7 +377,7 @@ function Table({handleLogOut}) {
 
   return (
     <>
-      <div className="flex gap-10 w-full">
+      <div className="flex gap-32 w-full py-4 justify-around">
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
@@ -385,7 +385,8 @@ function Table({handleLogOut}) {
         <ReportButton />
         <ProfileButton handleLogOut={handleLogOut}/>
       </div>
-      <table className="w-full text-left text-sm text-gray-500">
+      <div className="overflow-y-auto max-h-[800px]">
+      <table className="w-full text-left text-sm text-gray-500 overflow-y-scroll px-10">
         <TableHeader />
         <tbody>
           {users.map((user) => (
@@ -393,6 +394,8 @@ function Table({handleLogOut}) {
           ))}
         </tbody>
       </table>
+      </div>
+      
       {newMember && <CreateUser handleNewMember={handleNewMember}/>}
       {profile && <UserDetail userData={profile.user} handleProfile={handleProfile} isOpen={profile.open} />}
     </>
