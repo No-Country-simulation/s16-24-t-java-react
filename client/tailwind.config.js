@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-
+import defaultTheme from 'tailwindcss/defaultTheme'
 import twscrollbar from "tailwind-scrollbar"
 
 export default {
@@ -11,6 +11,11 @@ export default {
     twscrollbar
   ],
   theme: {
+    fontFamily: {
+      'nunito': ['"Nunito Variable"', ...defaultTheme.fontFamily.sans],
+      'sans': ['"Nunito Sans Variable"', ...defaultTheme.fontFamily.sans],
+      'assistant': ['"Assistant Variable"', ...defaultTheme.fontFamily.serif],
+    },
     extend: {
       colors: {
         'primary': {

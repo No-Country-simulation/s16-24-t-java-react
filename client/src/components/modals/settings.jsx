@@ -10,7 +10,7 @@ function Settings({ handleClose }) {
   
   return (
     <Modal closeCallback={handleClose}>
-      <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-[32px] shadow-2xl flex-col p-10 gap-10" onClick={(e) => e.stopPropagation()} >
+      <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-xl shadow-2xl flex-col p-10 gap-10" onClick={(e) => e.stopPropagation()} >
         <div className="flex flex-col gap-4 justify-center items-start">
           <p className="text-primary-10 font-bold text-xl px-4 py-1 bg-tertiary-20 rounded-lg">{t("settings.profile_title")}</p>
           <div className="flex border-primary-40 border-2 px-2 py-1 rounded-lg bg-secondary-50 text-primary-10 ">

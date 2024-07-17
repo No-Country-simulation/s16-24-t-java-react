@@ -21,12 +21,12 @@
 		"full_name": "Nombre completo",
 		"birth_date": "Fecha de nacimiento",
 		"id": "DNI",
-		"sport": "Deporte",
-		"subscription": "Tipo de membresía (subscripción)",
+		"sport": "Actividad",
+		"subscription": "Subscripción",
 		"payment": "Cuota",
-		"due_date": "Fecha de vencimiento de la cuota",
-		"days_from_due": "Días desde el vencimiento",
-		"created_at": "Fecha de alta"
+		"due_date": "Vencimiento",
+		"days_from_due": "Días de mora",
+		"created_at": "Teléfono"
 	},
 	"filter": {
 		"all": "Todos",
