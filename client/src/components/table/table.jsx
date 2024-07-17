@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, createContext } from 'react'
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
@@ -8,6 +8,7 @@ import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
+import UserDetail from "../modals/userDetail.jsx"
 
 const MainFilter = [
   "sport",
@@ -282,6 +283,10 @@ function Table({handleLogOut}) {
   const [users, setUsers] = useState(Users);
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
+  const [profile, setProfile] = useState({
+    open: false,
+    user: ""
+  })
 
   const {t} = useTranslation();
 
@@ -362,6 +367,14 @@ function Table({handleLogOut}) {
     setNewMember(!newMember);
   };
 
+  const handleProfile = (user, profile) => {
+    setProfile({
+      open: !(profile?.open),
+      user: user
+    })
+    console.log(profile)
+  }
+
   return (
     <>
       <div className="flex gap-10 w-full">
@@ -376,11 +389,12 @@ function Table({handleLogOut}) {
         <TableHeader />
         <tbody>
           {users.map((user) => (
-            <TableRow user={user} key={user.dni} />
+            <TableRow handleProfile={handleProfile} profile={profile} user={user} key={user.dni} />
           ))}
         </tbody>
       </table>
       {newMember && <CreateUser handleNewMember={handleNewMember}/>}
+      {profile && <UserDetail userData={profile.user} handleProfile={handleProfile} isOpen={profile.open} />}
     </>
 
   )

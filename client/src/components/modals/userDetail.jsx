@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Modal = ({ isOpen, onClose, userData, onSave }) => {
+const UserDetail = ({ profile, onClose, userData, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(userData);
 
@@ -18,7 +18,7 @@ const Modal = ({ isOpen, onClose, userData, onSave }) => {
     setIsEditing(false);
   };
 
-  if (!isOpen) return null;
+  if (!profile) return null;
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
@@ -107,4 +107,4 @@ const Modal = ({ isOpen, onClose, userData, onSave }) => {
   );
 };
 
-export default Modal;
+export default UserDetail;

@@ -1,7 +1,7 @@
-function TableRow ({user}) {
+function TableRow ({user, handleProfile}) {
   return (
     <tr className="text-center">
-      <td>{user.nombreCompleto}</td>
+      <td onClick={() => handleProfile(user)} className="cursor-pointer">{user.nombreCompleto}</td>
       <td>{user.fechaNacimiento}</td>
       <td>{user.dni}</td>
       <td>{user.deporte}</td>
