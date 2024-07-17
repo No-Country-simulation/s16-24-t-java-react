@@ -23,7 +23,7 @@
 		"id": "DNI",
 		"sport": "Deporte",
 		"subscription": "Tipo de membresía (subscripción)",
-		"payment": "Couta",
+		"payment": "Cuota",
 		"due_date": "Fecha de vencimiento de la cuota",
 		"days_from_due": "Días desde el vencimiento",
 		"created_at": "Fecha de alta"
@@ -32,7 +32,7 @@
 		"all": "Todos",
 		"sport": "Deporte",
 		"subscription": "Membresia",
-		"payment": "Couta",
+		"payment": "Cuota",
 		"search": "Buscar",
 		"football": "Fútbol",
 		"tennis": "Tenis",
@@ -51,5 +51,24 @@
 		"black": "Black",
 		"gold": "Gold",
 		"platinum": "Platinum"
+	},
+	"profileMenu":{
+		"logout": "Cerrar sesión",
+		"settings": "Configuraciones"
+	},
+	"settings":{
+		"profile_title": "Perfil",
+		"notifications_title": "Notificaciones",
+		"system_title": "Sistema",
+		"new_report": "Nuevo reporte",
+		"withdrawal": "Nuevo retiro",
+		"income": "Nuevo ingreso",
+		"new_member": "Nuevo miembro",
+		"save_changes": "Cambios guardados",
+		"dark_theme": "Tema oscuro",
+		"light_theme": "Tema claro",
+		"language": "Idioma",
+		"save": "Guardar",
+		"cancel": "Cancelar"
 	}
 }
