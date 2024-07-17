@@ -382,8 +382,7 @@ function Table({handleLogOut}) {
         </tbody>
       </table>
       </div>
-      
-      {newMember && <CreateUser handleNewMember={handleNewMember}/>}
+      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() =>setNewMember(false) } />}
     </>
 
   )

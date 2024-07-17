@@ -5,7 +5,7 @@ import Table from "../table/table.jsx";
 function Home({ handleLogOut }) {
 	return (
 		<>
-			<div className="flex flex-1 bg-gray-200">
+			<div className="flex flex-1 bg-gray-200 items-center">
 				<Sidebar />
 				<main className="h-full w-full px-10">
 					<Table handleLogOut={handleLogOut} />

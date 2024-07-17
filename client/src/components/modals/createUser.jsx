@@ -4,23 +4,25 @@ import axios from "axios";
 
 import { useTranslation } from "react-i18next";
 
+import Modal from "./modal.jsx";
+
 const deportes = [
 	//  actividades (esta hardcodeado)
 	{
 		id: "football1",
-		name: "Football Niños",
+		name: "Football 111111111",
 	},
 	{
 		id: "football2",
-		name: "Football Adultos",
+		name: "Football 222222222",
 	},
 	{
 		id: "natacion1",
-		name: "Natacion Niños",
+		name: "Natacion 111111111",
 	},
 	{
 		id: "natacion2",
-		name: "Natacion Adultos",
+		name: "Natacion 222222222",
 	},
 ];
 
@@ -48,23 +50,6 @@ const FormOption = ({ data }) => {
 	return <option value={data.id}>{data.name}</option>;
 };
 
-const Modal = ({ children, closeCallback }) => {
-	const backgroundClick = (e) => {
-		e.stopPropagation();
-		if (closeCallback) {
-			closeCallback();
-		}
-	};
-
-	return (
-		<div
-			className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed"
-			onClick={backgroundClick}
-		>
-			{children}
-		</div>
-	);
-};
 // Para componentes invalidos usar estos estilos:  border-red-400 border-[1px]
 const InputData = ({
 	type,
@@ -143,7 +128,7 @@ const Selectable = ({
 	);
 };
 
-const CreateUser = ({ handleNewMember }) => {
+const CreateUser = ({ closeCallback }) => {
 	const [fullname, setFullname] = useState("");
 	const [birthDate, setBirthdate] = useState("");
 	const [dni, setDNI] = useState("");
@@ -213,8 +198,8 @@ const CreateUser = ({ handleNewMember }) => {
 
 	//
 	return (
-		<Modal>
-			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
+		<Modal closeCallback={closeCallback}>
+			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation() }>
 				<form
 					action=""
 					method="post"
@@ -223,15 +208,23 @@ const CreateUser = ({ handleNewMember }) => {
 				>
 					<InputData
 						type="text"
-						className={"w-[calc(50%-10px)] absolute left-0"}
-						placeholder={t("createUserModal.nombrecompleto")}
+						className={"w-[calc(33.33%-10px)] absolute left-0"}
+						placeholder={t("createUserModal.firstname")}
 						required={true}
-						name={"fullname"}
+						name={"firstname"}
 						onChanged={onChanged}
 					/>
 					<InputData
 						type="text"
-						className={"w-[calc(50%-10px)] absolute right-0"}
+						className={"w-[calc(33.33%-10px)] left-[calc(35%-7px)] absolute"}
+						placeholder={t("createUserModal.lastname")}
+						required={true}
+						name={"lastname"}
+						onChanged={onChanged}
+					/>
+					<InputData
+						type="text"
+						className={"w-[calc(33.33%-10px)] absolute right-0"}
 						placeholder={t("createUserModal.dni")}
 						required={true}
 						name={"dni"}
@@ -249,7 +242,7 @@ const CreateUser = ({ handleNewMember }) => {
 					<InputData
 						type="text"
 						className={
-							"w-[calc(33.3%-10px)] absolute left-[calc(35%-5px)] top-[70px]"
+							"w-[calc(33.3%-10px)] absolute left-[calc(35%-7px)] top-[70px]"
 						}
 						placeholder={t("createUserModal.email")}
 						required={true}
@@ -295,8 +288,8 @@ const CreateUser = ({ handleNewMember }) => {
 				/>
 				<input
 					type="button"
-					onClick={handleNewMember}
 					value={t("createUserModal.cancelar")}
+					onClick={() => closeCallback()}
 					className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
 				/>
@@ -308,7 +301,6 @@ const CreateUser = ({ handleNewMember }) => {
 	);
 };
 
-export const NoUsarEsteModal = Modal;
 export { Selectable, InputData };
 
 export default CreateUser;
