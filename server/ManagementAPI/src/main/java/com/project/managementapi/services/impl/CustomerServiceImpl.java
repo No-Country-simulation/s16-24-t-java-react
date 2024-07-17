@@ -43,11 +43,9 @@ public class CustomerServiceImpl implements ICustomerService {
         customerToUpdate.getPersonalInfo().setFirstName(customer.getPersonalInfoDTO().getFirstName());
         customerToUpdate.getPersonalInfo().setLastName(customer.getPersonalInfoDTO().getLastName());
         customerToUpdate.getPersonalInfo().setPhoneNumber(customer.getPersonalInfoDTO().getPhoneNumber());
-        customerToUpdate.getPersonalInfo().getAddress().setCountry(customer.getPersonalInfoDTO().getAddress().getCountry());
+        customerToUpdate.getPersonalInfo().setBirthDate(customer.getPersonalInfoDTO().getBirthDate());
         customerToUpdate.getPersonalInfo().getAddress().setCity(customer.getPersonalInfoDTO().getAddress().getCity());
-        customerToUpdate.getPersonalInfo().getAddress().setState(customer.getPersonalInfoDTO().getAddress().getState());
         customerToUpdate.getPersonalInfo().getAddress().setStreet(customer.getPersonalInfoDTO().getAddress().getStreet());
-        customerToUpdate.getPersonalInfo().getAddress().setStreetNumber(customer.getPersonalInfoDTO().getAddress().getStreetNumber());
         customerToUpdate.getPersonalInfo().getAddress().setPostalCode(customer.getPersonalInfoDTO().getAddress().getPostalCode());
 
         customerRepository.save(customerToUpdate);
