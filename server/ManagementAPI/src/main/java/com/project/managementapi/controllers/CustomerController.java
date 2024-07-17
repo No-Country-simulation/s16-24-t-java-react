@@ -47,4 +47,18 @@ public class CustomerController {
                 .build(), HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<SuccessResponse> updateCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        customerService.updateCustomer(customerDTO);
+
+        return new ResponseEntity<>(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .message("Customer successfully updated.")
+                .object(customerDTO)
+                .url(url+"/update")
+                .build(), HttpStatus.OK);
+    }
+
 }
