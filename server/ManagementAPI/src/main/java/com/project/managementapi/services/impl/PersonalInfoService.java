@@ -22,11 +22,11 @@ public class PersonalInfoService implements IPersonalInfoService {
         if(personalInfoRepository.existsByDni(dto.getDni())) throw new ResourceAlreadyExistsException("DNI Already exists.");
         if(personalInfoRepository.existsByEmail(dto.getEmail())) throw new ResourceAlreadyExistsException("Email already exists.");
 
-
         return personalInfoRepository.save(PersonalInfo.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .phoneNumber(dto.getPhoneNumber())
+                .birthDate(dto.getBirthDate())
                 .email(dto.getEmail())
                 .dni(dto.getDni())
                 .address(addressService.createAddress(dto.getAddress()))
