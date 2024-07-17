@@ -99,8 +99,8 @@ function SideBar() {
 					className="bg-gray-800 text-white h-screen"
 					style={{ width: drawerWidth }}
 				>
-					<div className="py-6 px-2">
-						<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+					<div className="py-6 px-1">
+						<Box component="main" sx={{ flexGrow: 1, p: 2 }}>
 							<IconButton
 								color="inherit"
 								aria-label="open drawer"
@@ -113,18 +113,6 @@ function SideBar() {
 							>
 								<MenuIcon />
 							</IconButton>
-							<IconButton
-								onClick={handleDrawerClose}
-								sx={{
-									display: open ? "inherit" : "none",
-								}}
-							>
-								{theme.direction === "rtl" ? (
-									<ChevronRightIcon />
-								) : (
-									<ChevronLeftIcon />
-								)}
-							</IconButton>
 						</Box>
 						<List>
 							{/* Lista de elementos que se mantienen */}
@@ -132,7 +120,7 @@ function SideBar() {
 								<ListItemIcon sx={{ color: "white" }}>
 									<HomeIcon />
 								</ListItemIcon>
-								<ListItemText primary={t('sidebar.home')} />
+								<ListItemText primary={t("sidebar.home")} />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
