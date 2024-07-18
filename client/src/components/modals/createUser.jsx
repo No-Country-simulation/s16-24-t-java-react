@@ -80,19 +80,7 @@ const subscriptions = [
 	{
 		id: "mes",
 		name: "Mensual",
-	},
-	{
-		id: "trimestre",
-		name: "Trimestral",
-	},
-	{
-		id: "semestre",
-		name: "Semestral",
-	},
-	{
-		id: "anual",
-		name: "Anual",
-	},
+	}
 ];
 
 const FormOption = ({ data }) => {
@@ -222,7 +210,7 @@ const CreateUser = ({ closeCallback }) => {
 				},
 				{
 					headers: {
-						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access" || "NO-TENEMOS-TOKEN")}`,
+						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
 						"Content-Type": "Application/json",
 					},
 				},
