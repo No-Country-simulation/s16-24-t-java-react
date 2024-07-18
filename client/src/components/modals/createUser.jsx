@@ -33,8 +33,23 @@ const ciudades = [
 	{ id: 24, name: "Tucumán" },
 ];
 
+const payments = [
+	{
+		id: 1, name: "Efectivo",
+	},
+	{
+		id: 2, name: "Tarjeta",
+	},
+	{
+		id: 3, name: "Transferencia",
+	},
+	{
+		id: 4, name: "Nose que mas",
+	}
+]
+
 const descuentos = [
-	{ id: 0, name: "Sin descuento"},
+	{ id: 0, name: "Sin descuento" },
 	{ id: 1, name: "Descuento1" },
 	{ id: 2, name: "Descuento2" },
 	{ id: 3, name: "Descuento3" },
@@ -171,6 +186,10 @@ const CreateUser = ({ closeCallback }) => {
 	const [email, setEmail] = useState("");
 	const [activity, setActivity] = useState("");
 	const [subscription, setSubscription] = useState("");
+	const [city, setCity] = useState("");
+	const [cp, setCP] = useState("");
+	const [address, setAddress] = useState("");
+	
 	const [canSubmit, setCanSubmit] = useState(false);
 
 	const { t } = useTranslation();
@@ -185,16 +204,21 @@ const CreateUser = ({ closeCallback }) => {
 		console.log("Submit button!");
 		if (canSubmit == true) {
 			const { data } = await axios.post(
-				"/api/endpoint/noseIDK", // El base url se toma desde 'App.jsx'
+				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
 				{
-					firstname,
-					lastname,
-					phone,
-					dni,
-					birthDate,
-					email,
-					activity,
-					subscription,
+					"personalInfoDTO": {
+						"firstName": firstname,
+						"lastName": lastname,
+						"phoneNumber": phone,
+						email,
+						dni,
+						birthDate,
+						"address": {
+							"city": city.name,
+							"postalCode": cp,
+							"street": address
+						}
+					}
 				},
 				{
 					headers: {
@@ -202,7 +226,6 @@ const CreateUser = ({ closeCallback }) => {
 					},
 				},
 			);
-
 			console.log("Estos datos devuelve el backend:");
 			console.log(data);
 		} else {
@@ -229,16 +252,32 @@ const CreateUser = ({ closeCallback }) => {
 			setSubscription(value);
 		} else if (type == "phone") {
 			setPhone(value)
+		} else if (type == "city") {
+			setCity(value)
+		} else if (type == "cp") {
+			setCP(value)
+		} else if (type == "address") {
+			setAddress(value)
 		}
 	};
 
 	useEffect(() => {
-		if (isEmail(email) == true && firstname.length >= 3 && lastname.length >= 3 && phone.length >= 8 && birthDate.length >= 6 && String(dni).length >= 6 && activity.length >= 1 && subscription.length >= 1) {
+		if (isEmail(email) == true &&
+			firstname.length >= 3 &&
+			lastname.length >= 3 &&
+			phone.length >= 8 &&
+			birthDate.length >= 6 &&
+			String(dni).length >= 6 &&
+			activity.length >= 1 &&
+			subscription.length >= 1 &&
+			city > 0 &&
+			address.length >= 5 &&
+			cp.length >= 3) {
 			setCanSubmit(true)
 		} else {
 			setCanSubmit(false)
 		}
-	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription])
+	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription, city, address, cp])
 	//
 	return (
 		<Modal closeCallback={closeCallback}>
@@ -303,7 +342,7 @@ const CreateUser = ({ closeCallback }) => {
 					<Selectable
 						className={"w-[calc(30%-5px)] absolute left-0 top-[150px]"}
 						placeholder={t("createUserModal.ciudad")}
-						name={"ciudad"}
+						name={"city"}
 						forForm={"createAlumno"}
 						required={true}
 						onChanged={onChanged}
@@ -325,7 +364,7 @@ const CreateUser = ({ closeCallback }) => {
 						className={"w-[calc(50%-17px)] absolute right-0 top-[150px]"}
 						placeholder={t("createUserModal.direccion")}
 						required={true}
-						name={"cp"}
+						name={"address"}
 						onChanged={onChanged}
 					/>
 
