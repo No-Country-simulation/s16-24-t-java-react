@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
 
 function Login({ onLogin }) {
@@ -15,13 +16,16 @@ function Login({ onLogin }) {
 		setPassword(e.target.value);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		if (username === "usuario" && password === "contraseña") {
-			console.log("Login exitoso!");
-			onLogin();
-			localStorage.setItem("loggedIn", "true");
+		const { data } = await axios.post(
+			"/auth/login",
+			{ email: username, password: password },
+		)
+		console.log(data)
+		if (data) {
+			localStorage.setItem("sportify_jwt_access", data.token);
+			// onLogin();
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 
