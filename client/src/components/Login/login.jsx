@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
 
-function Login({ onLogin }) {
+function Login({ setIsLoggedIn }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
@@ -25,7 +25,7 @@ function Login({ onLogin }) {
 		console.log(data)
 		if (data) {
 			localStorage.setItem("sportify_jwt_access", data.token);
-			// onLogin();
+			setIsLoggedIn(true);
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 
