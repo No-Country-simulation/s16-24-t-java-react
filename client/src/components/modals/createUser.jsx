@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import axios from "axios";
 
@@ -129,35 +129,35 @@ const Selectable = ({
 };
 
 const CreateUser = ({ closeCallback }) => {
-	const [fullname, setFullname] = useState("");
+	const [firstname, setFirstName] = useState("");
+	const [lastname, setLastname] = useState("");
+	const [phone, setPhone] = useState("");
 	const [birthDate, setBirthdate] = useState("");
 	const [dni, setDNI] = useState("");
 	const [email, setEmail] = useState("");
 	const [activity, setActivity] = useState("");
 	const [subscription, setSubscription] = useState("");
+	const [canSubmit, setCanSubmit] = useState(false);
 
 	const { t } = useTranslation();
 
-	const onSubmit = async (e) => {
+	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
 		e.preventDefault();
 
 		console.log("Submit button!");
-		if (
-			fullname.length >= 3 &&
-			birthDate.length >= 6 &&
-			dni.length >= 5 &&
-			isEmail(email) &&
-			activity.length >= 1 &&
-			subscription.length >= 1
-		) {
+		if (canSubmit == true) {
 			const { data } = await axios.post(
-				"/api/endpoint/noseIDK",
+				"/api/endpoint/noseIDK", // El base url se toma desde 'App.jsx'
 				{
-					fullname,
+					firstname,
+					lastname,
+					phone,
+					dni,
 					birthDate,
 					dni,
 					email,
 					activity,
+					subscription,
 				},
 				{
 					headers: {
@@ -176,26 +176,32 @@ const CreateUser = ({ closeCallback }) => {
 	const onChanged = (type, event) => {
 		const value = event.target.value;
 		if (type == "email") {
-			if (isEmail(value)) {
-				console.log("email validado!");
-				setEmail(value);
-				event.target.classList.add("bg");
-			} else {
-				setEmail("");
-			}
-		} else if (type == "birth") {
+			setEmail(value);	
+		} else if (type == "birthDate") {
+			console.log(value)
 			setBirthdate(value);
-		} else if (type == "dni" && value.length >= 5) {
+		} else if (type == "dni") {
 			setDNI(value);
-		} else if (type == "fullname") {
-			setFullname(value);
+		} else if (type == "firstname") {
+			setFirstName(value);
+		} else if (type == "lastname") {
+			setLastname(value);
 		} else if (type == "activity") {
 			setActivity(value);
 		} else if (type == "subscription") {
 			setSubscription(value);
+		} else if (type == "phone") {
+			setPhone(value)
 		}
 	};
 
+	useEffect(() => {
+		if ( isEmail(email) == true && firstname.length >= 3 && lastname.length >= 3 && phone.length >= 8 && birthDate.length >= 6 && String(dni).length >= 6 && activity.length >= 1 && subscription.length >= 1) {
+			setCanSubmit(true)
+		} else {
+			setCanSubmit(false)
+		}
+	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription])
 	//
 	return (
 		<Modal closeCallback={closeCallback}>
@@ -281,7 +287,8 @@ const CreateUser = ({ closeCallback }) => {
 				</form>
 				<input
 					type="button"
-					disabled
+					disabled={!canSubmit}
+					onClick={onSubmit}
 					value={t("createUserModal.guardar")}
 					className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
@@ -293,8 +300,8 @@ const CreateUser = ({ closeCallback }) => {
 					className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
 				/>
-				<p className="absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium ">
-					{t("createUserModal.completarAviso")}
+				<p className={`absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium`}>
+					{canSubmit == false ? t("createUserModal.completarAviso") : ""}
 				</p>
 			</div>
 		</Modal>
