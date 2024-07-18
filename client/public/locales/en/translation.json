@@ -12,7 +12,11 @@
 		"guardar": "Save",
 		"cancelar": "Cancel",
 		"elegirSelectable": "Select",
-		"completarAviso": "Complete all fields!"
+		"completarAviso": "Complete all fields!",
+		"ciudad": "City:",
+		"cp": "Zip Code:",
+		"direccion": "Address:",
+		"seleccionarDescuento": "Select Discount:"
 	},
 	"tableHeader": {
 		"full_name": "Full name",

@@ -15,7 +15,11 @@
 		"guardar": "Guardar",
 		"cancelar": "Cancelar",
 		"elegirSelectable": "Elegir",
-		"completarAviso": "Completar todos los campos!"
+		"completarAviso": "Completar todos los campos!",
+		"ciudad": "Ciudad:",
+		"cp": "Codigo Postal:",
+		"direccion": "Direccion:",
+		"seleccionarDescuento": "Selec. Descuento:"
 	},
 	"tableHeader": {
 		"full_name": "Nombre completo",
