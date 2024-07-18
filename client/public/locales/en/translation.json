@@ -1,7 +1,9 @@
 {
 	"createUserModal": {
-		"nombrecompleto": "Full name:",
-		"dni": "Document number:",
+		"nombrecompleto": "Full name",
+		"firstname": "First Name:",
+		"lastname": "Last Name:",
+		"dni": "DNI Number:",
 		"fechaNacimiento": "Birth date:",
 		"email": "Email:",
 		"telContacto": "Phone number:",
@@ -10,18 +12,22 @@
 		"guardar": "Save",
 		"cancelar": "Cancel",
 		"elegirSelectable": "Select",
-		"completarAviso": "Complete all fields!"
+		"completarAviso": "Complete all fields!",
+		"ciudad": "City:",
+		"cp": "Zip Code:",
+		"direccion": "Address:",
+		"seleccionarDescuento": "Select Discount:"
 	},
 	"tableHeader": {
 		"full_name": "Full name",
 		"birth_date": "Birth date",
 		"id": "ID",
-		"sport": "Sport",
-		"subscription": "Membership type (subscription)",
+		"sport": "Activity",
+		"subscription": "Subscription",
 		"payment": "Fee",
 		"due_date": "Fee due date",
 		"days_from_due": "Days from due",
-		"created_at": "Creation date"
+		"created_at": "Phone number"
 	},
 	"filter": {
 		"all": "All",
@@ -65,5 +71,12 @@
 		"language": "Language",
 		"save": "Save",
 		"cancel": "Cancel"
+	},
+	"sidebar": {
+		"home": "Home",
+		"staff": "Staff",
+		"activities": "Activities",
+		"headquarters": "My Headquarters",
+		"technicalSupport": "Technical Support"
 	}
 }

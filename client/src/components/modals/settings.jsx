@@ -1,16 +1,16 @@
 import { useTranslation } from "react-i18next"
 import Icon from "../accesories/icon"
-import { NoUsarEsteModal } from "./createUser"
+import Modal from "./modal.jsx"
 import NotificationRow from "./notification-row"
 import LanguageSelector from "../languageSelector/laguage-selector"
 
 function Settings({ handleClose }) {
 
   const { t } = useTranslation()
+  
   return (
-    <NoUsarEsteModal>
-      <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-[32px] shadow-2xl flex-col p-10 gap-10">
-       
+    <Modal closeCallback={handleClose}>
+      <div className="relative flex bg-gray-100 w-[900px] h-[650px] rounded-xl shadow-2xl flex-col p-10 gap-10" onClick={(e) => e.stopPropagation()} >
         <div className="flex flex-col gap-4 justify-center items-start">
           <p className="text-primary-10 font-bold text-xl px-4 py-1 bg-tertiary-20 rounded-lg">{t("settings.profile_title")}</p>
           <div className="flex border-primary-40 border-2 px-2 py-1 rounded-lg bg-secondary-50 text-primary-10 ">
@@ -58,9 +58,8 @@ function Settings({ handleClose }) {
           <button onClick={handleClose} className="text-tertiary-20 font-bold text-xl px-4 py-1 bg-red-400 rounded-lg">{t("settings.cancel")}</button>
           <button className="text-tertiary-20 font-bold text-xl px-4 py-1 bg-primary-0 rounded-lg">{t("settings.save")}</button>
         </div>
-
       </div>
-    </NoUsarEsteModal>
+    </Modal>
   )
 }
 

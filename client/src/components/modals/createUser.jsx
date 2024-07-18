@@ -1,26 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import axios from "axios";
 
 import { useTranslation } from "react-i18next";
 
+import Modal from "./modal.jsx";
+
+const ciudades = [
+	{ id: 1, name: "Buenos Aires" },
+	{ id: 2, name: "CABA" },
+	{ id: 3, name: "Catamarca" },
+	{ id: 4, name: "Chaco" },
+	{ id: 5, name: "Chubut" },
+	{ id: 6, name: "Córdoba" },
+	{ id: 7, name: "Corrientes" },
+	{ id: 8, name: "Entre Ríos" },
+	{ id: 9, name: "Formosa" },
+	{ id: 10, name: "Jujuy" },
+	{ id: 11, name: "La Pampa" },
+	{ id: 12, name: "La Rioja" },
+	{ id: 13, name: "Mendoza" },
+	{ id: 14, name: "Misiones" },
+	{ id: 15, name: "Neuquén" },
+	{ id: 16, name: "Río Negro" },
+	{ id: 17, name: "Salta" },
+	{ id: 18, name: "San Juan" },
+	{ id: 19, name: "San Luis" },
+	{ id: 20, name: "Santa Cruz" },
+	{ id: 21, name: "Santa Fe" },
+	{ id: 22, name: "Santiago del Estero" },
+	{ id: 23, name: "Tierra del Fuego" },
+	{ id: 24, name: "Tucumán" },
+];
+
+const payments = [
+	{
+		id: 1, name: "Efectivo",
+	},
+	{
+		id: 2, name: "Tarjeta",
+	},
+	{
+		id: 3, name: "Transferencia",
+	},
+	{
+		id: 4, name: "Nose que mas",
+	}
+]
+
+const descuentos = [
+	{ id: 0, name: "Sin descuento" },
+	{ id: 1, name: "Descuento1" },
+	{ id: 2, name: "Descuento2" },
+	{ id: 3, name: "Descuento3" },
+]
+
 const deportes = [
 	//  actividades (esta hardcodeado)
 	{
 		id: "football1",
-		name: "Football Niños",
+		name: "Football 111111111",
 	},
 	{
 		id: "football2",
-		name: "Football Adultos",
+		name: "Football 222222222",
 	},
 	{
 		id: "natacion1",
-		name: "Natacion Niños",
+		name: "Natacion 111111111",
 	},
 	{
 		id: "natacion2",
-		name: "Natacion Adultos",
+		name: "Natacion 222222222",
 	},
 ];
 
@@ -29,42 +80,13 @@ const subscriptions = [
 	{
 		id: "mes",
 		name: "Mensual",
-	},
-	{
-		id: "trimestre",
-		name: "Trimestral",
-	},
-	{
-		id: "semestre",
-		name: "Semestral",
-	},
-	{
-		id: "anual",
-		name: "Anual",
-	},
+	}
 ];
 
 const FormOption = ({ data }) => {
 	return <option value={data.id}>{data.name}</option>;
 };
 
-const Modal = ({ children, closeCallback }) => {
-	const backgroundClick = (e) => {
-		e.stopPropagation();
-		if (closeCallback) {
-			closeCallback();
-		}
-	};
-
-	return (
-		<div
-			className="flex items-center content-center flex-wrap justify-center top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.65)] fixed"
-			onClick={backgroundClick}
-		>
-			{children}
-		</div>
-	);
-};
 // Para componentes invalidos usar estos estilos:  border-red-400 border-[1px]
 const InputData = ({
 	type,
@@ -143,44 +165,56 @@ const Selectable = ({
 	);
 };
 
-const CreateUser = ({ handleNewMember }) => {
-	const [fullname, setFullname] = useState("");
+const CreateUser = ({ closeCallback }) => {
+	const [firstname, setFirstName] = useState("");
+	const [lastname, setLastname] = useState("");
+	const [phone, setPhone] = useState("");
 	const [birthDate, setBirthdate] = useState("");
 	const [dni, setDNI] = useState("");
 	const [email, setEmail] = useState("");
 	const [activity, setActivity] = useState("");
 	const [subscription, setSubscription] = useState("");
+	const [city, setCity] = useState("");
+	const [cp, setCP] = useState("");
+	const [address, setAddress] = useState("");
+
+	const [canSubmit, setCanSubmit] = useState(false);
 
 	const { t } = useTranslation();
 
-	const onSubmit = async (e) => {
+	const onSubmitActivity = (e) => {
+		e.preventDefault();
+	}
+
+	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
 		e.preventDefault();
 
 		console.log("Submit button!");
-		if (
-			fullname.length >= 3 &&
-			birthDate.length >= 6 &&
-			dni.length >= 5 &&
-			isEmail(email) &&
-			activity.length >= 1 &&
-			subscription.length >= 1
-		) {
+		if (canSubmit == true) {
 			const { data } = await axios.post(
-				"/api/endpoint/noseIDK",
+				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
 				{
-					fullname,
-					birthDate,
-					dni,
-					email,
-					activity,
+					"personalInfoDTO": {
+						"firstName": firstname,
+						"lastName": lastname,
+						"phoneNumber": phone,
+						email,
+						dni,
+						birthDate,
+						"address": {
+							"city": city.name,
+							"postalCode": cp,
+							"street": address
+						}
+					}
 				},
 				{
 					headers: {
-						["Content-Type"]: "Application/json",
+						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
+						"Content-Type": "Application/json",
 					},
 				},
 			);
-
 			console.log("Estos datos devuelve el backend:");
 			console.log(data);
 		} else {
@@ -191,30 +225,52 @@ const CreateUser = ({ handleNewMember }) => {
 	const onChanged = (type, event) => {
 		const value = event.target.value;
 		if (type == "email") {
-			if (isEmail(value)) {
-				console.log("email validado!");
-				setEmail(value);
-				event.target.classList.add("bg");
-			} else {
-				setEmail("");
-			}
-		} else if (type == "birth") {
+			setEmail(value);
+		} else if (type == "birthDate") {
+			console.log(value)
 			setBirthdate(value);
-		} else if (type == "dni" && value.length >= 5) {
+		} else if (type == "dni") {
 			setDNI(value);
-		} else if (type == "fullname") {
-			setFullname(value);
+		} else if (type == "firstname") {
+			setFirstName(value);
+		} else if (type == "lastname") {
+			setLastname(value);
 		} else if (type == "activity") {
 			setActivity(value);
 		} else if (type == "subscription") {
 			setSubscription(value);
+		} else if (type == "phone") {
+			setPhone(value)
+		} else if (type == "city") {
+			setCity(value)
+		} else if (type == "cp") {
+			setCP(value)
+		} else if (type == "address") {
+			setAddress(value)
 		}
 	};
 
+	useEffect(() => {
+		if (isEmail(email) == true &&
+			firstname.length >= 3 &&
+			lastname.length >= 3 &&
+			phone.length >= 8 &&
+			birthDate.length >= 6 &&
+			String(dni).length >= 6 &&
+			activity.length >= 1 &&
+			subscription.length >= 1 &&
+			city > 0 &&
+			address.length >= 5 &&
+			cp.length >= 3) {
+			setCanSubmit(true)
+		} else {
+			setCanSubmit(false)
+		}
+	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription, city, address, cp])
 	//
 	return (
-		<Modal>
-			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl">
+		<Modal closeCallback={closeCallback}>
+			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
 				<form
 					action=""
 					method="post"
@@ -223,24 +279,31 @@ const CreateUser = ({ handleNewMember }) => {
 				>
 					<InputData
 						type="text"
-						className={"w-[calc(50%-10px)] absolute left-0"}
-						placeholder={t("createUserModal.nombrecompleto")}
+						className={"w-[calc(33.33%-10px)] absolute left-0"}
+						placeholder={t("createUserModal.firstname")}
 						required={true}
-						name={"fullname"}
+						name={"firstname"}
 						onChanged={onChanged}
 					/>
 					<InputData
 						type="text"
-						className={"w-[calc(50%-10px)] absolute right-0"}
+						className={"w-[calc(33.33%-10px)] left-[calc(35%-7px)] absolute"}
+						placeholder={t("createUserModal.lastname")}
+						required={true}
+						name={"lastname"}
+						onChanged={onChanged}
+					/>
+					<InputData
+						type="text"
+						className={"w-[calc(33.33%-10px)] absolute right-0"}
 						placeholder={t("createUserModal.dni")}
 						required={true}
 						name={"dni"}
 						onChanged={onChanged}
 					/>
-
 					<InputData
 						type="date"
-						className={"w-[calc(33.3%-10px)] absolute left-0 top-[70px]"}
+						className={"w-[calc(33.3%-10px)] absolute left-0 top-[75px]"}
 						placeholder={t("createUserModal.fechaNacimiento")}
 						required={true}
 						name={"birthDate"}
@@ -249,7 +312,7 @@ const CreateUser = ({ handleNewMember }) => {
 					<InputData
 						type="text"
 						className={
-							"w-[calc(33.3%-10px)] absolute left-[calc(35%-5px)] top-[70px]"
+							"w-[calc(33.3%-10px)] absolute left-[calc(35%-7px)] top-[75px]"
 						}
 						placeholder={t("createUserModal.email")}
 						required={true}
@@ -258,7 +321,7 @@ const CreateUser = ({ handleNewMember }) => {
 					/>
 					<InputData
 						type="text"
-						className={"w-[calc(33.3%-10px)] absolute right-0 top-[70px]"}
+						className={"w-[calc(33.3%-10px)] absolute right-0 top-[75px]"}
 						placeholder={t("createUserModal.telContacto")}
 						required={true}
 						name={"phone"}
@@ -266,7 +329,40 @@ const CreateUser = ({ handleNewMember }) => {
 					/>
 
 					<Selectable
-						className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
+						className={"w-[calc(30%-5px)] absolute left-0 top-[150px]"}
+						placeholder={t("createUserModal.ciudad")}
+						name={"city"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={ciudades}
+						t={t}
+					/>
+
+					<InputData
+						type="text"
+						className={"w-[calc(20%-5px)] absolute left-[calc(30%+10px)] top-[150px]"}
+						placeholder={t("createUserModal.cp")}
+						required={true}
+						name={"cp"}
+						onChanged={onChanged}
+					/>
+
+					<InputData
+						type="text"
+						className={"w-[calc(50%-17px)] absolute right-0 top-[150px]"}
+						placeholder={t("createUserModal.direccion")}
+						required={true}
+						name={"address"}
+						onChanged={onChanged}
+					/>
+				</form>
+
+			</div>
+			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
+					<Selectable
+						className={"w-full absolute right-0 top-0"}
 						placeholder={t("createUserModal.seleccionarActividad")}
 						name={"activity"}
 						forForm={"createAlumno"}
@@ -276,7 +372,7 @@ const CreateUser = ({ handleNewMember }) => {
 						t={t}
 					/>
 					<Selectable
-						className={"w-[calc(50%-10px)] absolute left-0 top-[140px]"}
+						className={"w-[calc(100%-25%-15px)] absolute left-0 top-[75px]"}
 						placeholder={t("createUserModal.seleccionarSubscripcion")}
 						name={"subscription"}
 						forForm={"createAlumno"}
@@ -285,30 +381,45 @@ const CreateUser = ({ handleNewMember }) => {
 						selectableArray={subscriptions}
 						t={t}
 					/>
-				</form>
-				<input
-					type="button"
-					disabled
-					value={t("createUserModal.guardar")}
-					className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+					<Selectable
+						className={"w-[25%] absolute right-0 top-[75px]"}
+						placeholder={t("createUserModal.seleccionarDescuento")}
+						name={"descuento"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={descuentos}
+						t={t}
+					/>
+				</div>
+			</div>
+			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[80px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
+					<input
+						type="button"
+						disabled={!canSubmit}
+						onClick={onSubmit}
+						value={t("createUserModal.guardar")}
+						className="right-0 flex absolute transition-[background,color] rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
-				/>
-				<input
-					type="button"
-					onClick={handleNewMember}
-					value={t("createUserModal.cancelar")}
-					className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+					/>
+					<input
+						type="button"
+						value={t("createUserModal.cancelar")}
+						onClick={() => closeCallback()}
+						className="left-0 flex absolute transition-[background] rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
-				/>
-				<p className="absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium ">
-					{t("createUserModal.completarAviso")}
-				</p>
+					/>
+					<p className={`absolute h-[40px] right-[140px] transition-[opacity] ${canSubmit == true ? "opacity-0" : "opacity-100"} text-center content-center font-medium`}>
+						{t("createUserModal.completarAviso")}
+					</p>
+				</div>
+
 			</div>
 		</Modal>
 	);
 };
 
-export const NoUsarEsteModal = Modal;
 export { Selectable, InputData };
 
 export default CreateUser;

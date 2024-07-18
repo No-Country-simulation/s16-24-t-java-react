@@ -1,10 +1,21 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme'
+import twscrollbar from "tailwind-scrollbar"
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  plugins: [
+    twscrollbar
+  ],
   theme: {
+    fontFamily: {
+      'nunito': ['"Nunito Variable"', ...defaultTheme.fontFamily.sans],
+      'sans': ['"Nunito Sans Variable"', ...defaultTheme.fontFamily.sans],
+      'assistant': ['"Assistant Variable"', ...defaultTheme.fontFamily.serif],
+    },
     extend: {
       colors: {
         'primary': {
@@ -41,7 +52,7 @@ export default {
           80: "#FDFBFF"
         }
       },
-    },
-    plugins: [],
+    }
+
   }
 }

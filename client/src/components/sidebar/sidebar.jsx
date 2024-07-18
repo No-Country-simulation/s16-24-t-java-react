@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,7 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
 import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -62,6 +63,8 @@ function SideBar() {
 	const [open, setOpen] = useState(false);
 	const [showCreateUserModal, setShowCreateUserModal] = useState(false);
 
+	const { t } = useTranslation();
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -70,10 +73,10 @@ function SideBar() {
 		setOpen(false);
 	};
 
-	const handleNewMember = () => {
-		setOpen(false); // Cerrar la barra lateral si está abierta
-		setShowCreateUserModal(true);
-	};
+	// const handleNewMember = () => {
+	// 	setOpen(false); // Cerrar la barra lateral si está abierta
+	// 	setShowCreateUserModal(true);
+	// };
 
 	const handleOutsideClick = (event) => {
 		if (open && event.target.closest(".MuiDrawer-root") === null) {
@@ -81,7 +84,7 @@ function SideBar() {
 		}
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		document.addEventListener("click", handleOutsideClick);
 
 		return () => {
@@ -96,9 +99,9 @@ function SideBar() {
 					className="bg-gray-800 text-white h-screen"
 					style={{ width: drawerWidth }}
 				>
-					<div className="py-6 px-2">
-						<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-							<IconButton
+					<div className="py-20 px-1">
+						<Box component="main" sx={{ flexGrow: 1, p: -1 }}>
+							<ListItem
 								color="inherit"
 								aria-label="open drawer"
 								onClick={handleDrawerOpen}
@@ -109,8 +112,8 @@ function SideBar() {
 								}}
 							>
 								<MenuIcon />
-							</IconButton>
-							<IconButton
+							</ListItem>
+							<ListItem
 								onClick={handleDrawerClose}
 								sx={{
 									display: open ? "inherit" : "none",
@@ -121,7 +124,7 @@ function SideBar() {
 								) : (
 									<ChevronLeftIcon />
 								)}
-							</IconButton>
+							</ListItem>
 						</Box>
 						<List>
 							{/* Lista de elementos que se mantienen */}
@@ -129,31 +132,31 @@ function SideBar() {
 								<ListItemIcon sx={{ color: "white" }}>
 									<HomeIcon />
 								</ListItemIcon>
-								<ListItemText primary="Inicio" />
+								<ListItemText primary={t("sidebar.home")} />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
 									<GroupIcon />
 								</ListItemIcon>
-								<ListItemText primary="Empleados" />
+								<ListItemText primary={t("sidebar.staff")} />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
 									<ClassIcon />
 								</ListItemIcon>
-								<ListItemText primary="Clases" />
+								<ListItemText primary={t("sidebar.activities")} />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
 									<BusinessCenterIcon />
 								</ListItemIcon>
-								<ListItemText primary="Mi Centro" />
+								<ListItemText primary={t("sidebar.headquarters")} />
 							</ListItem>
 							<ListItem button>
 								<ListItemIcon sx={{ color: "white" }}>
 									<HelpIcon />
 								</ListItemIcon>
-								<ListItemText primary="Soporte" />
+								<ListItemText primary={t("sidebar.technicalSupport")} />
 							</ListItem>
 						</List>
 						<div className="flex justify-center mt-40">
