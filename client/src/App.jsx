@@ -31,7 +31,7 @@ function App() {
 			{isLoggedIn ? (
 				<Home handleLogOut={handleLogout} />
 			) : (
-				<Login onLogin={setIsLoggedIn} />
+				<Login setIsLoggedIn={setIsLoggedIn} />
 			)}
 		</div>
 	);
