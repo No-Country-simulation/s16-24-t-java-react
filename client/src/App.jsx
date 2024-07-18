@@ -13,22 +13,17 @@ function App() {
 
 	useEffect(() => {
 		// Verificar si hay una sesión almacenada en localStorage al cargar la aplicación
-		const loggedInStatus = localStorage.getItem("loggedIn");
-		if (loggedInStatus === "true") {
+		const loggedInStatus = localStorage.getItem("sportify_jwt_access");
+		if (loggedInStatus) {
 			setIsLoggedIn(true);
 		}
 	}, []); // Solo se ejecuta una vez al montar el componente
 
-	const handleLogin = () => {
-		setIsLoggedIn(true);
-		// Guardar estado de sesión en localStorage
-		localStorage.setItem("loggedIn", "true");
-	};
 
 	const handleLogout = () => {
 		setIsLoggedIn(false);
 		// Limpiar estado de sesión en localStorage
-		localStorage.removeItem("loggedIn");
+		localStorage.removeItem("sportify_jwt_access");
 	};
 
 	return (
@@ -36,7 +31,7 @@ function App() {
 			{isLoggedIn ? (
 				<Home handleLogOut={handleLogout} />
 			) : (
-				<Login onLogin={handleLogin} />
+				<Login onLogin={setIsLoggedIn} />
 			)}
 		</div>
 	);
