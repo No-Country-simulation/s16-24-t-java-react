@@ -6,6 +6,40 @@ import { useTranslation } from "react-i18next";
 
 import Modal from "./modal.jsx";
 
+const ciudades = [
+	{ id: 1, name: "Buenos Aires" },
+	{ id: 2, name: "CABA" },
+	{ id: 3, name: "Catamarca" },
+	{ id: 4, name: "Chaco" },
+	{ id: 5, name: "Chubut" },
+	{ id: 6, name: "Córdoba" },
+	{ id: 7, name: "Corrientes" },
+	{ id: 8, name: "Entre Ríos" },
+	{ id: 9, name: "Formosa" },
+	{ id: 10, name: "Jujuy" },
+	{ id: 11, name: "La Pampa" },
+	{ id: 12, name: "La Rioja" },
+	{ id: 13, name: "Mendoza" },
+	{ id: 14, name: "Misiones" },
+	{ id: 15, name: "Neuquén" },
+	{ id: 16, name: "Río Negro" },
+	{ id: 17, name: "Salta" },
+	{ id: 18, name: "San Juan" },
+	{ id: 19, name: "San Luis" },
+	{ id: 20, name: "Santa Cruz" },
+	{ id: 21, name: "Santa Fe" },
+	{ id: 22, name: "Santiago del Estero" },
+	{ id: 23, name: "Tierra del Fuego" },
+	{ id: 24, name: "Tucumán" },
+];
+
+const descuentos = [
+	{ id: 0, name: "Sin descuento"},
+	{ id: 1, name: "Descuento1" },
+	{ id: 2, name: "Descuento2" },
+	{ id: 3, name: "Descuento3" },
+]
+
 const deportes = [
 	//  actividades (esta hardcodeado)
 	{
@@ -141,6 +175,10 @@ const CreateUser = ({ closeCallback }) => {
 
 	const { t } = useTranslation();
 
+	const onSubmitActivity = (e) => {
+		e.preventDefault();
+	}
+
 	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
 		e.preventDefault();
 
@@ -154,14 +192,13 @@ const CreateUser = ({ closeCallback }) => {
 					phone,
 					dni,
 					birthDate,
-					dni,
 					email,
 					activity,
 					subscription,
 				},
 				{
 					headers: {
-						["Content-Type"]: "Application/json",
+						"Content-Type": "Application/json",
 					},
 				},
 			);
@@ -176,7 +213,7 @@ const CreateUser = ({ closeCallback }) => {
 	const onChanged = (type, event) => {
 		const value = event.target.value;
 		if (type == "email") {
-			setEmail(value);	
+			setEmail(value);
 		} else if (type == "birthDate") {
 			console.log(value)
 			setBirthdate(value);
@@ -196,7 +233,7 @@ const CreateUser = ({ closeCallback }) => {
 	};
 
 	useEffect(() => {
-		if ( isEmail(email) == true && firstname.length >= 3 && lastname.length >= 3 && phone.length >= 8 && birthDate.length >= 6 && String(dni).length >= 6 && activity.length >= 1 && subscription.length >= 1) {
+		if (isEmail(email) == true && firstname.length >= 3 && lastname.length >= 3 && phone.length >= 8 && birthDate.length >= 6 && String(dni).length >= 6 && activity.length >= 1 && subscription.length >= 1) {
 			setCanSubmit(true)
 		} else {
 			setCanSubmit(false)
@@ -205,7 +242,7 @@ const CreateUser = ({ closeCallback }) => {
 	//
 	return (
 		<Modal closeCallback={closeCallback}>
-			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[310px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation() }>
+			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
 				<form
 					action=""
 					method="post"
@@ -236,10 +273,9 @@ const CreateUser = ({ closeCallback }) => {
 						name={"dni"}
 						onChanged={onChanged}
 					/>
-
 					<InputData
 						type="date"
-						className={"w-[calc(33.3%-10px)] absolute left-0 top-[70px]"}
+						className={"w-[calc(33.3%-10px)] absolute left-0 top-[75px]"}
 						placeholder={t("createUserModal.fechaNacimiento")}
 						required={true}
 						name={"birthDate"}
@@ -248,7 +284,7 @@ const CreateUser = ({ closeCallback }) => {
 					<InputData
 						type="text"
 						className={
-							"w-[calc(33.3%-10px)] absolute left-[calc(35%-7px)] top-[70px]"
+							"w-[calc(33.3%-10px)] absolute left-[calc(35%-7px)] top-[75px]"
 						}
 						placeholder={t("createUserModal.email")}
 						required={true}
@@ -257,7 +293,7 @@ const CreateUser = ({ closeCallback }) => {
 					/>
 					<InputData
 						type="text"
-						className={"w-[calc(33.3%-10px)] absolute right-0 top-[70px]"}
+						className={"w-[calc(33.3%-10px)] absolute right-0 top-[75px]"}
 						placeholder={t("createUserModal.telContacto")}
 						required={true}
 						name={"phone"}
@@ -265,7 +301,43 @@ const CreateUser = ({ closeCallback }) => {
 					/>
 
 					<Selectable
-						className={"w-[calc(50%-10px)] absolute right-0 top-[140px]"}
+						className={"w-[calc(30%-5px)] absolute left-0 top-[150px]"}
+						placeholder={t("createUserModal.ciudad")}
+						name={"ciudad"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={ciudades}
+						t={t}
+					/>
+
+					<InputData
+						type="text"
+						className={"w-[calc(20%-5px)] absolute left-[calc(30%+10px)] top-[150px]"}
+						placeholder={t("createUserModal.cp")}
+						required={true}
+						name={"cp"}
+						onChanged={onChanged}
+					/>
+
+					<InputData
+						type="text"
+						className={"w-[calc(50%-17px)] absolute right-0 top-[150px]"}
+						placeholder={t("createUserModal.direccion")}
+						required={true}
+						name={"cp"}
+						onChanged={onChanged}
+					/>
+
+
+
+				</form>
+
+			</div>
+			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
+					<Selectable
+						className={"w-full absolute right-0 top-0"}
 						placeholder={t("createUserModal.seleccionarActividad")}
 						name={"activity"}
 						forForm={"createAlumno"}
@@ -275,7 +347,7 @@ const CreateUser = ({ closeCallback }) => {
 						t={t}
 					/>
 					<Selectable
-						className={"w-[calc(50%-10px)] absolute left-0 top-[140px]"}
+						className={"w-[calc(100%-25%-15px)] absolute left-0 top-[75px]"}
 						placeholder={t("createUserModal.seleccionarSubscripcion")}
 						name={"subscription"}
 						forForm={"createAlumno"}
@@ -284,25 +356,40 @@ const CreateUser = ({ closeCallback }) => {
 						selectableArray={subscriptions}
 						t={t}
 					/>
-				</form>
-				<input
-					type="button"
-					disabled={!canSubmit}
-					onClick={onSubmit}
-					value={t("createUserModal.guardar")}
-					className="bottom-[20px] right-[20px] flex absolute rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+					<Selectable
+						className={"w-[25%] absolute right-0 top-[75px]"}
+						placeholder={t("createUserModal.seleccionarDescuento")}
+						name={"descuento"}
+						forForm={"createAlumno"}
+						required={true}
+						onChanged={onChanged}
+						selectableArray={descuentos}
+						t={t}
+					/>
+				</div>
+			</div>
+			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[80px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
+					<input
+						type="button"
+						disabled={!canSubmit}
+						onClick={onSubmit}
+						value={t("createUserModal.guardar")}
+						className="right-0 flex absolute transition-[background,color] rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
-				/>
-				<input
-					type="button"
-					value={t("createUserModal.cancelar")}
-					onClick={() => closeCallback()}
-					className="bottom-[20px] left-[20px] flex absolute rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
+					/>
+					<input
+						type="button"
+						value={t("createUserModal.cancelar")}
+						onClick={() => closeCallback()}
+						className="left-0 flex absolute transition-[background] rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
-				/>
-				<p className={`absolute h-[40px] bottom-[20px] right-[155px] text-center content-center font-medium`}>
-					{canSubmit == false ? t("createUserModal.completarAviso") : ""}
-				</p>
+					/>
+					<p className={`absolute h-[40px] right-[140px] transition-[opacity] ${canSubmit == true ? "opacity-0" : "opacity-100"} text-center content-center font-medium`}>
+						{t("createUserModal.completarAviso")}
+					</p>
+				</div>
+
 			</div>
 		</Modal>
 	);
