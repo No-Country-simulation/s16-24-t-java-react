@@ -189,7 +189,7 @@ const CreateUser = ({ closeCallback }) => {
 	const [city, setCity] = useState("");
 	const [cp, setCP] = useState("");
 	const [address, setAddress] = useState("");
-	
+
 	const [canSubmit, setCanSubmit] = useState(false);
 
 	const { t } = useTranslation();
@@ -222,6 +222,7 @@ const CreateUser = ({ closeCallback }) => {
 				},
 				{
 					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access" || "NO-TENEMOS-TOKEN")}`,
 						"Content-Type": "Application/json",
 					},
 				},
@@ -367,9 +368,6 @@ const CreateUser = ({ closeCallback }) => {
 						name={"address"}
 						onChanged={onChanged}
 					/>
-
-
-
 				</form>
 
 			</div>
