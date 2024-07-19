@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from "react-i18next"
-import { useLocation } from 'react-router-dom'
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
@@ -9,6 +8,8 @@ import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
+import { useOutletContext } from 'react-router-dom'
+import { PATHS, MembersColumns, StaffColumns } from '../../lib/const.js'
 
 const MainFilter = [
   "sport",
@@ -283,25 +284,22 @@ function Table({ handleLogOut }) {
   const [users, setUsers] = useState(Users);
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
+  const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
 
   const { t } = useTranslation();
-  const location = useLocation();
+  const pathname = useOutletContext();
 
-  const membersHeaders = [
-    'full_name',
-    'birth_date',
-    'id',
-    'sport',
-    'subscription',
-    'payment',
-    'due_date',
-    'days_from_due',
-    'created_at'
-  ];
+
 
   useEffect(() => {
+    if (pathname === PATHS.HOME) {
+      setTableHeaderInfo(MembersColumns)
+    }
+    if (pathname === PATHS.STAFF) {
+      setTableHeaderInfo(StaffColumns)
+    }
     filterUsers();
-  }, [search, mainFilter, selectedSubFilter]);
+  }, [search, mainFilter, selectedSubFilter, pathname]);
 
   const filterUsers = () => {
     let usersToFilter = [...Users];
@@ -376,32 +374,30 @@ function Table({ handleLogOut }) {
     setNewMember(!newMember);
   };
 
+
   return (
+
     <>
-      {location.pathname === "/staff" ? (<div>staff</div>) : (<>
-        <div className="flex gap-32 w-full py-4 justify-around">
-          <SearchInput handleSearch={handleSearch} />
-          <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
-          <Filter filters={subFilter} handleChange={handleSubFilter} />
-          <NewMemberButton handleNewMember={handleNewMember} />
-          <ReportButton />
-          <ProfileButton handleLogOut={handleLogOut} />
-        </div>
-        <div className="overflow-y-auto max-h-[800px]">
-          <table className="w-full text-left text-sm text-gray-500 overflow-y-scroll px-10">
-            <TableHeader headers={membersHeaders} />
-            <tbody>
-              {users.map((user) => (
-                <TableRow user={user} key={user.dni} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
-      </>)}
+      <div className="flex gap-32 w-full py-4 justify-around">
+        <SearchInput handleSearch={handleSearch} />
+        <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
+        <Filter filters={subFilter} handleChange={handleSubFilter} />
+        <NewMemberButton handleNewMember={handleNewMember} />
+        <ReportButton />
+        <ProfileButton handleLogOut={handleLogOut} />
+      </div>
+      <div className="overflow-y-auto max-h-[800px]">
+        <table className="w-full text-sm text-gray-500 px-10">
+          <TableHeader headers={tableHeaderInfo} />
+          <tbody>
+            {users.map((user) => (
+              <TableRow user={user} key={user.dni} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
     </>
-
-
 
   )
 }
