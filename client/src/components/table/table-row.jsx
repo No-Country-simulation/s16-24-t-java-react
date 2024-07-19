@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom"
 
 
 function TableRow({ user, pathname }) {
-  console.log(pathname);
   
   const navigate = useNavigate()
   const setNavigatePath = pathname === "/" ? `/member/${user.dni}` : `${pathname}/${user.dni}`
