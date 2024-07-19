@@ -13,12 +13,15 @@ import '@fontsource-variable/assistant';
 
 import "./lib/i18n";
 import I18nWrapper from "./lib/i18nWrapper.jsx";
+import { LoginProvider } from "./contexts/login-context.jsx";
 
 const root = createRoot(document.getElementById("root"))
 
 root.render(
 	<I18nWrapper>
-		<RouterProvider router={router} />
+		<LoginProvider>
+			<RouterProvider router={router} />
+		</LoginProvider>
 	</I18nWrapper>
 );
 
