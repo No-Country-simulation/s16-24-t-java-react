@@ -1,17 +1,17 @@
 import Sidebar from "../sidebar/sidebar.jsx";
 import Footer from "../footer/footer.jsx";
-import Table from "../table/table.jsx";
-import { UsersProvider } from "../table/usersInfoContext.jsx";
+import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-function Home({ handleLogOut }) {
+function Home() {
+
+	const { pathname } = useLocation();
 	return (
 		<>
 			<div className="flex flex-1 bg-gray-200 pt-10">
 				<Sidebar />
 				<main className="h-full w-full px-10">
-				<UsersProvider>
-				<Table handleLogOut={handleLogOut} />
-				</UsersProvider>
+					<Outlet context={pathname}/>
 				</main>
 			</div>
 			<Footer />

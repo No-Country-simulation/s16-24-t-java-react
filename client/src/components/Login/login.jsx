@@ -4,8 +4,8 @@ import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
 
 function Login({ setIsLoggedIn }) {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("admin@sportify.com");
+	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
 
 	const handleUsernameChange = (e) => {
@@ -23,7 +23,7 @@ function Login({ setIsLoggedIn }) {
 			{ email: username, password: password },
 		)
 		console.log(data)
-		if (data) {
+		if (data.role) {
 			localStorage.setItem("sportify_jwt_access", data.token);
 			setIsLoggedIn(true);
 		} else {

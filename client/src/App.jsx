@@ -1,12 +1,11 @@
 import Home from "../src/components/home/home.jsx"; // Importa el componente home
 import axios from "axios";
-import "./App.css";
 
 import { useState, useEffect } from "react";
 
 import Login from "./components/login/login.jsx";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://sportify-xric.onrender.com";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(true);
