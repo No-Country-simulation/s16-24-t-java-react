@@ -1,6 +1,6 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router.jsx";
 import "./index.css";
 
 // Supports weights 200-900
@@ -13,13 +13,16 @@ import '@fontsource-variable/assistant';
 
 import "./lib/i18n";
 import I18nWrapper from "./lib/i18nWrapper.jsx";
+import { LoginProvider } from "./contexts/login-context.jsx";
 
 const root = createRoot(document.getElementById("root"))
 
 root.render(
-	<React.StrictMode>
-		<I18nWrapper>
-			<App />
-		</I18nWrapper>
-	</React.StrictMode>,
+	<I18nWrapper>
+		<LoginProvider>
+			<RouterProvider router={router} />
+		</LoginProvider>
+	</I18nWrapper>
 );
+
+
