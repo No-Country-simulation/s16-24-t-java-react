@@ -30,7 +30,12 @@
 		"payment": "Cuota",
 		"due_date": "Vencimiento",
 		"days_from_due": "Días de mora",
-		"created_at": "Teléfono"
+		"created_at": "Fecha de alta",
+		"phone_number": "Teléfono",
+		"email": "Email",
+		"status": "Estado",
+		"role": "Rol",
+		"address": "Dirección"
 	},
 	"filter": {
 		"all": "Todos",
