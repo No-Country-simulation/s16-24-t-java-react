@@ -75,10 +75,6 @@ function SideBar() {
 		setOpen(false);
 	};
 
-	// const handleNewMember = () => {
-	// 	setOpen(false); // Cerrar la barra lateral si está abierta
-	// 	setShowCreateUserModal(true);
-	// };
 
 	const handleOutsideClick = (event) => {
 		if (open && event.target.closest(".MuiDrawer-root") === null) {
