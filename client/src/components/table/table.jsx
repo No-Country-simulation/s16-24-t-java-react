@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from "react-i18next"
+import { useLocation } from 'react-router-dom'
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
 import TableRow from './table-row.jsx'
-import { useTranslation } from "react-i18next"
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
@@ -275,7 +276,7 @@ const Users = [
   }
 ];
 
-function Table({handleLogOut}) {
+function Table({ handleLogOut }) {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
@@ -283,7 +284,8 @@ function Table({handleLogOut}) {
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const location = useLocation();
 
   const membersHeaders = [
     'full_name',
@@ -376,26 +378,29 @@ function Table({handleLogOut}) {
 
   return (
     <>
-      <div className="flex gap-32 w-full py-4 justify-around">
-        <SearchInput handleSearch={handleSearch} />
-        <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
-        <Filter filters={subFilter} handleChange={handleSubFilter} />
-        <NewMemberButton handleNewMember={handleNewMember}/>
-        <ReportButton />
-        <ProfileButton handleLogOut={handleLogOut}/>
-      </div>
-      <div className="overflow-y-auto max-h-[800px]">
-      <table className="w-full text-left text-sm text-gray-500 overflow-y-scroll px-10">
-        <TableHeader headers={membersHeaders}/>
-        <tbody>
-          {users.map((user) => (
-            <TableRow user={user} key={user.dni} />
-          ))}
-        </tbody>
-      </table>
-      </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() =>setNewMember(false) } />}
+      {location.pathname === "/staff" ? (<div>staff</div>) : (<>
+        <div className="flex gap-32 w-full py-4 justify-around">
+          <SearchInput handleSearch={handleSearch} />
+          <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
+          <Filter filters={subFilter} handleChange={handleSubFilter} />
+          <NewMemberButton handleNewMember={handleNewMember} />
+          <ReportButton />
+          <ProfileButton handleLogOut={handleLogOut} />
+        </div>
+        <div className="overflow-y-auto max-h-[800px]">
+          <table className="w-full text-left text-sm text-gray-500 overflow-y-scroll px-10">
+            <TableHeader headers={membersHeaders} />
+            <tbody>
+              {users.map((user) => (
+                <TableRow user={user} key={user.dni} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
+      </>)}
     </>
+
 
 
   )
