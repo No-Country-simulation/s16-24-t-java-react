@@ -8,7 +8,7 @@ function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
-	const { handleLogin } = useContext(LoginContext);
+	const { handleLogin, handleIsLogged } = useContext(LoginContext);
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -20,13 +20,13 @@ function Login() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		handleLogin();
 		const { data } = await axios.post(
 			"/auth/login",
 			{ email: username, password: password },
 		)
-		console.log(data)
 		if (data.role) {
-			handleLogin(data.token)
+			handleIsLogged(data.token)
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 
