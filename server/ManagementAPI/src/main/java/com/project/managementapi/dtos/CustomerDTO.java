@@ -15,4 +15,7 @@ public class CustomerDTO {
     private PersonalInfoDTO personalInfoDTO;
 
     private Boolean status;
+
+    @NotNull
+    private String sport;
 }

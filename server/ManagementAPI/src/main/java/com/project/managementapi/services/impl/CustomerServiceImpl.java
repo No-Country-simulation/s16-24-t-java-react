@@ -6,6 +6,7 @@ import com.project.managementapi.exceptions.ResourceNotFoundException;
 import com.project.managementapi.repositories.CustomerRepository;
 import com.project.managementapi.services.ICustomerService;
 import com.project.managementapi.utils.Mapper;
+import com.project.managementapi.utils.Sports;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class CustomerServiceImpl implements ICustomerService {
         Customer customer = customerRepository.save(Customer.builder()
                 .personalInfo(personalInfoService.createPersonalInfo(customerDTO.getPersonalInfoDTO()))
                 .status(true)
+                .sports(Sports.valueOf(customerDTO.getSport()))
                 .build());
 
         return Mapper.customerToDTO(customer);

@@ -63,6 +63,7 @@ public class Mapper {
         return CustomerDTO.builder()
                 .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
                 .status(customer.getStatus())
+                .sport(customer.getSports().name())
                 .build();
     }
 }
