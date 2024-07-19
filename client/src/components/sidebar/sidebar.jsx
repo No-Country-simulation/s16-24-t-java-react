@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -15,8 +17,8 @@ import ClassIcon from "@mui/icons-material/Class";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
+
 import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
-import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -128,36 +130,46 @@ function SideBar() {
 						</Box>
 						<List>
 							{/* Lista de elementos que se mantienen */}
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<HomeIcon />
-								</ListItemIcon>
-								<ListItemText primary={t("sidebar.home")} />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<GroupIcon />
-								</ListItemIcon>
-								<ListItemText primary={t("sidebar.staff")} />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<ClassIcon />
-								</ListItemIcon>
-								<ListItemText primary={t("sidebar.activities")} />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<BusinessCenterIcon />
-								</ListItemIcon>
-								<ListItemText primary={t("sidebar.headquarters")} />
-							</ListItem>
-							<ListItem button>
-								<ListItemIcon sx={{ color: "white" }}>
-									<HelpIcon />
-								</ListItemIcon>
-								<ListItemText primary={t("sidebar.technicalSupport")} />
-							</ListItem>
+							<Link to="/">
+								<ListItem button>
+									<ListItemIcon sx={{ color: "white" }}>
+										<HomeIcon />
+									</ListItemIcon>
+									<ListItemText primary={t("sidebar.home")} />
+								</ListItem>
+							</Link>
+							<Link to="/staff">
+								<ListItem button>
+									<ListItemIcon sx={{ color: "white" }}>
+										<GroupIcon />
+									</ListItemIcon>
+									<ListItemText primary={t("sidebar.staff")} />
+								</ListItem>
+							</Link>
+							<Link to="/activities">
+								<ListItem button>
+									<ListItemIcon sx={{ color: "white" }}>
+										<ClassIcon />
+									</ListItemIcon>
+									<ListItemText primary={t("sidebar.activities")} />
+								</ListItem>
+							</Link>
+							<Link to="/headquarters">
+								<ListItem button>
+									<ListItemIcon sx={{ color: "white" }}>
+										<BusinessCenterIcon />
+									</ListItemIcon>
+									<ListItemText primary={t("sidebar.headquarters")} />
+								</ListItem>
+							</Link>
+							<Link to="/technical-support">
+								<ListItem button>
+									<ListItemIcon sx={{ color: "white" }}>
+										<HelpIcon />
+									</ListItemIcon>
+									<ListItemText primary={t("sidebar.technicalSupport")} />
+								</ListItem>
+							</Link>
 						</List>
 						<div className="flex justify-center mt-40">
 							<img
