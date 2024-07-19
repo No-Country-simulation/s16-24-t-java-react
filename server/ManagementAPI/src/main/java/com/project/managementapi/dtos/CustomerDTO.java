@@ -14,6 +14,5 @@ public class CustomerDTO {
     @NotNull(message = "Personal info is mandatory")
     private PersonalInfoDTO personalInfoDTO;
 
-    @NotNull
     private Boolean status;
 }
