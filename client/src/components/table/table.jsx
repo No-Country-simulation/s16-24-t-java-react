@@ -391,7 +391,7 @@ function Table({ handleLogOut }) {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {users.map((user) => (
-              <TableRow user={user} key={user.dni} />
+              <TableRow user={user} key={user.dni} pathname={pathname}/>
             ))}
           </tbody>
         </table>
