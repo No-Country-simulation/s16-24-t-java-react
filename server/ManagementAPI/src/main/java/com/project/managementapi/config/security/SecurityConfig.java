@@ -34,11 +34,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authRequest ->
+                /*.authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/memberships/types").permitAll()
-                                .anyRequest().authenticated())
+                                .requestMatchers("/swagger-ui/index.html").permitAll()
+                                .requestMatchers("/v3/api-docs").permitAll()
+                                .anyRequest().authenticated())*/
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
