@@ -1,28 +1,32 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Table from "./components/table/table";
+import RutaPrueba from "./rutaprueba";
 
- export const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
     children: [
       {
         path: "/",
-        element: <Table/>
+        element: <Table />
       },
       {
         path: "/staff",
-        element: <Table/>
+        element: <Table />
       },
       {
-        path: "/activities"
+        path: "/activities",
+        element: <RutaPrueba />
       },
       {
-        path: "/headquarters"
+        path: "/headquarters",
+        element: <RutaPrueba />
       },
       {
-        path: "/technical-support"
+        path: "/technical-support",
+        element: <RutaPrueba />
       }
     ],
   }
