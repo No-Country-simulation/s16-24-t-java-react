@@ -27,7 +27,12 @@
 		"payment": "Fee",
 		"due_date": "Fee due date",
 		"days_from_due": "Days from due",
-		"created_at": "Phone number"
+		"created_at": "Start date",
+		"phone_number": "Phone number",
+		"email": "Email",
+		"status": "Status",
+		"role": "Role",
+		"address": "Address"
 	},
 	"filter": {
 		"all": "All",
