@@ -23,7 +23,7 @@ function Login({ setIsLoggedIn }) {
 			{ email: username, password: password },
 		)
 		console.log(data)
-		if (data) {
+		if (data.role) {
 			localStorage.setItem("sportify_jwt_access", data.token);
 			setIsLoggedIn(true);
 		} else {
