@@ -285,6 +285,18 @@ function Table({handleLogOut}) {
 
   const {t} = useTranslation();
 
+  const membersHeaders = [
+    'full_name',
+    'birth_date',
+    'id',
+    'sport',
+    'subscription',
+    'payment',
+    'due_date',
+    'days_from_due',
+    'created_at'
+  ];
+
   useEffect(() => {
     filterUsers();
   }, [search, mainFilter, selectedSubFilter]);
@@ -374,7 +386,7 @@ function Table({handleLogOut}) {
       </div>
       <div className="overflow-y-auto max-h-[800px]">
       <table className="w-full text-left text-sm text-gray-500 overflow-y-scroll px-10">
-        <TableHeader />
+        <TableHeader headers={membersHeaders}/>
         <tbody>
           {users.map((user) => (
             <TableRow user={user} key={user.dni} />
@@ -384,6 +396,7 @@ function Table({handleLogOut}) {
       </div>
       {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() =>setNewMember(false) } />}
     </>
+
 
   )
 }
