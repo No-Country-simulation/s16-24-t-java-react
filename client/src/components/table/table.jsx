@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from 'react'
+import { useEffect, useState, createContext, useContext } from 'react'
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
@@ -10,7 +10,6 @@ import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
 import UserDetail from "../modals/userDetail.jsx"
 import { usersContext } from './usersInfoContext.jsx'
-import * as React from "react"
 
 const MainFilter = [
   "sport",
@@ -48,10 +47,10 @@ function Table({handleLogOut}) {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
-  const { users, setUsers, chosenUser, setChosenUser, profile, setProfile } = React.useContext(usersContext)
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
-
+  const [profile, setProfile] = useState(false)
+  const {users, setUsers} = useContext(usersContext)
   const {t} = useTranslation();
 
   useEffect(() => {
@@ -131,12 +130,11 @@ function Table({handleLogOut}) {
     setNewMember(!newMember);
   };
 
-  /* const handleProfile = (userID, profile) => {
-    setChosenUser(userID)
-    console.log(chosenUser)
-    setProfile(true)
-    console.log(profile)
-  } */
+
+
+  const handleProfile = () => {
+    setProfile(!profile)
+  } 
 
   
 
@@ -155,14 +153,13 @@ function Table({handleLogOut}) {
         <TableHeader />
         <tbody>
           {users.map((user) => (
-            <TableRow user={user} key={user.dni} />
+            <TableRow handleClick={handleProfile} user={user} key={user.dni} />
           ))}
         </tbody>
       </table>
       </div>
       
-      {newMember && <CreateUser handleNewMember={handleNewMember}/>}
-      {profile && <UserDetail isOpen={profile} />}
+      {newMember && <UserDetail />}
     </>
 
   )

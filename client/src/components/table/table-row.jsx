@@ -1,19 +1,12 @@
-import * as React from "react"
-import { usersContext } from "./usersInfoContext"
-function TableRow ({user}) {
+import {useState} from "react"
+import UserDetail from "../modals/userDetail"
 
-const {profile, setProfile, chosenUser, setChosenUser} = React.useContext(usersContext)
+function TableRow ({user, handleClick}) {
 
-const handleProfile = (userID) => {
-  setChosenUser(userID)
-  console.log(chosenUser)
-  setProfile(!profile)
-  console.log(profile)
-}
 
   return (
-    <tr className="text-center [&>td]:py-4  [&>td]:border-b [&>td]:border-primary-0">
-      <td className="border-l cursor-pointer" onClick={() => handleProfile(user.dni)}>{user.nombreCompleto}</td>
+    <tr onClick={handleClick} className="text-center [&>td]:py-4  cursor-pointer [&>td]:border-b [&>td]:border-primary-0">
+      <td className="border-l">{user.nombreCompleto}</td>
       <td>{user.fechaNacimiento}</td>
       <td>{user.dni}</td>
       <td>{user.deporte}</td>
@@ -22,11 +15,15 @@ const handleProfile = (userID) => {
       <td>{user.fechaVencimientoCuota}</td>
       <td>{user.diasDesdeVencimiento}</td>
       <td className="border-r">{user.fechaAlta}</td>
+      <UserDetail />
     </tr>
   )
 }
 
 export default TableRow
+
+
+//
 
 // nombreCompleto: string;
 //     fechaNacimiento: string;

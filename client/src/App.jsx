@@ -9,7 +9,7 @@ import Login from "./components/login/login.jsx";
 axios.defaults.baseURL = "http://localhost:8080";
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	useEffect(() => {
 		// Verificar si hay una sesión almacenada en localStorage al cargar la aplicación
