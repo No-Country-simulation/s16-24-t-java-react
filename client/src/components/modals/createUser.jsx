@@ -182,14 +182,14 @@ const CreateUser = ({ closeCallback }) => {
 
 	const { t } = useTranslation();
 
-	const onSubmitActivity = (e) => {
-		e.preventDefault();
+	const submitActivity = async ({ }) => {
+		const { data } = await axios.post("", {
+
+		})
 	}
 
 	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
 		e.preventDefault();
-
-		console.log("Submit button!");
 		if (canSubmit == true) {
 			const { data } = await axios.post(
 				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
@@ -202,7 +202,7 @@ const CreateUser = ({ closeCallback }) => {
 						dni,
 						birthDate,
 						"address": {
-							"city": city.name,
+							"city": ciudades[city-1].name,
 							"postalCode": cp,
 							"street": address
 						}

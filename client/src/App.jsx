@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 import Login from "./components/login/login.jsx";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://sportify-xric.onrender.com";
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
