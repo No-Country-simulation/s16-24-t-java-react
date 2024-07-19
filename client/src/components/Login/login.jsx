@@ -4,8 +4,8 @@ import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
 
 function Login({ setIsLoggedIn }) {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("admin@sportify.com");
+	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
 
 	const handleUsernameChange = (e) => {
