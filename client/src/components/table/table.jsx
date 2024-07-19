@@ -286,7 +286,9 @@ function Table({ handleLogOut }) {
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
-
+  const [users, setUsers] = useState(Users)
+  const [profileModal, setProfileModal] = useState(false)
+  const [userID, setUserID] = useState(null)
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
@@ -375,6 +377,10 @@ function Table({ handleLogOut }) {
     setNewMember(!newMember);
   };
 
+  const handleProfileModal = () => {
+    setProfileModal(!profileModal)
+  }
+
 
   return (
 
@@ -392,12 +398,14 @@ function Table({ handleLogOut }) {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {users.map((user) => (
-              <TableRow user={user} key={user.dni} pathname={pathname}/>
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} user={user} key={user.dni} pathname={pathname}/>
             ))}
           </tbody>
         </table>
       </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
+      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
+      {profileModal && <UserDetail usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
+
     </>
 
   )
@@ -405,3 +413,4 @@ function Table({ handleLogOut }) {
 
 export default Table
 
+//CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}
