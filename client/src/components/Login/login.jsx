@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LoginContext } from "../../contexts/login-context.jsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
 
-function Login({ setIsLoggedIn }) {
+function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
+	const { handleLogin } = useContext(LoginContext);
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -24,8 +26,7 @@ function Login({ setIsLoggedIn }) {
 		)
 		console.log(data)
 		if (data.role) {
-			localStorage.setItem("sportify_jwt_access", data.token);
-			setIsLoggedIn(true);
+			handleLogin(data.token)
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 

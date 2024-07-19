@@ -277,7 +277,7 @@ const Users = [
   }
 ];
 
-function Table({ handleLogOut }) {
+function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
@@ -384,7 +384,7 @@ function Table({ handleLogOut }) {
         <Filter filters={subFilter} handleChange={handleSubFilter} />
         <NewMemberButton handleNewMember={handleNewMember} />
         <ReportButton />
-        <ProfileButton handleLogOut={handleLogOut} />
+        <ProfileButton />
       </div>
       <div className="overflow-y-auto max-h-[800px]">
         <table className="w-full text-sm text-gray-500 px-10">
