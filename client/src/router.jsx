@@ -10,11 +10,20 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Table />
+        element: <Table />,
+        children: [{
+          path: "/member/:id",
+          element: <RutaPrueba />
+        }]
       },
       {
         path: "/staff",
-        element: <Table />
+        element: <Table />,
+        children: [{
+          path: "/staff/:id",
+          element: <RutaPrueba />
+        }
+        ]
       },
       {
         path: "/activities",
