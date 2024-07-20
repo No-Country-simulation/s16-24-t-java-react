@@ -18,4 +18,7 @@ public class CustomerDTO {
 
     @NotNull
     private String sport;
+
+    @Valid
+    private MembershipDTO membershipDTO;
 }
