@@ -3,7 +3,7 @@ import { LoginContext } from "../../contexts/login-context.jsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
-import Logo from "../../../public/imagen/OIG21.jpeg";
+import Logo from "../../../public/image/OIG21.jpeg";
 
 function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
