@@ -17,6 +17,7 @@ import ClassIcon from "@mui/icons-material/Class";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
+import Logo from "../../../public/imagen/OIG21.jpeg";
 
 import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
 
@@ -74,7 +75,6 @@ function SideBar() {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-
 
 	const handleOutsideClick = (event) => {
 		if (open && event.target.closest(".MuiDrawer-root") === null) {
@@ -169,7 +169,7 @@ function SideBar() {
 						</List>
 						<div className="flex justify-center mt-40">
 							<img
-								src="src/assets/OIG21.jpeg"
+								src={Logo}
 								alt="Logo de la empresa"
 								className="h-20 rounded-full mt-4"
 							/>
