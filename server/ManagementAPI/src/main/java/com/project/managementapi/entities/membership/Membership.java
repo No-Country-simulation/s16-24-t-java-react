@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 @Getter
 @Setter
@@ -26,4 +27,19 @@ public class Membership {
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
+
+    @PrePersist
+    public void prePersist() {
+        this.startDate = LocalDate.now();
+        updateEndDate();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updateEndDate();
+    }
+
+    private void updateEndDate () {
+        this.endDate = startDate.plusMonths(1);
+    }
 }
