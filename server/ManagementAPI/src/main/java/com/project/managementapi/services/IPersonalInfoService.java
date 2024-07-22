@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IPersonalInfoService {
     PersonalInfo createPersonalInfo(PersonalInfoDTO dto);
+
+    void updatePersonalInfo(PersonalInfoDTO dto, Long personalInfoId);
 }

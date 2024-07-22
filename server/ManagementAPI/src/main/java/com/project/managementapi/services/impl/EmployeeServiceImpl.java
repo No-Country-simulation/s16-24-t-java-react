@@ -88,19 +88,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 
         Employee employee = empOpt.get();
-        if (!employee.getEStaff().equals(employeeDTO.getStaff())) {
+        if (!employee.getEStaff().equals(EStaff.valueOf(employeeDTO.getStaff()))) {
             throw new IllegalArgumentException("Cannot change staff role. Existing role: " + employee.getEStaff() + ", Provided role: " + employeeDTO.getStaff());
         }
-
         employee.setSalary(employeeDTO.getSalary());
-        employee.getPersonalInfo().setDni(employeeDTO.getPersonalInfo().getDni());
-        employee.getPersonalInfo().setFirstName(employeeDTO.getPersonalInfo().getFirstName());
-        employee.getPersonalInfo().setLastName(employeeDTO.getPersonalInfo().getLastName());
-        employee.getPersonalInfo().setPhoneNumber(employeeDTO.getPersonalInfo().getPhoneNumber());
-        employee.getPersonalInfo().setBirthDate(employeeDTO.getPersonalInfo().getBirthDate());
-        employee.getPersonalInfo().getAddress().setCity(employeeDTO.getPersonalInfo().getAddress().getCity());
-        employee.getPersonalInfo().getAddress().setStreet(employeeDTO.getPersonalInfo().getAddress().getStreet());
-        employee.getPersonalInfo().getAddress().setPostalCode(employeeDTO.getPersonalInfo().getAddress().getPostalCode());
+        this.personalInfoService.updatePersonalInfo(employeeDTO.getPersonalInfo(), employee.getPersonalInfo().getId());
         employeeRepository.save(employee);
     }
 
