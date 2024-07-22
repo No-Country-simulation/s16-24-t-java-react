@@ -43,8 +43,8 @@ function Calendar() {
   const { t } = useTranslation()
 
   useEffect((
-    
-  ) => { console.log(activities); }, [activities]);
+
+  ) => {}, [activities]);
 
   
 
