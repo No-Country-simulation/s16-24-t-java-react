@@ -13,7 +13,7 @@ function ForgetPassword({ handleCloseModal }) {
 	return (
 		<Modal>
 			<div className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 p-10" onClick={(e) => e.stopPropagation()} >
-				<div className="bg-white w-[800px] h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
+				<div className="bg-white w-[800px] min-h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
 					<button
 						className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
 						onClick={handleCloseModal}
