@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LoginContext } from "../../contexts/login-context.jsx";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
+import Logo from "../../../public/image/OIG21.jpeg";
 
-function Login({ setIsLoggedIn }) {
+function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
+	const { handleLogin, handleIsLogged } = useContext(LoginContext);
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -18,14 +21,13 @@ function Login({ setIsLoggedIn }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { data } = await axios.post(
-			"/auth/login",
-			{ email: username, password: password },
-		)
-		console.log(data)
+		handleLogin();
+		const { data } = await axios.post("/auth/login", {
+			email: username,
+			password: password,
+		});
 		if (data.role) {
-			localStorage.setItem("sportify_jwt_access", data.token);
-			setIsLoggedIn(true);
+			handleIsLogged(data.token);
 		} else {
 			console.log("Usuario o contraseña incorrectos");
 
@@ -49,11 +51,7 @@ function Login({ setIsLoggedIn }) {
 			<div className="max-w-md w-full bg-white shadow-md rounded-lg overflow-hidden md:flex">
 				{/* Imagen a la izquierda */}
 				<div className="md:w-1/2 px-6 py-8">
-					<img
-						src="src/assets/OIG21.jpeg"
-						alt="Logo de la empresa"
-						className="mx-auto h-30"
-					/>
+					<img src={Logo} alt="Logo de la empresa" className="mx-auto h-30" />
 					<h1 className="text-4xl font-bold text-center mt-8">SportiFy</h1>
 				</div>
 

@@ -1,37 +1,32 @@
-import Home from "../src/components/home/home.jsx"; // Importa el componente home
+import { useEffect, useContext } from "react";
+import { LoginContext } from "./contexts/login-context.jsx";
+
+import Home from "../src/components/home/home.jsx"; 
+import Login from "./components/login/login.jsx";
+import LoginSpinner from "./components/login/login-spinner.jsx";
+
 import axios from "axios";
 
-import { useState, useEffect } from "react";
 
-import Login from "./components/login/login.jsx";
 
 axios.defaults.baseURL = "https://sportify-xric.onrender.com";
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const { isLogged, handleIsLogged, isLogin } = useContext(LoginContext);
 
 	useEffect(() => {
 		// Verificar si hay una sesión almacenada en localStorage al cargar la aplicación
 		const loggedInStatus = localStorage.getItem("sportify_jwt_access");
 		if (loggedInStatus) {
-			setIsLoggedIn(true);
+			handleIsLogged(loggedInStatus);
 		}
-	}, []); // Solo se ejecuta una vez al montar el componente
-
-
-	const handleLogout = () => {
-		setIsLoggedIn(false);
-		// Limpiar estado de sesión en localStorage
-		localStorage.removeItem("sportify_jwt_access");
-	};
+	}, []);
 
 	return (
 		<div className="App min-h-dvh flex flex-col max-h-dvh">
-			{isLoggedIn ? (
-				<Home handleLogOut={handleLogout} />
-			) : (
-				<Login setIsLoggedIn={setIsLoggedIn} />
-			)}
+			{!isLogin && !isLogged && <Login />}
+			{isLogin && !isLogged && <LoginSpinner />}
+			{isLogged && <Home /> }
 		</div>
 	);
 }

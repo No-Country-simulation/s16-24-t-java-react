@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Table from "./components/table/table";
+import Calendar from "./components/activities/activities";
 import RutaPrueba from "./rutaprueba";
 import UserDetail from "./components/modals/userDetail";
 
@@ -20,15 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/staff",
         element: <Table />,
-        children: [{
-          path: "/staff/:id",
-          element: <RutaPrueba />
-        }
-        ]
       },
       {
         path: "/activities",
-        element: <RutaPrueba />
+        element: <Calendar/>
       },
       {
         path: "/headquarters",
