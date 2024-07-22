@@ -86,5 +86,15 @@
 		"activities": "Actividades",
 		"headquarters": "Mi sede",
 		"technicalSupport": "Soporte técnico"
+	},
+	"activities": {
+		"sunday": "Domingo",
+		"monday": "Lunes",
+		"tuesday": "Martes",
+		"wednesday": "Miercoles",
+		"thursday": "Jueves",
+		"friday": "Viernes",
+		"saturday": "Sabado",
+		"schedule": "Horario"
 	}
 }
