@@ -404,7 +404,7 @@ function Table({ handleLogOut }) {
         </table>
       </div>
       {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
-      {profileModal && <UserDetail usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
+      {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
 
     </>
 
