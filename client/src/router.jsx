@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Table from "./components/table/table";
+import Calendar from "./components/activities/activities";
 import RutaPrueba from "./rutaprueba";
 
 export const router = createBrowserRouter([
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/activities",
-        element: <RutaPrueba />
+        element: <Calendar/>
       },
       {
         path: "/headquarters",
