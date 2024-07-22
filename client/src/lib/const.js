@@ -30,7 +30,6 @@ export const StaffColumns = [
 ]
 
 export const DaysColumns = [
-  'schedule',
   'sunday',
   'monday',
   'tuesday',
