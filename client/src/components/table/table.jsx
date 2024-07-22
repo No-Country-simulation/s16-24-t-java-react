@@ -9,7 +9,7 @@ import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
 import { useOutletContext } from 'react-router-dom'
-import { PATHS, MembersColumns, StaffColumns } from '../../lib/const.js'
+import { PATHS, MembersColumns, StaffColumns, DaysColumns } from '../../lib/const.js'
 
 const MainFilter = [
   "sport",
@@ -277,11 +277,27 @@ const Users = [
   }
 ];
 
+const Staff = [
+  {
+    full_name: "Pablo Soto",
+    dni: '112313',
+    status: "active",
+    email: "pablo@pablo",
+    phone_number: "123456789",
+    role: "admin",
+    adress: "calle falsa 123",
+    created_at: "2022-11-22"
+  }
+]
+
+
+
 function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
-  const [users, setUsers] = useState(Users);
+  const [tableData, setTableData] = useState(Users);
+  const [initialTableData, setInitialTableData] = useState(Users);
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
@@ -292,48 +308,63 @@ function Table() {
 
 
   useEffect(() => {
+
+    // console.log("pathname", pathname);
+    // console.log(tableData);
+    // console.log('initial', initialTableData);
+
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
+      setTableData(Users);
+      setInitialTableData(Users);
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
+      setTableData(Staff);
+      setInitialTableData(Staff);
     }
-    filterUsers();
-  }, [search, mainFilter, selectedSubFilter, pathname]);
+    if (pathname === PATHS.ACTIVITIES) {
+      setTableHeaderInfo(DaysColumns)
+      setTableData(Staff);
+      setInitialTableData(Staff);
+    }
 
-  const filterUsers = () => {
-    let usersToFilter = [...Users];
+    filterData();
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData]);
+
+  const filterData = () => {
+    let dataToFilter = [...initialTableData];
 
     if (mainFilter === "sport") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        usersToFilter = usersToFilter.filter((user) => user.deporte === t(`filter.${selectedSubFilter}`))
+        dataToFilter = dataToFilter.filter((data) => data.deporte === t(`filter.${selectedSubFilter}`))
       } else {
-        usersToFilter = [...Users];
+        dataToFilter = [...initialTableData];
       }
     }
 
     if (mainFilter === "subscription") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        usersToFilter = usersToFilter.filter((user) => (user.tipoMembresia === t(`filter.${selectedSubFilter}`).toLowerCase()));
+        dataToFilter = dataToFilter.filter((data) => (data.tipoMembresia === t(`filter.${selectedSubFilter}`).toLowerCase()));
       } else {
-        usersToFilter = [...Users];
+        dataToFilter = [...initialTableData];
       }
     }
 
     if (mainFilter === "payment") {
-      if (selectedSubFilter && selectedSubFilter !== "Todos") {
-        usersToFilter = usersToFilter.filter((user) => user.tipoCuota === t(`filter.${selectedSubFilter}`).toLowerCase());
+      if (selectedSubFilter && selectedSubFilter !== "all") {
+        dataToFilter = dataToFilter.filter((data) => data.tipoCuota === t(`filter.${selectedSubFilter}`).toLowerCase());
       } else {
-        usersToFilter = [...Users];
+        dataToFilter = [...initialTableData];
       }
     }
 
     if (search) {
-      usersToFilter = usersToFilter.filter((user) =>
-        user.dni.includes(search)
+      dataToFilter = dataToFilter.filter((data) =>
+        data.dni.includes(search)
       );
     }
-    setUsers(usersToFilter);
+    setTableData(dataToFilter);
   };
 
   const handleSearch = (e) => {
@@ -342,7 +373,7 @@ function Table() {
 
   const handleChangeMainFilter = (e) => {
     if (e.target.value === "all") {
-      setUsers(Users);
+      setTableData(initialTableData);
       setSubFilter([]);
     }
     if (e.target.value === "sport") {
@@ -365,7 +396,7 @@ function Table() {
   const handleSubFilter = (e) => {
     if (e.target.value === "all") {
       setSelectedSubFilter(null)
-      setUsers(Users);
+      setTableData(initialTableData);
     }
     setSelectedSubFilter(e.target.value);
   };
@@ -390,8 +421,8 @@ function Table() {
         <table className="w-full text-sm text-gray-500 px-10">
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
-            {users.map((user) => (
-              <TableRow user={user} key={user.dni} pathname={pathname}/>
+            {tableData.map((data) => (
+              <TableRow data={data} key={data.dni} />
             ))}
           </tbody>
         </table>

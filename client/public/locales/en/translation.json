@@ -83,5 +83,15 @@
 		"activities": "Activities",
 		"headquarters": "My Headquarters",
 		"technicalSupport": "Technical Support"
+	},
+	"activities": {
+		"sunday": "Sunday",
+		"monday": "Monday",
+		"tuesday": "Tuesday",
+		"wednesday": "Wednesday",
+		"thursday": "Thursday",
+		"friday": "Friday",
+		"saturday": "Saturday",
+		"schedule": "Schedule"
 	}
 }
