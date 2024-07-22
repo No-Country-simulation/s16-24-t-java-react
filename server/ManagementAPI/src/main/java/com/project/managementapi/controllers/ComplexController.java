@@ -64,4 +64,25 @@ public class ComplexController {
                 .build(), HttpStatus.OK);
     }
 
+    // =====================================================================
+    //                              PUT
+    // =====================================================================
+
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    public ResponseEntity<SuccessResponse> updateComplex(@Valid @RequestBody ComplexDTO complexDTO, BindingResult bindingResult) throws BadRequestException {
+
+        if(bindingResult.hasErrors()) throw new BadRequestException(bindingResult.getFieldError().getDefaultMessage());
+
+
+        this.complexService.updateComplex(complexDTO);
+
+        return new ResponseEntity<>(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .message("Successful request.")
+                .object(complexDTO)
+                .url(url+"/findAll")
+                .build(), HttpStatus.OK);
+    }
 }

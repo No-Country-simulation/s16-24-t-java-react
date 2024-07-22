@@ -21,7 +21,7 @@ public class Employee {
     private Double salary;
     private EStaff eStaff;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "personal_info_id")
     private PersonalInfo personalInfo;
 
