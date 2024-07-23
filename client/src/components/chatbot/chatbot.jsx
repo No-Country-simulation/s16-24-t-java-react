@@ -31,7 +31,7 @@ function Chatbot() {
 			{chatbotOpen && (
 				<div
 					ref={chatbotRef}
-					className="fixed bottom-16 right-4 max-w-xs max-h-[60vh] overflow-y-auto bg-white rounded-lg p-4 shadow-lg"
+					className="fixed bottom-16 right-4 max-w-xl max-h-[60vh] overflow-y-auto bg-white rounded-lg p-4 shadow-lg"
 				>
 					<ChatbotChat />
 				</div>
