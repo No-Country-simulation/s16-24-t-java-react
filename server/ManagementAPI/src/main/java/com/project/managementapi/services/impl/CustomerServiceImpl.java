@@ -42,22 +42,15 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public void updateCustomer(CustomerDTO customer) {
-        Optional<Customer> customerOptional = customerRepository.findByPersonalInfoDni(customer.getPersonalInfoDTO().getDni());
+    public void updateCustomer(CustomerDTO customerDTO) {
+        Optional<Customer> customerOptional = customerRepository.findByPersonalInfoDni(customerDTO.getPersonalInfoDTO().getDni());
         if (customerOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Customer with DNI: " + customer.getPersonalInfoDTO().getDni() + " not found");
+            throw new ResourceNotFoundException("Customer with DNI: " + customerDTO.getPersonalInfoDTO().getDni() + " not found");
         }
 
         Customer customerToUpdate = customerOptional.get();
-        customerToUpdate.getPersonalInfo().setDni(customer.getPersonalInfoDTO().getDni());
-        customerToUpdate.getPersonalInfo().setFirstName(customer.getPersonalInfoDTO().getFirstName());
-        customerToUpdate.getPersonalInfo().setLastName(customer.getPersonalInfoDTO().getLastName());
-        customerToUpdate.getPersonalInfo().setPhoneNumber(customer.getPersonalInfoDTO().getPhoneNumber());
-        customerToUpdate.getPersonalInfo().setBirthDate(customer.getPersonalInfoDTO().getBirthDate());
-        customerToUpdate.getPersonalInfo().getAddress().setCity(customer.getPersonalInfoDTO().getAddress().getCity());
-        customerToUpdate.getPersonalInfo().getAddress().setStreet(customer.getPersonalInfoDTO().getAddress().getStreet());
-        customerToUpdate.getPersonalInfo().getAddress().setPostalCode(customer.getPersonalInfoDTO().getAddress().getPostalCode());
-
+        personalInfoService.updatePersonalInfo(customerDTO.getPersonalInfoDTO(), customerToUpdate.getPersonalInfo().getId());
+        membershipService.updateMembership(customerToUpdate, customerDTO.getMembershipDTO());
         customerRepository.save(customerToUpdate);
     }
 
