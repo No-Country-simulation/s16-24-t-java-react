@@ -10,7 +10,7 @@ function ProfileButton({handleLogOut}) {
   }
   return (
     <div className="relative">
-      <button onClick={handleClick} className="bg-primary-0 text-secondary-0 p-2 rounded-full">
+      <button onClick={handleClick} className="bg-primary-70 p-3 border-tertiary-0 rounded-full text-primary-0">
         <Icon iconName="profile" />
       </button>
       {isClicked && <ProfileMenu handleClick={handleClick} handleLogOut={handleLogOut}/>}
