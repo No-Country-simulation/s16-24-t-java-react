@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { LoginContext } from "../../contexts/login-context.jsx";
+import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import axios from "axios";
 import ForgetPassword from "../modals/forget-password.jsx";
@@ -10,6 +11,8 @@ function Login() {
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
 	const { handleLogin, handleIsLogged } = useContext(LoginContext);
+
+	const { t } = useTranslation();
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -47,89 +50,82 @@ function Login() {
 	};
 
 	return (
-		<div className="flex items-center justify-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-md w-full bg-white shadow-md rounded-lg overflow-hidden md:flex">
+		<div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-20 to-secondary-50 font-nunito">
+			<div className="bg-slate-50/10 backdrop-blur-xl h-full shadow-2xl items-center shadow-black/30 rounded-lg flex p-8 gap-10">
 				{/* Imagen a la izquierda */}
-				<div className="md:w-1/2 px-6 py-8">
-					<img src={Logo} alt="Logo de la empresa" className="mx-auto h-30" />
-					<h1 className="text-4xl font-bold text-center mt-8">SportiFy</h1>
+				<div className="w-full flex flex-col gap-5 items-center">
+					<img src={Logo} alt="Logo de la empresa" className="w-auto aspect-auto h-72" />
+					<h1 className="text-4xl font-bold text-primary-0">SportiFy</h1>
 				</div>
-
 				{/* Formulario a la derecha */}
-				<div className="md:w-1/2 p-6">
-					<form className="space-y-6" onSubmit={handleSubmit}>
-						<input type="hidden" name="remember" value="true" />
-						<div className="rounded-md shadow-sm -space-y-px">
-							<div>
-								<label htmlFor="username" className="sr-only">
-									Username
-								</label>
-								<input
-									id="username"
-									name="username"
-									type="text"
-									autoComplete="username"
-									required
-									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-									placeholder="Username"
-									value={username}
-									onChange={handleUsernameChange}
-								/>
-							</div>
-							<div>
-								<label htmlFor="password" className="sr-only">
-									Password
-								</label>
-								<input
-									id="password"
-									name="password"
-									type="password"
-									autoComplete="current-password"
-									required
-									className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-									placeholder="Password"
-									value={password}
-									onChange={handlePasswordChange}
-								/>
-							</div>
-						</div>
 
-						<div className="flex items-center justify-between">
+				<form className="w-full px-10 flex-col flex gap-6 text-primary-0 font-semibold h-full justify-center" onSubmit={handleSubmit}>
+					<div>
+						<label htmlFor="username" className="sr-only">
+							Username
+						</label>
+						<input
+							id="username"
+							name="username"
+							type="text"
+							autoComplete="username"
+							required
+							className="min-w-96 px-6 py-2 rounded-lg shadow-inner shadow-black/40 "
+							placeholder="Username"
+							value={username}
+							onChange={handleUsernameChange}
+						/>
+					</div>
+					<div>
+						<label htmlFor="password" className="sr-only">
+							Password
+						</label>
+						<input
+							id="password"
+							name="password"
+							type="password"
+							autoComplete="current-password"
+							required
+							className="min-w-96 px-6 py-2 rounded-lg shadow-inner shadow-black/40"
+							placeholder="Password"
+							value={password}
+							onChange={handlePasswordChange}
+						/>
+					</div>
+					<div className="flex flex-col gap-4">
+						<button
+							onClick={handleForgetPasswordClick}
+							className="text-sm text-primary-20 font-semibold hover:text-primary-0"
+						>
+							{t('login.forget_password')}
+						</button>
+						<div className="flex gap-8">
 							<div className="flex items-center">
 								<input
 									id="remember_me"
 									name="remember_me"
 									type="checkbox"
-									className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+									className="h-4 w-4 accent-primary-30 border-primary-40"
 								/>
 								<label
 									htmlFor="remember_me"
-									className="ml-2 block text-sm text-gray-900"
+									className="ml-2 block text-sm text-primary-0"
 								>
-									Recuérdame
+									{t('login.remember_me')}
 								</label>
 							</div>
-
-							<div className="text-sm">
-								<button
-									type="submit"
-									className="w-full flex justify-center py-2 px-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-								>
-									Log In
-								</button>
-							</div>
+							<button
+								type="submit"
+								className="w-full py-2 rounded-2xl shadow-md shadow-primary-0  font-semibold text-primary-0 bg-white hover:text-white hover:bg-primary-20 active:shadow-none"
+							>
+								{t('login.login')}
+							</button>
 						</div>
-					</form>
 
-					{/* Botón de Recuperar contraseña */}
-					<button
-						onClick={handleForgetPasswordClick}
-						className="mt-4 text-sm text-indigo-600 hover:text-indigo-700 focus:outline-none"
-					>
-						¿Olvidaste tu contraseña?
-					</button>
-				</div>
+					</div>
+				</form>
 			</div>
+
 
 			{/* Modal de recuperación de contraseña */}
 			{showForgetPasswordModal && (
