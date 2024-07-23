@@ -19,49 +19,49 @@ export default {
     extend: {
       colors: {
         'primary': {
-          0: "#210A4D",
-          10: "#330F77",
-          20: "#4515A0",
-          30: "#561ACA",
-          40: "#6D2FE4",
-          50: "#8A59E9",
-          60: "#A782EF",
-          70: "#C5ACF4",
-          80: "#E2D5FA"
+          0: "var(--color-0)",
+          10: "var(--color-1)",
+          20: "var(--color-2)",
+          30: "var(--color-3)",
+          40: "var(--color-4)",
+          50: "var(--color-5)",
+          60: "var(--color-6)",
+          70: "var(--color-7)",
+          80: "var(--color-8)"
         },
         'secondary': {
-          0: "#A4EDAD",
-          10: "#AEEFB6",
-          20: "#B8F1BF",
-          30: "#C2F3C8",
-          40: "#CCF5D1",
-          50: "#D7F7DB",
-          60: "#E1F9E4",
-          70: "#EBFBED",
-          80: "#F5FDF6"
+          0: "var(--color-9)",
+          10: "var(--color-10)",
+          20: "var(--color-11)",
+          30: "var(--color-12)",
+          40: "var(--color-13)",
+          50: "var(--color-14)",
+          60: "var(--color-15)",
+          70: "var(--color-16)",
+          80: "var(--color-17)"
         },
         'secondarydark': {
-          0:"#040B0B",
-          10: "#081716",
-          20: "#0B2221",
-          30: "#0F2D2C",
-          40: "#133936",
-          50: "#174441",
-          60: "#1A4F4C",
-          70: "#1E5B57",
-          80: "#226662"
+          0:"var(--color-18)",
+          10: "var(--color-19)",
+          20: "var(--color-20)",
+          30: "var(--color-21)",
+          40: "var(--color-22)",
+          50: "var(--color-23)",
+          60: "var(--color-24)",
+          70: "var(--color-25)",
+          80: "var(--color-26)"
 
         },
         'tertiary': {
-          0: "#EAD8FD",
-          10: "#ECDCFD",
-          20: "#EFE1FD",
-          30: "#F1E5FE",
-          40: "#F3E9FE",
-          50: "#F6EEFE",
-          60: "#F8F2FE",
-          70: "#FAF6FF",
-          80: "#FDFBFF"
+          0: "var(--color-27)",
+          10: "var(--color-28)",
+          20: "var(--color-29)",
+          30: "var(--color-30)",
+          40: "var(--color-31)",
+          50: "var(--color-32)",
+          60: "var(--color-33)",
+          70: "var(--color-34)",
+          80: "var(--color-35)"
         }
       },
     }

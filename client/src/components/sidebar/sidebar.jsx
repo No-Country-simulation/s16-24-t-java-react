@@ -94,7 +94,7 @@ function SideBar() {
 		<Box sx={{ display: "flex" }}>
 			<Drawer variant="permanent" open={open}>
 				<div
-					className="bg-gray-800 text-white h-screen"
+					className="bg-primary-0 text-white h-dvh"
 					style={{ width: drawerWidth }}
 				>
 					<div className="py-20 px-1">

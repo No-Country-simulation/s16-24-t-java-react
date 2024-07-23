@@ -12,7 +12,6 @@ export const MembersColumns = [
   'id',
   'sport',
   'subscription',
-  'payment',
   'due_date',
   'days_from_due',
   'phone_number',
