@@ -10,7 +10,7 @@ import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
 import { useOutletContext } from 'react-router-dom'
 import UserDetail from "../modals/userDetail.jsx"
-import { PATHS, MembersColumns, StaffColumns, DaysColumns } from '../../lib/const.js'
+import { PATHS, MembersColumns, StaffColumns } from '../../lib/const.js'
 
 const MainFilter = [
   "sport",
@@ -397,77 +397,42 @@ const Staff = [
 ]
 
 
-class usuarioParaTabla {
-  constructor(nombreCompleto, fechaNacimiento, dni, deporte, tipoMembresia, tipoCuota, fechaVencimientoCuota, diasDesdeVencimiento, fechaAlta) {
-    this.nombreCompleto = nombreCompleto;
-    this.fechaNacimiento = fechaNacimiento;
-    this.dni = dni;
-    this.deporte = deporte;
-    this.tipoMembresia = tipoMembresia;
-    this.tipoCuota = tipoCuota;
-    this.fechaVencimientoCuota = fechaVencimientoCuota;
-    this.diasDesdeVencimiento = diasDesdeVencimiento;
-    this.fechaAlta = fechaAlta;
-  }
-}
 
-var usuariosTabla = []
 
 
 function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
-  const [tableData, setTableData] = useState(usuariosTabla);
-  const [initialTableData, setInitialTableData] = useState(usuariosTabla);
+  const [tableData, setTableData] = useState(Users);
+  const [initialTableData, setInitialTableData] = useState(Users);
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
-  const [users, setUsers] = useState(Users)
   const [profileModal, setProfileModal] = useState(false)
   const [userID, setUserID] = useState(null)
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
-  
+
   useEffect(() => {
-    Users.map(user => {
-      // Crea una nueva instancia de la clase usuarioParaTabla para cada usuario
-      let mapeado = new usuarioParaTabla(
-        user.nombreCompleto,
-        user.fechaNacimiento,
-        user.dni,
-        user.deporte,
-        user.tipoMembresia,
-        user.tipoCuota,
-        user.fechaVencimientoCuota,
-        user.diasDesdeVencimiento,
-        user.fechaAlta
-      );
-    
-      // Agrega la instancia creada al arreglo usuariosTabla
-      usuariosTabla.push(mapeado);
-    });
-  
-    
+
+    filterData();
 
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
-      setTableData(usuariosTabla);
-      setInitialTableData(usuariosTabla);
+      setTableData(Users);
+      setInitialTableData(Users);
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
       setTableData(Staff);
       setInitialTableData(Staff);
     }
-    if (pathname === PATHS.ACTIVITIES) {
-      setTableHeaderInfo(DaysColumns)
-      setTableData(Staff);
-      setInitialTableData(Staff);
+    if (pathname === PATHS.HEADQUARTERS) {
+      console.log("headquarters");
     }
 
-    filterData();
   }, [search, mainFilter, selectedSubFilter, pathname]);
 
   const filterData = () => {
@@ -569,7 +534,7 @@ function Table() {
           </tbody>
         </table>
       </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
+      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
       {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
     </>
   )
