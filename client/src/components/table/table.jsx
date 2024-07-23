@@ -431,9 +431,6 @@ function Table() {
 
   
   useEffect(() => {
-
-    console.log(tableData);
-
     Users.map(user => {
       // Crea una nueva instancia de la clase usuarioParaTabla para cada usuario
       let mapeado = new usuarioParaTabla(
@@ -471,8 +468,6 @@ function Table() {
     }
 
     filterData();
-    console.log(tableData);
-
   }, [search, mainFilter, selectedSubFilter, pathname]);
 
   const filterData = () => {
@@ -576,9 +571,7 @@ function Table() {
       </div>
       {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
       {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
-
     </>
-
   )
 }
 
