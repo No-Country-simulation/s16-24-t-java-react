@@ -1,6 +1,8 @@
 {
 	"login": {
-		"saludo": "Hola, Mundo!"
+		"login": "Iniciar Sesión",
+		"forget_password": "¿Olvidaste tu contraseña?",
+		"remember_me": "Recordarme"
 	},
 	"createUserModal": {
 		"nombrecompleto": "Nombre completo:",
