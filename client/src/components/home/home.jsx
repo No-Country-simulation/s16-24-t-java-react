@@ -2,6 +2,7 @@ import Sidebar from "../sidebar/sidebar.jsx";
 import Footer from "../footer/footer.jsx";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import Chatbot from "../chatbot/chatbot.jsx";
 
 function Home() {
 
@@ -14,6 +15,7 @@ function Home() {
 					<Outlet context={pathname}/>
 				</main>
 			</div>
+			<Chatbot />
 			<Footer />
 		</>
 	);
