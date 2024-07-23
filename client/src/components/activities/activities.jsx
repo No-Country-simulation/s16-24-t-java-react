@@ -9,27 +9,30 @@ import { getHourIndex } from "../../lib/helpers";
 
 const Activities = [
   {
-    name: "Futbol",
+    activity_name: "Futbol",
     start_time: "10:00",
     end_time: "12:00",
     code: "1234",
     day_of_week: 3,
+    color: "#CCF5D1"
   },
   {
-    name: "Basket",
+    activity_name: "Basket",
     start_time: "14:00",
     end_time: "15:00",
     code: "2413",
     day_of_week: 2,
-    coach: "Chubut"
+    coach: "Chubut",
+    color: "#CCF5D1"
   },
   {
-    name: "Volleyball",
+    activity_name: "Volleyball",
     start_time: "16:00",
     end_time: "18:00",
     code: "1234",
     day_of_week: 5,
-    coach: "Cordoba"
+    coach: "Cordoba",
+    color: "#CCF5D1"
   },
 ];
 
@@ -44,9 +47,9 @@ function Calendar() {
 
   useEffect((
 
-  ) => {}, [activities]);
+  ) => { }, [activities]);
 
-  
+
 
   const handleAddModal = () => {
     setShowAddActivityModal(!showAddActivityModal);
@@ -54,16 +57,15 @@ function Calendar() {
 
   return (
     <section className="h-full w-full">
-
       <div>
-        <button onClick={handleAddModal} className="bg-secondary-10 text-primary-0 p-3"><Icon iconName="plus" /></button>
+
       </div>
       <table className="w-full">
-        <thead>
+        <thead >
           <tr className="bg-tertiary-0">
-            <th>{t('activities.schedule')}</th>
+            <th className=" text-center relative"> <button onClick={handleAddModal} className="absolute top-0 left-0 bg-secondary-10 text-primary-0 p-2 mr-5"><Icon iconName="plus" width={24}/></button>{t('activities.schedule')} </th>
             {DaysColumns.map((day, index) => (
-              <th className="py-2" key={index}>{t(`activities.${day}`)}</th>
+              <th className="py-2 w-[calc(100%/8)]" key={index}>{t(`activities.${day}`)}</th>
             ))}
           </tr>
         </thead>
@@ -81,11 +83,11 @@ function Calendar() {
 
                 return (
                   <td
-                    className={`${activity ? "bg-secondary-20" : "bg-gray-100"
-                      } py-2 text-center`}
+                  style={{ backgroundColor: activity ? activity.color : "silver" }}
+                    className= "py-2 text-center"
                     key={colIndex}
                   >
-                    {activity ? activity.name : ""}
+                    {activity ? activity.activity_name : ""}
                   </td>
                 );
               })}
