@@ -417,7 +417,9 @@ function Table() {
 
   useEffect(() => {
 
-    filterData();
+    console.log("pathname", pathname);
+    console.log("initialTableData", initialTableData);
+    console.log("tableData", tableData);
 
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
@@ -426,14 +428,14 @@ function Table() {
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
-      setTableData(Staff);
       setInitialTableData(Staff);
+      setTableData(Staff);
     }
     if (pathname === PATHS.HEADQUARTERS) {
       console.log("headquarters");
     }
-
-  }, [search, mainFilter, selectedSubFilter, pathname]);
+    filterData();
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
