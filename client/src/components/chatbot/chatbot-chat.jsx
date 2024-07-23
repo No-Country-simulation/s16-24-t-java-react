@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Logo from "../../../public/image/OIG21.jpeg";
 
 const ChatbotChat = () => {
 	const [messages, setMessages] = useState([]);
 	const [inputText, setInputText] = useState("");
+
+	// Función para mostrar el mensaje de bienvenida al cargar el componente
+	useEffect(() => {
+		setMessages([
+			{
+				text: "¡Hola! Soy Sportify Chatbot. ¿En qué puedo ayudarte?. Escribe la palabra inicio",
+				sender: "bot",
+			},
+		]);
+	}, []);
 
 	const handleInputChange = (e) => {
 		setInputText(e.target.value);
@@ -15,9 +26,9 @@ const ChatbotChat = () => {
 		let botResponse = "";
 
 		// Lógica de respuestas del bot
-		if (userMessage === "hola") {
+		if (userMessage === "inicio") {
 			botResponse =
-				"¡Hola! ¿En qué puedo ayudarte? Recuerda que la información que te puedo brindar es sobre membresías. ¿En qué tipo de membresía estás interesado?, escribe la palabra membresia para poder recibir informacion";
+				"Recuerda que la información que te puedo brindar es sobre membresías. ¿En qué tipo de membresía estás interesado?, escribe la palabra membresia para poder recibir informacion";
 		} else if (userMessage === "adios") {
 			botResponse = "¡Adiós! Espero haberte ayudado.";
 		} else if (userMessage.includes("membresia")) {
@@ -47,7 +58,7 @@ const ChatbotChat = () => {
 			};
 		} else {
 			botResponse =
-				"Lo siento, en ese tema no puedo asesorarte dirigite al soporte tecnico que se encuentra en la barra vertical derecha.";
+				"Lo siento, en ese tema no puedo asesorarte. Por favor, contacta al soporte técnico que se encuentra en la barra vertical derecha.";
 		}
 
 		setMessages([
@@ -71,6 +82,10 @@ const ChatbotChat = () => {
 
 	return (
 		<div className="flex flex-col h-full w-full">
+			<div className="flex items-center mb-4">
+				<img src={Logo} alt="Sportify Logo" className="w-12 h-12 mr-2" />
+				<h1 className="text-2xl font-bold">Sportify Chatbot</h1>
+			</div>
 			<div className="flex-grow p-4 bg-gray-100 overflow-y-auto">
 				{messages.map((message, index) => (
 					<div
