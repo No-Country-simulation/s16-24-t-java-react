@@ -9,6 +9,7 @@ import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
 import CreateUser from '../modals/createUser.jsx'
 import { useOutletContext } from 'react-router-dom'
+import UserDetail from "../modals/userDetail.jsx"
 import { PATHS, MembersColumns, StaffColumns, DaysColumns } from '../../lib/const.js'
 
 const MainFilter = [
@@ -53,7 +54,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-01",
     diasDesdeVencimiento: 11,
-    fechaAlta: "2022-01-15"
+    fechaAlta: "2022-01-15",
+    correoElectronico: "juan.perez@example.com",
+    ciudad: "Buenos Aires",
+    direccion: "Calle Falsa 123",
+    CP: "1000",
+    telefono: "123456789"
   },
   {
     nombreCompleto: "María García",
@@ -64,7 +70,12 @@ const Users = [
     tipoCuota: "anual",
     fechaVencimientoCuota: "2024-06-30",
     diasDesdeVencimiento: 12,
-    fechaAlta: "2021-05-10"
+    fechaAlta: "2021-05-10",
+    correoElectronico: "maria.garcia@example.com",
+    ciudad: "Rosario",
+    direccion: "Avenida Siempre Viva 742",
+    CP: "2000",
+    telefono: "987654321"
   },
   {
     nombreCompleto: "Carlos López",
@@ -75,7 +86,12 @@ const Users = [
     tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-01-01",
     diasDesdeVencimiento: 193,
-    fechaAlta: "2019-11-20"
+    fechaAlta: "2019-11-20",
+    correoElectronico: "carlos.lopez@example.com",
+    ciudad: "Córdoba",
+    direccion: "Calle Siempreviva 123",
+    CP: "5000",
+    telefono: "234567890"
   },
   {
     nombreCompleto: "Ana Martínez",
@@ -86,7 +102,12 @@ const Users = [
     tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-05-01",
     diasDesdeVencimiento: 72,
-    fechaAlta: "2020-08-30"
+    fechaAlta: "2020-08-30",
+    correoElectronico: "ana.martinez@example.com",
+    ciudad: "Mendoza",
+    direccion: "Avenida Principal 456",
+    CP: "5500",
+    telefono: "345678901"
   },
   {
     nombreCompleto: "Luis Fernández",
@@ -97,7 +118,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-06-15",
     diasDesdeVencimiento: 27,
-    fechaAlta: "2022-03-25"
+    fechaAlta: "2022-03-25",
+    correoElectronico: "luis.fernandez@example.com",
+    ciudad: "Salta",
+    direccion: "Calle Nueva 789",
+    CP: "4400",
+    telefono: "456789012"
   },
   {
     nombreCompleto: "Laura Gómez",
@@ -108,7 +134,12 @@ const Users = [
     tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-04-15",
     diasDesdeVencimiento: 88,
-    fechaAlta: "2021-09-12"
+    fechaAlta: "2021-09-12",
+    correoElectronico: "laura.gomez@example.com",
+    ciudad: "San Juan",
+    direccion: "Pasaje Escondido 321",
+    CP: "5400",
+    telefono: "567890123"
   },
   {
     nombreCompleto: "Sofía Rodríguez",
@@ -119,7 +150,12 @@ const Users = [
     tipoCuota: "anual",
     fechaVencimientoCuota: "2024-02-28",
     diasDesdeVencimiento: 135,
-    fechaAlta: "2018-06-05"
+    fechaAlta: "2018-06-05",
+    correoElectronico: "sofia.rodriguez@example.com",
+    ciudad: "La Plata",
+    direccion: "Boulevard Grande 654",
+    CP: "1900",
+    telefono: "678901234"
   },
   {
     nombreCompleto: "Miguel Silva",
@@ -130,7 +166,12 @@ const Users = [
     tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-05-30",
     diasDesdeVencimiento: 43,
-    fechaAlta: "2021-11-17"
+    fechaAlta: "2021-11-17",
+    correoElectronico: "miguel.silva@example.com",
+    ciudad: "Tucumán",
+    direccion: "Calle Pequeña 987",
+    CP: "4000",
+    telefono: "789012345"
   },
   {
     nombreCompleto: "Elena Torres",
@@ -141,7 +182,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-05",
     diasDesdeVencimiento: 7,
-    fechaAlta: "2023-04-14"
+    fechaAlta: "2023-04-14",
+    correoElectronico: "elena.torres@example.com",
+    ciudad: "Neuquén",
+    direccion: "Avenida Central 111",
+    CP: "8300",
+    telefono: "890123456"
   },
   {
     nombreCompleto: "Diego Sánchez",
@@ -152,7 +198,12 @@ const Users = [
     tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-03-15",
     diasDesdeVencimiento: 110,
-    fechaAlta: "2020-12-01"
+    fechaAlta: "2020-12-01",
+    correoElectronico: "diego.sanchez@example.com",
+    ciudad: "Mar del Plata",
+    direccion: "Calle Sur 222",
+    CP: "7600",
+    telefono: "901234567"
   },
   {
     nombreCompleto: "Fernando Ruiz",
@@ -163,7 +214,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-10",
     diasDesdeVencimiento: 2,
-    fechaAlta: "2023-03-12"
+    fechaAlta: "2023-03-12",
+    correoElectronico: "fernando.ruiz@example.com",
+    ciudad: "San Luis",
+    direccion: "Calle Oeste 333",
+    CP: "5700",
+    telefono: "112233445"
   },
   {
     nombreCompleto: "Lucía Vázquez",
@@ -174,7 +230,12 @@ const Users = [
     tipoCuota: "anual",
     fechaVencimientoCuota: "2024-12-31",
     diasDesdeVencimiento: -172,
-    fechaAlta: "2020-07-23"
+    fechaAlta: "2020-07-23",
+    correoElectronico: "lucia.vazquez@example.com",
+    ciudad: "Bariloche",
+    direccion: "Calle Norte 444",
+    CP: "8400",
+    telefono: "223344556"
   },
   {
     nombreCompleto: "Hugo Delgado",
@@ -185,7 +246,12 @@ const Users = [
     tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-10-01",
     diasDesdeVencimiento: -91,
-    fechaAlta: "2017-09-10"
+    fechaAlta: "2017-09-10",
+    correoElectronico: "hugo.delgado@example.com",
+    ciudad: "Jujuy",
+    direccion: "Calle Este 555",
+    CP: "4600",
+    telefono: "334455667"
   },
   {
     nombreCompleto: "Clara Morales",
@@ -196,7 +262,12 @@ const Users = [
     tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-08-01",
     diasDesdeVencimiento: -20,
-    fechaAlta: "2021-02-14"
+    fechaAlta: "2021-02-14",
+    correoElectronico: "clara.morales@example.com",
+    ciudad: "Ushuaia",
+    direccion: "Avenida Final 666",
+    CP: "9410",
+    telefono: "445566778"
   },
   {
     nombreCompleto: "Emilio Castillo",
@@ -207,7 +278,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-15",
     diasDesdeVencimiento: -3,
-    fechaAlta: "2022-05-18"
+    fechaAlta: "2022-05-18",
+    correoElectronico: "emilio.castillo@example.com",
+    ciudad: "San Rafael",
+    direccion: "Calle Media 777",
+    CP: "5600",
+    telefono: "556677889"
   },
   {
     nombreCompleto: "Valeria Rojas",
@@ -218,7 +294,12 @@ const Users = [
     tipoCuota: "anual",
     fechaVencimientoCuota: "2024-09-30",
     diasDesdeVencimiento: -92,
-    fechaAlta: "2019-12-05"
+    fechaAlta: "2019-12-05",
+    correoElectronico: "valeria.rojas@example.com",
+    ciudad: "Catamarca",
+    direccion: "Calle Corta 888",
+    CP: "4700",
+    telefono: "667788990"
   },
   {
     nombreCompleto: "Javier Ortiz",
@@ -229,7 +310,12 @@ const Users = [
     tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-11-01",
     diasDesdeVencimiento: -60,
-    fechaAlta: "2016-04-07"
+    fechaAlta: "2016-04-07",
+    correoElectronico: "javier.ortiz@example.com",
+    ciudad: "Corrientes",
+    direccion: "Calle Larga 999",
+    CP: "3400",
+    telefono: "778899001"
   },
   {
     nombreCompleto: "Alejandra Mendoza",
@@ -240,7 +326,12 @@ const Users = [
     tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-07-20",
     diasDesdeVencimiento: -8,
-    fechaAlta: "2022-11-22"
+    fechaAlta: "2022-11-22",
+    correoElectronico: "alejandra.mendoza@example.com",
+    ciudad: "Posadas",
+    direccion: "Avenida Lejana 1000",
+    CP: "3300",
+    telefono: "889900112"
   },
   {
     nombreCompleto: "Pablo Soto",
@@ -251,7 +342,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-03",
     diasDesdeVencimiento: 9,
-    fechaAlta: "2021-08-27"
+    fechaAlta: "2021-08-27",
+    correoElectronico: "pablo.soto@example.com",
+    ciudad: "Santa Fe",
+    direccion: "Boulevard Central 1234",
+    CP: "3000",
+    telefono: "990011223"
   },
   {
     nombreCompleto: "Andrea Gil",
@@ -262,7 +358,12 @@ const Users = [
     tipoCuota: "anual",
     fechaVencimientoCuota: "2024-12-01",
     diasDesdeVencimiento: -142,
-    fechaAlta: "2018-05-21"
+    fechaAlta: "2018-05-21",
+    correoElectronico: "andrea.gil@example.com",
+    ciudad: "Trelew",
+    direccion: "Calle Solitaria 12345",
+    CP: "9100",
+    telefono: "111122224"
   },
   {
     nombreCompleto: "Manuel Herrera",
@@ -273,7 +374,12 @@ const Users = [
     tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-06-25",
     diasDesdeVencimiento: 17,
-    fechaAlta: "2023-01-30"
+    fechaAlta: "2023-01-30",
+    correoElectronico: "manuel.herrera@example.com",
+    ciudad: "Bahía Blanca",
+    direccion: "Calle Vecina 123456",
+    CP: "8000",
+    telefono: "222233334"
   }
 ];
 
@@ -291,32 +397,67 @@ const Staff = [
 ]
 
 
+class usuarioParaTabla {
+  constructor(nombreCompleto, fechaNacimiento, dni, deporte, tipoMembresia, tipoCuota, fechaVencimientoCuota, diasDesdeVencimiento, fechaAlta) {
+    this.nombreCompleto = nombreCompleto;
+    this.fechaNacimiento = fechaNacimiento;
+    this.dni = dni;
+    this.deporte = deporte;
+    this.tipoMembresia = tipoMembresia;
+    this.tipoCuota = tipoCuota;
+    this.fechaVencimientoCuota = fechaVencimientoCuota;
+    this.diasDesdeVencimiento = diasDesdeVencimiento;
+    this.fechaAlta = fechaAlta;
+  }
+}
+
+var usuariosTabla = []
+
 
 function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
-  const [tableData, setTableData] = useState(Users);
-  const [initialTableData, setInitialTableData] = useState(Users);
+  const [tableData, setTableData] = useState(usuariosTabla);
+  const [initialTableData, setInitialTableData] = useState(usuariosTabla);
   const [search, setSearch] = useState("");
   const [newMember, setNewMember] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
-
+  const [users, setUsers] = useState(Users)
+  const [profileModal, setProfileModal] = useState(false)
+  const [userID, setUserID] = useState(null)
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
-
-
+  
   useEffect(() => {
 
-    // console.log("pathname", pathname);
-    // console.log(tableData);
-    // console.log('initial', initialTableData);
+    console.log(tableData);
+
+    Users.map(user => {
+      // Crea una nueva instancia de la clase usuarioParaTabla para cada usuario
+      let mapeado = new usuarioParaTabla(
+        user.nombreCompleto,
+        user.fechaNacimiento,
+        user.dni,
+        user.deporte,
+        user.tipoMembresia,
+        user.tipoCuota,
+        user.fechaVencimientoCuota,
+        user.diasDesdeVencimiento,
+        user.fechaAlta
+      );
+    
+      // Agrega la instancia creada al arreglo usuariosTabla
+      usuariosTabla.push(mapeado);
+    });
+  
+    
 
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
-      setTableData(Users);
-      setInitialTableData(Users);
+      setTableData(usuariosTabla);
+      setInitialTableData(usuariosTabla);
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
@@ -330,7 +471,9 @@ function Table() {
     }
 
     filterData();
-  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData]);
+    console.log(tableData);
+
+  }, [search, mainFilter, selectedSubFilter, pathname]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
@@ -405,6 +548,10 @@ function Table() {
     setNewMember(!newMember);
   };
 
+  const handleProfileModal = () => {
+    setProfileModal(!profileModal)
+  }
+
 
   return (
 
@@ -422,12 +569,14 @@ function Table() {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow data={data} key={data.dni} />
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
             ))}
           </tbody>
         </table>
       </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
+      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
+      {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
+
     </>
 
   )

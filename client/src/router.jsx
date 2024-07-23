@@ -3,6 +3,7 @@ import App from "./App";
 import Table from "./components/table/table";
 import Calendar from "./components/activities/activities";
 import RutaPrueba from "./rutaprueba";
+import UserDetail from "./components/modals/userDetail";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Table />,
+        children: [{
+          path: "/member/:id",
+          element: <UserDetail />
+        }]
       },
       {
         path: "/staff",
