@@ -9,6 +9,8 @@ import com.project.managementapi.services.IMembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MembershipServiceImpl implements IMembershipService {
 
@@ -21,5 +23,12 @@ public class MembershipServiceImpl implements IMembershipService {
                 .membershipType(EMembershipType.valueOf(membershipDto.getMembershipType()))
                 .customer(customer)
                 .build());
+    }
+
+    @Override
+    public void updateMembership(Customer customer, MembershipDTO membershipDTO) {
+        Membership membershipToUpdate = membershipRepository.findByCustomer(customer);
+        membershipToUpdate.setMembershipType(EMembershipType.valueOf(membershipDTO.getMembershipType()));
+        membershipRepository.save(membershipToUpdate);
     }
 }

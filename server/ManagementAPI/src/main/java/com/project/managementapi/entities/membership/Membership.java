@@ -36,6 +36,7 @@ public class Membership {
 
     @PreUpdate
     public void preUpdate() {
+        this.startDate = LocalDate.now();
         updateEndDate();
     }
 
