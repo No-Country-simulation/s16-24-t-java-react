@@ -19,7 +19,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
 import Logo from "../../../public/image/OIG21.jpeg";
 
-import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
+import CreateUser from "../modals/create-user.jsx"; // Ajusta la ruta según la estructura de tu proyecto
 
 const drawerWidth = 240;
 
