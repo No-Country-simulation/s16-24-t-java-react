@@ -22,7 +22,7 @@ const Chatbot = () => {
 		} else if (userMessage === "adios") {
 			botResponse = "¡Adiós! Espero haberte ayudado.";
 		} else if (userMessage.includes("membresia")) {
-			botResponse = "las membresias existentes son : GOLD , BLACK, PLATINUM";
+			botResponse = "las membresias existentes son : Gold , Black, Platinum";
 		} else {
 			botResponse = "Lo siento, no entendí tu mensaje.";
 		}
