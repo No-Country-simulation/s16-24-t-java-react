@@ -61,11 +61,11 @@
 		"gold": "Gold",
 		"platinum": "Platinum"
 	},
-	"profileMenu":{
+	"profileMenu": {
 		"logout": "Cerrar sesión",
 		"settings": "Configuraciones"
 	},
-	"settings":{
+	"settings": {
 		"profile_title": "Perfil",
 		"notifications_title": "Notificaciones",
 		"system_title": "Sistema",
@@ -86,5 +86,39 @@
 		"activities": "Actividades",
 		"headquarters": "Mi sede",
 		"technicalSupport": "Soporte técnico"
+	},
+	"activities": {
+		"sunday": "Domingo",
+		"monday": "Lunes",
+		"tuesday": "Martes",
+		"wednesday": "Miercoles",
+		"thursday": "Jueves",
+		"friday": "Viernes",
+		"saturday": "Sabado",
+		"schedule": "Horario"
+	},
+	"select": {
+		"title": "Añadir una actividad",
+		"sunday": "Domingo",
+		"monday": "Lunes",
+		"tuesday": "Martes",
+		"wednesday": "Miercoles",
+		"thursday": "Jueves",
+		"friday": "Viernes",
+		"saturday": "Sabado",
+		"add": "Añadir",
+		"activity_name": "Nombre de la Actividad",
+		"start_time": "Hora de inicio",
+		"end_time": "Hora de finalización",
+		"day_of_week": "Dia de la semana",
+		"activity": "Actividad",
+		"choose_time": "Seleccionar horario",
+		"choose_day": "Seleccionar dia",
+		"errors": {
+			"too_small": "Es requerido",
+			"too_big": "Es demasiado grande, máximo 30 caracteres",
+			"invalid_type": "Es requerido",
+			"invalid_times": "No puede ser mayor o coincidir con la hora final"
+		}
 	}
 }
