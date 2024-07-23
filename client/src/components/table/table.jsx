@@ -551,7 +551,7 @@ function Table() {
   return (
 
     <>
-      <div className="flex gap-32 w-full py-4 justify-around">
+      <div className="flex gap-32 w-full py-4 justify-around bg-primary-0 px-4">
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
@@ -560,7 +560,7 @@ function Table() {
         <ProfileButton />
       </div>
       <div className="overflow-y-auto max-h-[800px]">
-        <table className="w-full text-sm text-gray-500 px-10">
+        <table className="w-full text-primary-0 font-bold px-10">
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
