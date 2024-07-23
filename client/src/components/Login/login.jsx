@@ -93,12 +93,12 @@ function Login() {
 						/>
 					</div>
 					<div className="flex flex-col gap-4">
-						<button
+						<a
 							onClick={handleForgetPasswordClick}
-							className="text-sm text-primary-20 font-semibold hover:text-primary-0"
+							className="text-sm text-primary-20 font-semibold hover:text-primary-0 block text-end"
 						>
 							{t('login.forget_password')}
-						</button>
+						</a>
 						<div className="flex gap-8">
 							<div className="flex items-center">
 								<input
@@ -125,8 +125,6 @@ function Login() {
 					</div>
 				</form>
 			</div>
-
-
 			{/* Modal de recuperación de contraseña */}
 			{showForgetPasswordModal && (
 				<ForgetPassword handleCloseModal={handleForgetPasswordClick} />
