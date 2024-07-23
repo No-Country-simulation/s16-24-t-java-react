@@ -10,11 +10,12 @@ import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
-function AddActivity({ handleAddModal, setActivities, activities }) {
+function AddActivity({ handleAddModal, setActivities, activities}) {
   const [activityName, setActivityName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [dayOfWeek, setDayOfWeek] = useState(undefined);
+  const [bgColor, setBgColor] = useState("#CCF5D1");
   const [errors, setErrors] = useState([]);
 
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ function AddActivity({ handleAddModal, setActivities, activities }) {
       start_time: startTime,
       end_time: endTime,
       day_of_week: dayOfWeek,
+      color: bgColor
     }
 
     try {
@@ -81,6 +83,10 @@ function AddActivity({ handleAddModal, setActivities, activities }) {
     }
   };
 
+  const handleBgColor = (e) => {
+    setBgColor(e.target.value);
+  };
+
   return (
     <Modal>
       <div className="relative flex bg-gray-100 w-[800px] min-h-[450px] rounded-xl shadow-2xl flex-col p-10  items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
@@ -89,7 +95,11 @@ function AddActivity({ handleAddModal, setActivities, activities }) {
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-4 [&>div>label]:font-bold">
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
             <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="activity_name">{t("select.activity_name")}</label>
-            <input className="col-span-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="activity_name" placeholder={t("select.activity")} />
+            <div className="w-full flex items-center col-span-1">
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="activity_name" placeholder={t("select.activity")} />
+              <input className="w-10 h-full" type="color" value={bgColor} onChange={handleBgColor} name="color" />
+            </div>
+
           </div>
           <Select htmlFor={"start_time"} id={"start_time"} label={t("select.start_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
           <Select htmlFor={"end_time"} id={"end_time"} label={t("select.end_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
