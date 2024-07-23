@@ -34,7 +34,8 @@
 		"react-router-dom": "^6.24.1",
 		"styled-components": "^6.1.11",
 		"sweetalert2": "^11.12.2",
-		"validator": "^13.12.0"
+		"validator": "^13.12.0",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@types/react": "^18.3.3",

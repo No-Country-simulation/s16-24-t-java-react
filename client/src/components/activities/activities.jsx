@@ -1,47 +1,71 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next"
+
+import Icon from "../accesories/icon"
+
 import { DaysColumns, Hours } from "../../lib/const"
-const Activities = [{
-  nombre: "Futbol",
-  horario_inicio: "10:00",
-  horario_fin: "12:00",
-  codigo: "1234",
-  dia_de_la_semana: 3,
-},
-{
-  nombre: "Basket",
-  horario_inicio: "14:00",
-  horario_fin: "15:00",
-  codigo: "2413",
-  dia_de_la_semana: 2,
-},
-{
-  nombre : "Voleibol",
-  horario_inicio: "16:00",
-  horario_fin: "18:00",
-  codigo: "1234",
-  dia_de_la_semana: 5,
-}
-]
+import AddActivity from "../modals/add-activity";
+import { getHourIndex } from "../../lib/helpers";
+
+const Activities = [
+  {
+    activity_name: "Futbol",
+    start_time: "10:00",
+    end_time: "12:00",
+    code: "1234",
+    day_of_week: 3,
+    color: "#CCF5D1"
+  },
+  {
+    activity_name: "Basket",
+    start_time: "14:00",
+    end_time: "15:00",
+    code: "2413",
+    day_of_week: 2,
+    coach: "Chubut",
+    color: "#CCF5D1"
+  },
+  {
+    activity_name: "Volleyball",
+    start_time: "16:00",
+    end_time: "18:00",
+    code: "1234",
+    day_of_week: 5,
+    coach: "Cordoba",
+    color: "#CCF5D1"
+  },
+];
 
 
 
 function Calendar() {
-  
-  const {t} = useTranslation()
+  const [activities, setActivities] = useState(Activities);
+  const [showAddActivityModal, setShowAddActivityModal] = useState(false);
 
-  const getHourIndex = (time) => {
-    const [hour] = time.split(":").map(Number);
-    return hour;
+
+  const { t } = useTranslation()
+
+  useEffect((
+
+  ) => { }, [activities]);
+
+
+
+  const handleAddModal = () => {
+    setShowAddActivityModal(!showAddActivityModal);
   };
 
   return (
     <section className="h-full w-full">
+      <div>
+
+      </div>
       <table className="w-full">
-        <thead>
+        <thead >
           <tr className="bg-tertiary-0">
-            <th>{t('activities.schedule')}</th>
+            <th className=" text-center relative"> <button onClick={handleAddModal} className="absolute top-0 left-0 bg-secondary-10 text-primary-0 p-2 mr-5"><Icon iconName="plus" width={24}/></button>{t('activities.schedule')} </th>
             {DaysColumns.map((day, index) => (
-              <th className="py-2"  key={index}>{t(`activities.${day}`)}</th>
+              <th className="py-2 w-[calc(100%/8)]" key={index}>{t(`activities.${day}`)}</th>
             ))}
           </tr>
         </thead>
@@ -50,21 +74,20 @@ function Calendar() {
             <tr key={rowIndex}>
               <td className="bg-primary-60 text-center py-2">{hour}</td>
               {DaysColumns.map((_, colIndex) => {
-                const activity = Activities.find(
+                const activity = activities.find(
                   (activity) =>
-                    activity.dia_de_la_semana === colIndex + 1 &&
-                    getHourIndex(activity.horario_inicio) <= rowIndex &&
-                    getHourIndex(activity.horario_fin) > rowIndex
+                    activity.day_of_week === colIndex + 1 &&
+                    getHourIndex(activity.start_time) <= rowIndex &&
+                    getHourIndex(activity.end_time) > rowIndex
                 );
 
                 return (
                   <td
-                    className={`${
-                      activity ? "bg-secondary-20" : "bg-gray-100"
-                    } py-2 text-center`}
+                  style={{ backgroundColor: activity ? activity.color : "silver" }}
+                    className= "py-2 text-center"
                     key={colIndex}
                   >
-                    {activity ? activity.nombre : ""}
+                    {activity ? activity.activity_name : ""}
                   </td>
                 );
               })}
@@ -72,6 +95,7 @@ function Calendar() {
           ))}
         </tbody>
       </table>
+      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} setActivities={setActivities} activities={activities} />}
     </section>
   )
 }
