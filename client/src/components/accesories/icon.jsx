@@ -1,4 +1,4 @@
-function Icon({ width = 32, height = width, fill = 'currentColor', iconName, className }) {
+function Icon({ width = 32, height = width, fill = 'currentColor', iconName, className, stroke }) {
 
   const ICONS = {
     magnifyingGlass: {
@@ -40,12 +40,19 @@ function Icon({ width = 32, height = width, fill = 'currentColor', iconName, cla
     plus: {
       path: `<path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>`,
       viewBox: '0 0 256 256',
+    },
+    bot: {
+      path: `<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 15v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />`,
+      viewBox: '0 0 24 24',
+    },
+    arrow_down: {
+      path: `<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />`,
+      viewBox: '0 0 24 24',
     }
-
   }
 
   return (
-    <svg className={className} width={width} height={height} fill={fill} viewBox={ICONS[iconName].viewBox}>
+    <svg className={className} width={width} height={height} fill={fill} viewBox={ICONS[iconName].viewBox} stroke={stroke}>
       <g dangerouslySetInnerHTML={{ __html: `${ICONS[iconName].path}` }} />
     </svg>
   )
