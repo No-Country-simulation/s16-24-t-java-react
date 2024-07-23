@@ -45,7 +45,7 @@ const ChatbotChat = () => {
 							} mb-2`}
 					>
 						<div
-							className={`rounded-lg p-2 ${message.sender === "bot" ? "bg-blue-200" : "bg-green-200"
+							className={`rounded-lg p-2 ${message.sender === "bot" ? "bg-tertiary-20" : "bg-primary-70"
 								}`}
 						>
 							{message.text}
@@ -63,7 +63,7 @@ const ChatbotChat = () => {
 				/>
 				<button
 					type="submit"
-					className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-2"
+					className="bg-primary-20 hover:bg-primary-0 text-white rounded-lg p-2"
 				>
 					Enviar
 				</button>
