@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import { LoginContext } from "./contexts/login-context.jsx";
 import Home from "../src/components/home/home.jsx";
 import Login from "./components/login/login.jsx";
@@ -10,14 +10,29 @@ axios.defaults.baseURL = "https://sportify-xric.onrender.com";
 
 function App() {
 	const { isLogged, handleIsLogged, isLogin } = useContext(LoginContext);
-	const [chatbotOpen, setChatbotOpen] = useState(false); // Estado para controlar si el Chatbot está abierto o cerrado
+	const [chatbotOpen, setChatbotOpen] = useState(false);
+	const chatbotRef = useRef(null); // Ref para el contenedor del Chatbot
 
 	useEffect(() => {
 		const loggedInStatus = localStorage.getItem("sportify_jwt_access");
 		if (loggedInStatus) {
 			handleIsLogged(loggedInStatus);
 		}
+
+		// Agregar el event listener para detectar clics fuera del chatbot
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
 	}, []);
+
+	// Función para manejar clics fuera del chatbot
+	const handleClickOutside = (event) => {
+		if (chatbotRef.current && !chatbotRef.current.contains(event.target)) {
+			setChatbotOpen(false);
+		}
+	};
 
 	const toggleChatbot = () => {
 		setChatbotOpen(!chatbotOpen);
@@ -31,7 +46,6 @@ function App() {
 				{isLogged && <Home />}
 			</div>
 
-			{/* Botón del Chatbot */}
 			<button
 				className="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
 				onClick={toggleChatbot}
@@ -75,12 +89,13 @@ function App() {
 				)}
 			</button>
 
-			{/* Contenedor del Chatbot */}
 			{chatbotOpen && (
-				<div className="fixed bottom-16 right-4 max-w-xs bg-white rounded-lg p-4 shadow-lg">
-					<div className="overflow-y-auto max-h-100">
-						<Chatbot />
-					</div>
+				<div
+					ref={chatbotRef}
+					className="fixed bottom-16 right-4 max-w-xs max-h-96 overflow-y-auto bg-white rounded-lg p-4 shadow-lg"
+					style={{ maxHeight: "60vh" }}
+				>
+					<Chatbot />
 				</div>
 			)}
 		</div>
