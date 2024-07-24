@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/headquarters",
-        element: <RutaPrueba />
+        element: <Table />
       },
       {
         path: "/technical-support",
