@@ -21,7 +21,6 @@ const Activities = [
 		end_time: "15:00",
 		code: "2413",
 		day_of_week: 2,
-		coach: "Chubut",
 		color: "#CCF5D1",
 	},
 	{
@@ -30,7 +29,6 @@ const Activities = [
 		end_time: "18:00",
 		code: "1234",
 		day_of_week: 5,
-		coach: "Cordoba",
 		color: "#CCF5D1",
 	},
 ];
@@ -46,79 +44,44 @@ function Calendar() {
 	};
 
 	return (
-		<section className="h-full w-full p-4">
-			<table className="w-full border-collapse border border-gray-300">
-				<thead className="bg-primary-0 text-white">
-					<tr>
-						<th className="py-2 text-center relative">
-							<button
-								onClick={handleAddModal}
-								className="absolute top-0 left-0 bg-primary-30 text-white text-primary-0 p-3 mr-2 rounded-lg"
-							>
-								<Icon iconName="plus" width={24} />
-							</button>
-							{t("activities.schedule")}
-						</th>
-						{DaysColumns.map((day, index) => (
-							<th key={index} className="py-2 text-center">
-								{t(`activities.${day}`)}
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{Hours.map((hour, rowIndex) => (
-						<tr key={rowIndex}>
-							<td className="bg-gray-100 font-semibold text-center py-2">
-								{hour}
-							</td>
-							{DaysColumns.map((_, colIndex) => {
-								const activity = activities.find(
-									(activity) =>
-										activity.day_of_week === colIndex + 1 &&
-										getHourIndex(activity.start_time) <= rowIndex &&
-										getHourIndex(activity.end_time) > rowIndex,
-								);
+		<section className="h-full w-full">
+      <table className="w-full border-2 border-primary-0">
+        <thead >
+          <tr className="bg-primary-0 text-white">
+            <th className=" text-center relative"> <button onClick={handleAddModal} className="absolute top-0 left-0 bg-primary-30 text-white text-primary-0 p-3 mr-5"><Icon iconName="plus" width={24}/></button>{t('activities.schedule')} </th>
+            {DaysColumns.map((day, index) => (
+              <th className="py-3 w-[calc(100%/8)]" key={index}>{t(`activities.${day}`)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {Hours.map((hour, rowIndex) => (
+            <tr key={rowIndex}>
+              <td className="bg-tertiary-10 font-semibold text-center py-2">{hour}</td>
+              {DaysColumns.map((_, colIndex) => {
+                const activity = activities.find(
+                  (activity) =>
+                    activity.day_of_week === colIndex + 1 &&
+                    getHourIndex(activity.start_time) <= rowIndex &&
+                    getHourIndex(activity.end_time) > rowIndex
+                );
 
-								return (
-									<td
-										key={colIndex}
-										className="py-2 text-center border border-gray-300"
-										style={{
-											backgroundColor: activity
-												? activity.color
-												: "transparent",
-										}}
-									>
-										{activity ? (
-											<div className="text-sm text-gray-800">
-												<span className="font-semibold">
-													{activity.activity_name}
-												</span>
-												{activity.coach && (
-													<span className="block text-xs">
-														{activity.coach}
-													</span>
-												)}
-											</div>
-										) : (
-											""
-										)}
-									</td>
-								);
-							})}
-						</tr>
-					))}
-				</tbody>
-			</table>
-			{showAddActivityModal && (
-				<AddActivity
-					handleAddModal={handleAddModal}
-					setActivities={setActivities}
-					activities={activities}
-				/>
-			)}
-		</section>
+                return (
+                  <td
+                  style={{ backgroundColor: activity ? activity.color : "transparent" }}
+                    className= "py-2 text-center"
+                    key={colIndex}
+                  >
+                    {activity ? activity.activity_name : ""}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} setActivities={setActivities} activities={activities} />}
+    </section>
 	);
 }
 
