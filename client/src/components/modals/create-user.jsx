@@ -378,7 +378,7 @@ const CreateUser = ({ closeCallback }) => {
 				</form>
 			</div>
 			<div
-				className="hidden relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl"
+				className="hidden relative inset-0 justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl"
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
