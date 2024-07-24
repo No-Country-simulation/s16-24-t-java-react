@@ -5,11 +5,11 @@ export const ComplexContext = createContext(null);
 
 export const ComplexProvider = ({ children }) => {
  
-  const { complexes } = useGetComplex();
+  const { complexes, error, handleRefresh } = useGetComplex();
   console.log("contextcomplex",complexes);
   
   return (
-    <ComplexContext.Provider value={{ complexes }}>
+    <ComplexContext.Provider value={{ complexes, handleRefresh, error }}>
       {children}
     </ComplexContext.Provider>
   );
