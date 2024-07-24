@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import Icon from "../accesories/icon";
 import Modal from "./modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { ComplexContext } from "../../contexts/complex-context";
 
 function CreateComplex({ handleCreateModal }) {
   const [title, setTitle] = useState("");
@@ -15,6 +16,7 @@ function CreateComplex({ handleCreateModal }) {
   const [errors, setErrors] = useState([]);
 
   const { t } = useTranslation();
+  const { handleRefresh } = useContext(ComplexContext);
 
   const handleChange = (e) => {
     if (e.target.name === "title") {
@@ -41,7 +43,7 @@ function CreateComplex({ handleCreateModal }) {
       cuit,
       apertureDate,
       phoneNumber,
-      adress: {
+      address: {
         city,
         postalCode,
         street
@@ -55,7 +57,10 @@ function CreateComplex({ handleCreateModal }) {
           "Content-Type": "Application/json"
         }
       });
-      console.log(data);
+      if(data) {
+        handleRefresh();
+        handleCreateModal();
+      }
     } catch (error) {
       console.log(error);
     }

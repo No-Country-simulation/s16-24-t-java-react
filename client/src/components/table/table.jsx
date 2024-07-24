@@ -16,6 +16,7 @@ import CreateComplex from '../modals/create-complex.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
 
 import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
+import { flattenObject } from '../../lib/helpers.js'
 
 const MainFilter = [
   "sport",
@@ -401,12 +402,6 @@ const Staff = [
   }
 ]
 
-
-
-
-
-
-
 function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
@@ -531,7 +526,7 @@ function Table() {
     } else if (pathname === PATHS.STAFF) {
       return (<CreateEmployee handleCreateModal={handleCreateModal} />)
     } else {
-      return <CreateUser handleCreateModal={handleCreateModal} />
+      return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
     }
   }
 
@@ -551,7 +546,7 @@ function Table() {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={flattenObject(data)} key={data.dni} />
             ))}
           </tbody>
         </table>

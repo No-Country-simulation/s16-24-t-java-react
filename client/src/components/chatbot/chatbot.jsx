@@ -12,6 +12,14 @@ function Chatbot() {
 
 	return (
 		<>
+			{chatbotOpen ? (
+				<div className="absolute top-0 left-0 w-screen h-screen" onClick={(e) => {
+					e.stopPropagation();
+					setChatbotOpen(false)
+				}}/>
+				) : undefined
+			}
+
 			<button
 				className="fixed bottom-4 right-4 bg-primary-40 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
 				onClick={toggleChatbot}

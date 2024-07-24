@@ -11,3 +11,16 @@ export const capitalize = (str) => {
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 };
+
+export const flattenObject = (obj) => {
+  const result = {};
+
+  Object.keys(obj).forEach(key => {
+    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+      result[key] = Object.values(obj[key]).join(', ');
+    } else {
+      result[key] = obj[key];
+    }
+  });
+  return result;
+};

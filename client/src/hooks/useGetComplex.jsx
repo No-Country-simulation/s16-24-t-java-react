@@ -7,6 +7,7 @@ import { LoginContext } from "../contexts/login-context";
 const useGetComplexes = () => {
   const [complexes, setComplexes] = useState([]);
   const [error, setError] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const { isLogged } = useContext(LoginContext);
 
   useEffect(() => {
@@ -26,9 +27,13 @@ const useGetComplexes = () => {
     }
 
     GetAllComplexes()
-  }, [isLogged]);
+  }, [isLogged, refresh]);
 
-  return { complexes, error }
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  }
+
+  return { complexes, error, handleRefresh }
 }
 
 export default useGetComplexes
