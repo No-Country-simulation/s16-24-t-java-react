@@ -24,7 +24,7 @@ function ProfileButton({ handleLogOut }) {
 			) : undefined}
 			<button
 				onClick={handleClick}
-				className="bg-primary-70 p-3 border-tertiary-0 rounded-full text-primary-0 z-10"
+				className="bg-primary-70 p-3 border-tertiary-0 rounded-full text-primary-0 z-0"
 			>
 				<Icon iconName="profile" />
 			</button>
