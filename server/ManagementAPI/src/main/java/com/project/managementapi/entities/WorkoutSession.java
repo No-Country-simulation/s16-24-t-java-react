@@ -4,31 +4,26 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-@Getter
 @Setter
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "attendances")
-public class Attendance {
+@Table(name = "workout_sessions")
+public class WorkoutSession {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDate date;
-    private LocalTime time;
+    private String startTime;
+    private String endTime;
+    private String activityName;
+    private Integer dayOfWeek;
+    private String color;
 
     @ManyToOne()
     @JoinColumn(name = "complex_id")
     @JsonBackReference
     private Complex complex;
-
-    @ManyToOne()
-    @JoinColumn(name = "customer_id")
-    @JsonBackReference
-    private Customer customer;
 }
