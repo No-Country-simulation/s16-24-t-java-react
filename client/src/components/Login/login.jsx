@@ -10,7 +10,7 @@ function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
-	const { handleLogin, handleIsLogged } = useContext(LoginContext);
+	const { handleLogin, handleIsLogged, setUser } = useContext(LoginContext);
 
 	const { t } = useTranslation();
 
@@ -30,6 +30,7 @@ function Login() {
 			password: password,
 		});
 		if (data.role) {
+			setUser({username: data.username, role: data.role});
 			handleIsLogged(data.token);
 		} else {
 			console.log("Usuario o contraseña incorrectos");
