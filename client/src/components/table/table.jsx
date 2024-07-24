@@ -535,11 +535,11 @@ function Table() {
 
   const choseCreteModal = (pathname) => {
     if (pathname === PATHS.HEADQUARTERS) {
-      return (<CreateComplex handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />)
+      return (<CreateComplex handleCreateModal={handleCreateModal} />)
     } else if (pathname === PATHS.STAFF) {
-      return (<CreateEmployee handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />)
+      return (<CreateEmployee handleCreateModal={handleCreateModal} />)
     } else {
-      return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
+      return <CreateUser handleCreateModal={handleCreateModal} />
     }
   }
 
