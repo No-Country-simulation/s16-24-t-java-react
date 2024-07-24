@@ -14,13 +14,16 @@ import '@fontsource-variable/assistant';
 import "./lib/i18n";
 import I18nWrapper from "./lib/i18nWrapper.jsx";
 import { LoginProvider } from "./contexts/login-context.jsx";
+import { ComplexProvider } from "./contexts/complex-context.jsx";
 
 const root = createRoot(document.getElementById("root"))
 
 root.render(
 	<I18nWrapper>
 		<LoginProvider>
-			<RouterProvider router={router} />
+			<ComplexProvider>
+				<RouterProvider router={router} />
+			</ComplexProvider>
 		</LoginProvider>
 	</I18nWrapper>
 );
