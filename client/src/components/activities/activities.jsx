@@ -5,39 +5,23 @@ import Icon from "../accesories/icon";
 import { DaysColumns, Hours } from "../../lib/const";
 import AddActivity from "../modals/add-activity";
 import { getHourIndex } from "../../lib/helpers";
+import useGetActivities from "../../hooks/useGetActivities";
 
-const Activities = [
-	{
-		activity_name: "Futbol",
-		start_time: "10:00",
-		end_time: "12:00",
-		code: "1234",
-		day_of_week: 3,
-		color: "#CCF5D1",
-	},
-	{
-		activity_name: "Basket",
-		start_time: "14:00",
-		end_time: "15:00",
-		code: "2413",
-		day_of_week: 2,
-		color: "#CCF5D1",
-	},
-	{
-		activity_name: "Volleyball",
-		start_time: "16:00",
-		end_time: "18:00",
-		code: "1234",
-		day_of_week: 5,
-		color: "#CCF5D1",
-	},
-];
+
 
 function Calendar() {
-	const [activities, setActivities] = useState(Activities);
 	const [showAddActivityModal, setShowAddActivityModal] = useState(false);
 
 	const { t } = useTranslation();
+
+
+	// TODO - usar la api para traer todas las actividades
+	const {activities} = useGetActivities();
+	console.log("activities",activities);
+
+	useEffect(() => {
+
+	},[activities]);
 
 	const handleAddModal = () => {
 		setShowAddActivityModal(!showAddActivityModal);
@@ -80,7 +64,7 @@ function Calendar() {
           ))}
         </tbody>
       </table>
-      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} setActivities={setActivities} activities={activities} />}
+      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} />}
     </section>
 	);
 }
