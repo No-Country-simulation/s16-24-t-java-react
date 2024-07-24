@@ -10,7 +10,7 @@ import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
-function AddActivity({ handleAddModal, setActivities, activities}) {
+function AddActivity({ handleAddModal }) {
   const [activityName, setActivityName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -69,7 +69,6 @@ function AddActivity({ handleAddModal, setActivities, activities}) {
 
       if (data) {
         // TODO: Handle success
-        setActivities([...activities, newActivity]);
         setActivityName("");
         setStartTime("");
         setEndTime("");
@@ -113,7 +112,6 @@ function AddActivity({ handleAddModal, setActivities, activities}) {
             <button className="bg-primary-0 text-secondary-0 px-6 py-2 " type="submit">{t("select.add")}</button>
           </div>
         </form>
-
       </div>
     </Modal>
   )
