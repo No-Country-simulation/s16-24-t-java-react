@@ -6,6 +6,7 @@ import com.project.managementapi.config.security.dtos.RegisterRequest;
 import com.project.managementapi.entities.userEntity.UserEntity;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -35,17 +36,5 @@ public class AuthController {
         return ResponseEntity.ok(response.get());
     }
 
-    /*@PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request, BindingResult bindingResult) throws BadRequestException {
-
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
-        }
-
-        Optional<AuthResponse> response = authService.register(request);
-        if(response.isEmpty()) return ResponseEntity.badRequest().build();
-
-        return ResponseEntity.ok(response.get());
-    }*/
 
 }

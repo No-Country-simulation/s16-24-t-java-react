@@ -15,12 +15,9 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String country;
     private String city;
-    private String state;
     private String postalCode;
     private String street;
-    private String streetNumber;
 
     @OneToOne(mappedBy = "address")
     private PersonalInfo personalInfo;
