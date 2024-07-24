@@ -10,17 +10,24 @@ import com.project.managementapi.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.util.List;
+
 @Service
 public class WorkoutSessionServiceImpl implements IWorkoutSessionService {
 
     @Autowired
     private WorkoutSessionRepository workoutSessionRepository;
     @Autowired
-    private IComplexService complexService;
+    private ComplexServiceImpl complexService;
 
 
     @Override
     public WorkoutSessionDTO createWorkoutSession(WorkoutSessionDTO dto){
+
+        if(workoutSessionRepository.existsOverlappingSession(dto.getDayOfWeek(),dto.getStartTime(), dto.getEndTime())) {
+            throw new IllegalArgumentException();
+        }
 
         Complex complex = complexService.findComplexByCuit(dto.getGymCuit());
 

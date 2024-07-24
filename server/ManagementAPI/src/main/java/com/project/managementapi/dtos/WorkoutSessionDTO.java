@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalTime;
 
 @Getter
 @AllArgsConstructor
@@ -20,14 +23,14 @@ public class WorkoutSessionDTO {
     @Schema(description = "Start time of the workout session in the format HH:mm. Required and must not be blank.",
             example = "08:00")
     @NotBlank(message = "Start time is mandatory")
-    @Pattern(regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$", message = "Start time must be in the format HH:mm")
-    private String startTime;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime startTime;
 
     @Schema(description = "End time of the workout session in the format HH:mm. Required and must not be blank.",
             example = "09:00")
     @NotBlank(message = "End time is mandatory")
-    @Pattern(regexp = "^([01]\\d|2[0-3]):([0-5]\\d)$", message = "End time must be in the format HH:mm")
-    private String endTime;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime endTime;
 
     @Schema(description = "Name of the activity. Required and must not be blank.",
             example = "Yoga")
