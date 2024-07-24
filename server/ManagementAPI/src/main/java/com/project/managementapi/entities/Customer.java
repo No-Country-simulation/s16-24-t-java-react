@@ -2,6 +2,7 @@ package com.project.managementapi.entities;
 
 import com.project.managementapi.entities.membership.Membership;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
+import com.project.managementapi.utils.Sports;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,4 +31,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<Attendance> attendances;
+
+    @Enumerated(EnumType.STRING)
+    private Sports sports;
 }

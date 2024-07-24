@@ -1,9 +1,13 @@
 package com.project.managementapi.utils;
 
 import com.project.managementapi.dtos.AddressDTO;
+import com.project.managementapi.dtos.CustomerDTO;
+import com.project.managementapi.dtos.ComplexDTO;
 import com.project.managementapi.dtos.EmployeeDTO;
 import com.project.managementapi.dtos.PersonalInfoDTO;
 import com.project.managementapi.entities.Address;
+import com.project.managementapi.entities.Complex;
+import com.project.managementapi.entities.Customer;
 import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
 
@@ -13,11 +17,8 @@ public class Mapper {
         if(address == null) return null;
         return AddressDTO
                 .builder()
-                .country(address.getCountry())
-                .state(address.getState())
                 .city(address.getCity())
                 .street(address.getStreet())
-                .streetNumber(address.getStreetNumber())
                 .postalCode(address.getPostalCode())
                 .build();
     }
@@ -30,6 +31,7 @@ public class Mapper {
                 .email(personalInfo.getEmail())
                 .firstName(personalInfo.getFirstName())
                 .lastName(personalInfo.getLastName())
+                .birthDate(personalInfo.getBirthDate())
                 .phoneNumber(personalInfo.getPhoneNumber())
                 .address(addressToDTO(personalInfo.getAddress()))
                 .build();
@@ -41,7 +43,27 @@ public class Mapper {
                 .personalInfo(personalInfoToDTO(employee.getPersonalInfo()))
                 .salary(employee.getSalary())
                 .staff(employee.getEStaff().name())
+                .status(employee.getStatus())
                 .build();
     }
 
+    public static ComplexDTO complexToDTO(Complex complex){
+        return ComplexDTO
+                .builder()
+                .title(complex.getTitle())
+                .cuit(complex.getCuit())
+                .phoneNumber(complex.getPhoneNumber())
+                .apertureDate(complex.getApertureDate())
+                .address(addressToDTO(complex.getAddress()))
+                .build();
+    }
+
+
+    public static CustomerDTO customerToDTO(Customer customer) {
+        return CustomerDTO.builder()
+                .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
+                .status(customer.getStatus())
+                .sport(customer.getSports().name())
+                .build();
+    }
 }
