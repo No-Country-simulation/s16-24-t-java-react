@@ -1,6 +1,8 @@
 import Modal from "./modal";
 
-function CreateEmployee() {
+function CreateEmployee({handleCreateModal}) {
+
+  // Usar el handleCreateModal para cerrar el modal
   return (
     <Modal>
        <div className="relative flex bg-gray-100 w-[800px] min-h-[200px] rounded-xl shadow-2xl flex-col p-10 gap-10 items-center" onClick={(e) => e.stopPropagation()} >
