@@ -539,7 +539,7 @@ function Table() {
     } else if (pathname === PATHS.STAFF) {
       return (<CreateEmployee handleCreateModal={handleCreateModal} />)
     } else {
-      return <CreateUser handleCreateModal={handleCreateModal} />
+      return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
     }
   }
 

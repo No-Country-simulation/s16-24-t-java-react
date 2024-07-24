@@ -6,11 +6,8 @@ function ProfileButton({ handleLogOut }) {
 	const [isClicked, setIsClicked] = useState(false);
 
 	const handleClick = () => {
-		console.log("CLICK");
 		setIsClicked(!isClicked);
 	};
-
-	console.log(isClicked);
 	return (
 		<div className="right-[1px] flex">
 			{isClicked == true ? (
