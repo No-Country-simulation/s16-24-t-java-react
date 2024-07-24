@@ -19,7 +19,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
 import Logo from "../../../public/image/OIG21.jpeg";
 
-import CreateUser from "../modals/createUser.jsx"; // Ajusta la ruta según la estructura de tu proyecto
+import CreateUser from "../modals/create-user.jsx"; // Ajusta la ruta según la estructura de tu proyecto
 
 const drawerWidth = 240;
 
@@ -94,7 +94,7 @@ function SideBar() {
 		<Box sx={{ display: "flex" }}>
 			<Drawer variant="permanent" open={open}>
 				<div
-					className="bg-primary-0 text-white h-dvh"
+					className="bg-primary-0 text-white h-dvh overflow-hidden"
 					style={{ width: drawerWidth }}
 				>
 					<div className="py-20 px-1">

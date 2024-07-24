@@ -7,7 +7,7 @@ import TableRow from './table-row.jsx'
 import NewMemberButton from './new-member-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
-import CreateUser from '../modals/createUser.jsx'
+import CreateUser from '../modals/create-user.jsx'
 import { useOutletContext } from 'react-router-dom'
 import UserDetail from "../modals/userDetail.jsx"
 import { PATHS, MembersColumns, StaffColumns } from '../../lib/const.js'
