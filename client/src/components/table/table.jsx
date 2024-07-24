@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from "react-i18next"
+import { useOutletContext } from 'react-router-dom'
+import { ComplexContext } from '../../contexts/complex-context.jsx'
+
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
 import TableRow from './table-row.jsx'
-import NewMemberButton from './new-member-button.jsx'
+import NewModalButton from './new-modal-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
-import CreateUser from '../modals/create-user.jsx'
-import { useOutletContext } from 'react-router-dom'
+import CreateUser from '../modals/createUser.jsx'
 import UserDetail from "../modals/userDetail.jsx"
-import { PATHS, MembersColumns, StaffColumns } from '../../lib/const.js'
+import CreateComplex from '../modals/create-complex.jsx'
+import CreateEmployee from '../modals/create-employee.jsx'
+
+import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
 
 const MainFilter = [
   "sport",
@@ -396,6 +401,16 @@ const Staff = [
   }
 ]
 
+const Complexes = [
+  {
+    "title": "Sportify ONE",
+    "cuit": "20567898655",
+    "apertureDate": "2020-04-01",
+    "phoneNumber": "1234567890",
+    "address": "Los Angeles, 90001, 1234 Elm Street",
+  }
+]
+
 
 
 
@@ -407,17 +422,19 @@ function Table() {
   const [tableData, setTableData] = useState(Users);
   const [initialTableData, setInitialTableData] = useState(Users);
   const [search, setSearch] = useState("");
-  const [newMember, setNewMember] = useState(false);
+  const [createModal, setCreateModal] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
   const [profileModal, setProfileModal] = useState(false)
   const [userID, setUserID] = useState(null)
+
+  const complexes = useContext(ComplexContext);
+
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
 
   useEffect(() => {
 
-    console.log("pathname", pathname);
     console.log("initialTableData", initialTableData);
     console.log("tableData", tableData);
 
@@ -432,7 +449,9 @@ function Table() {
       setTableData(Staff);
     }
     if (pathname === PATHS.HEADQUARTERS) {
-      console.log("headquarters");
+      setInitialTableData(Complexes);
+      setTableData(Complexes);
+      setTableHeaderInfo(HeadquartersColumns)
     }
     filterData();
   }, [search, mainFilter, selectedSubFilter, pathname, initialTableData]);
@@ -506,14 +525,23 @@ function Table() {
     setSelectedSubFilter(e.target.value);
   };
 
-  const handleNewMember = () => {
-    setNewMember(!newMember);
+  const handleCreateModal = () => {
+    setCreateModal(!createModal);
   };
 
   const handleProfileModal = () => {
     setProfileModal(!profileModal)
   }
 
+  const choseCreteModal = (pathname) => {
+    if (pathname === PATHS.HEADQUARTERS) {
+      return (<CreateComplex handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />)
+    } else if (pathname === PATHS.STAFF) {
+      return (<CreateEmployee handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />)
+    } else {
+      return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
+    }
+  }
 
   return (
 
@@ -522,7 +550,7 @@ function Table() {
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
-        <NewMemberButton handleNewMember={handleNewMember} />
+        <NewModalButton handleCreateModal={handleCreateModal} />
         <ReportButton />
         <ProfileButton />
       </div>
@@ -536,7 +564,7 @@ function Table() {
           </tbody>
         </table>
       </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)} />}
+      {createModal && choseCreteModal(pathname)}
       {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
     </>
   )
