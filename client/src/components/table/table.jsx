@@ -51,8 +51,8 @@ const Users = [
     dni: "12345678",
     deporte: "Fútbol",
     tipoMembresia: "gold",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-01",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 11,
     fechaAlta: "2022-01-15",
     correoElectronico: "juan.perez@example.com",
@@ -67,8 +67,8 @@ const Users = [
     dni: "87654321",
     deporte: "Tenis",
     tipoMembresia: "platinum",
-    tipoCuota: "anual",
     fechaVencimientoCuota: "2024-06-30",
+    tipoCuota: "anual",
     diasDesdeVencimiento: 12,
     fechaAlta: "2021-05-10",
     correoElectronico: "maria.garcia@example.com",
@@ -83,8 +83,8 @@ const Users = [
     dni: "23456789",
     deporte: "Natación",
     tipoMembresia: "black",
-    tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-01-01",
+    tipoCuota: "semestral",
     diasDesdeVencimiento: 193,
     fechaAlta: "2019-11-20",
     correoElectronico: "carlos.lopez@example.com",
@@ -99,8 +99,8 @@ const Users = [
     dni: "34567890",
     deporte: "Gimnasia",
     tipoMembresia: "gold",
-    tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-05-01",
+    tipoCuota: "trimestral",
     diasDesdeVencimiento: 72,
     fechaAlta: "2020-08-30",
     correoElectronico: "ana.martinez@example.com",
@@ -115,8 +115,8 @@ const Users = [
     dni: "45678901",
     deporte: "Ciclismo",
     tipoMembresia: "platinum",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-06-15",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 27,
     fechaAlta: "2022-03-25",
     correoElectronico: "luis.fernandez@example.com",
@@ -131,8 +131,8 @@ const Users = [
     dni: "56789012",
     deporte: "Yoga",
     tipoMembresia: "black",
-    tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-04-15",
+    tipoCuota: "trimestral",
     diasDesdeVencimiento: 88,
     fechaAlta: "2021-09-12",
     correoElectronico: "laura.gomez@example.com",
@@ -147,8 +147,8 @@ const Users = [
     dni: "67890123",
     deporte: "Pilates",
     tipoMembresia: "gold",
-    tipoCuota: "anual",
     fechaVencimientoCuota: "2024-02-28",
+    tipoCuota: "anual",
     diasDesdeVencimiento: 135,
     fechaAlta: "2018-06-05",
     correoElectronico: "sofia.rodriguez@example.com",
@@ -163,8 +163,8 @@ const Users = [
     dni: "78901234",
     deporte: "Boxeo",
     tipoMembresia: "platinum",
-    tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-05-30",
+    tipoCuota: "semestral",
     diasDesdeVencimiento: 43,
     fechaAlta: "2021-11-17",
     correoElectronico: "miguel.silva@example.com",
@@ -179,8 +179,8 @@ const Users = [
     dni: "89012345",
     deporte: "Running",
     tipoMembresia: "black",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-05",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 7,
     fechaAlta: "2023-04-14",
     correoElectronico: "elena.torres@example.com",
@@ -195,8 +195,8 @@ const Users = [
     dni: "90123456",
     deporte: "CrossFit",
     tipoMembresia: "gold",
-    tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-03-15",
+    tipoCuota: "trimestral",
     diasDesdeVencimiento: 110,
     fechaAlta: "2020-12-01",
     correoElectronico: "diego.sanchez@example.com",
@@ -211,8 +211,8 @@ const Users = [
     dni: "11223344",
     deporte: "Fútbol",
     tipoMembresia: "gold",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-10",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 2,
     fechaAlta: "2023-03-12",
     correoElectronico: "fernando.ruiz@example.com",
@@ -227,8 +227,8 @@ const Users = [
     dni: "22334455",
     deporte: "Tenis",
     tipoMembresia: "platinum",
-    tipoCuota: "anual",
     fechaVencimientoCuota: "2024-12-31",
+    tipoCuota: "anual",
     diasDesdeVencimiento: -172,
     fechaAlta: "2020-07-23",
     correoElectronico: "lucia.vazquez@example.com",
@@ -243,8 +243,8 @@ const Users = [
     dni: "33445566",
     deporte: "Natación",
     tipoMembresia: "black",
-    tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-10-01",
+    tipoCuota: "semestral",
     diasDesdeVencimiento: -91,
     fechaAlta: "2017-09-10",
     correoElectronico: "hugo.delgado@example.com",
@@ -259,8 +259,8 @@ const Users = [
     dni: "44556677",
     deporte: "Gimnasia",
     tipoMembresia: "gold",
-    tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-08-01",
+    tipoCuota: "trimestral",
     diasDesdeVencimiento: -20,
     fechaAlta: "2021-02-14",
     correoElectronico: "clara.morales@example.com",
@@ -275,8 +275,8 @@ const Users = [
     dni: "55667788",
     deporte: "Ciclismo",
     tipoMembresia: "platinum",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-15",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: -3,
     fechaAlta: "2022-05-18",
     correoElectronico: "emilio.castillo@example.com",
@@ -291,8 +291,8 @@ const Users = [
     dni: "66778899",
     deporte: "Yoga",
     tipoMembresia: "black",
-    tipoCuota: "anual",
     fechaVencimientoCuota: "2024-09-30",
+    tipoCuota: "anual",
     diasDesdeVencimiento: -92,
     fechaAlta: "2019-12-05",
     correoElectronico: "valeria.rojas@example.com",
@@ -307,8 +307,8 @@ const Users = [
     dni: "77889900",
     deporte: "Pilates",
     tipoMembresia: "gold",
-    tipoCuota: "semestral",
     fechaVencimientoCuota: "2024-11-01",
+    tipoCuota: "semestral",
     diasDesdeVencimiento: -60,
     fechaAlta: "2016-04-07",
     correoElectronico: "javier.ortiz@example.com",
@@ -323,8 +323,8 @@ const Users = [
     dni: "88990011",
     deporte: "Boxeo",
     tipoMembresia: "platinum",
-    tipoCuota: "trimestral",
     fechaVencimientoCuota: "2024-07-20",
+    tipoCuota: "trimestral",
     diasDesdeVencimiento: -8,
     fechaAlta: "2022-11-22",
     correoElectronico: "alejandra.mendoza@example.com",
@@ -339,8 +339,8 @@ const Users = [
     dni: "99001122",
     deporte: "Running",
     tipoMembresia: "black",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-07-03",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 9,
     fechaAlta: "2021-08-27",
     correoElectronico: "pablo.soto@example.com",
@@ -355,8 +355,8 @@ const Users = [
     dni: "11112222",
     deporte: "CrossFit",
     tipoMembresia: "gold",
-    tipoCuota: "anual",
     fechaVencimientoCuota: "2024-12-01",
+    tipoCuota: "anual",
     diasDesdeVencimiento: -142,
     fechaAlta: "2018-05-21",
     correoElectronico: "andrea.gil@example.com",
@@ -371,8 +371,8 @@ const Users = [
     dni: "22223333",
     deporte: "Fútbol",
     tipoMembresia: "platinum",
-    tipoCuota: "mensual",
     fechaVencimientoCuota: "2024-06-25",
+    tipoCuota: "mensual",
     diasDesdeVencimiento: 17,
     fechaAlta: "2023-01-30",
     correoElectronico: "manuel.herrera@example.com",
@@ -398,7 +398,7 @@ const Staff = [
 
 
 class usuarioParaTabla {
-  constructor(nombreCompleto, fechaNacimiento, dni, deporte, tipoMembresia, tipoCuota, fechaVencimientoCuota, diasDesdeVencimiento, fechaAlta) {
+  constructor(nombreCompleto, fechaNacimiento, dni, deporte, tipoMembresia, tipoCuota, fechaVencimientoCuota, diasDesdeVencimiento) {
     this.nombreCompleto = nombreCompleto;
     this.fechaNacimiento = fechaNacimiento;
     this.dni = dni;
@@ -407,7 +407,6 @@ class usuarioParaTabla {
     this.tipoCuota = tipoCuota;
     this.fechaVencimientoCuota = fechaVencimientoCuota;
     this.diasDesdeVencimiento = diasDesdeVencimiento;
-    this.fechaAlta = fechaAlta;
   }
 }
 
@@ -424,7 +423,10 @@ function Table() {
   const [newMember, setNewMember] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
   const [users, setUsers] = useState(Users)
+  const [isClicked, setIsClicked] = useState(false)
+
   const [profileModal, setProfileModal] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
   const [userID, setUserID] = useState(null)
   const { t } = useTranslation();
   const pathname = useOutletContext();
@@ -510,20 +512,24 @@ function Table() {
   };
 
   const handleChangeMainFilter = (e) => {
+
     if (e.target.value === "all") {
       setTableData(initialTableData);
       setSubFilter([]);
     }
+
     if (e.target.value === "sport") {
       setMainFilter(e.target.value);
       setSubFilter(Sports);
       setSelectedSubFilter(null)
     }
+
     if (e.target.value === "subscription") {
       setMainFilter(e.target.value);
       setSubFilter(Subscriptions);
       setSelectedSubFilter(null)
     }
+
     if (e.target.value === "payment") {
       setMainFilter(e.target.value);
       setSubFilter(Payment);
@@ -547,6 +553,19 @@ function Table() {
     setProfileModal(!profileModal)
   }
 
+const handleClick = () => {
+  setIsClicked(!isClicked)
+}
+
+  const openLogoutModal = () =>{ 
+      setLogoutModal(true)
+  }
+
+  const closeLogoutModal = () =>{ 
+    setLogoutModal(false)
+}
+
+
 
   return (
 
@@ -557,7 +576,7 @@ function Table() {
         <Filter filters={subFilter} handleChange={handleSubFilter} />
         <NewMemberButton handleNewMember={handleNewMember} />
         <ReportButton />
-        <ProfileButton />
+        <ProfileButton isClicked={isClicked} handleClick={handleClick} openLogoutModal={openLogoutModal} closeLogoutModal={closeLogoutModal} logoutModal={logoutModal} />
       </div>
       <div className="overflow-y-auto max-h-[800px]">
         <table className="w-full text-primary-0 font-bold px-10">

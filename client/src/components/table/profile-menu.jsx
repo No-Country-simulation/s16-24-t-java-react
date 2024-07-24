@@ -1,21 +1,18 @@
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { LoginContext } from "../../contexts/login-context"
-
 import Icon from "../accesories/icon"
 import Settings from "../modals/settings"
+import LogoutModal from "../modals/logout"
 
-function ProfileMenu({ handleClick }) {
+function ProfileMenu({ handleClick, openLogoutModal, logoutModal, closeLogoutModal} ) {
   const [settingsClicked, setSettingsClicked] = useState(false)
-  const { handleLogout } = useContext(LoginContext)
 
   const { t } = useTranslation()
   
   const handleClickSettings = () => {
     setSettingsClicked(!settingsClicked)
   }
-
-
+console.log(logoutModal)
   return (
     <>
       <div className="absolute top-0 right-0 w-[300px] flex flex-col gap-5 text-white transition-transform translate-x-100 translate-y-100 ease-in-out duration-200 bg-tertiary-0 z-10 rounded-tr-3xl">
@@ -27,10 +24,11 @@ function ProfileMenu({ handleClick }) {
         </div>
         <div className="flex flex-col gap-5">
           <button onClick={handleClickSettings} className="bg-primary-40 py-2 px-4">{t('profileMenu.settings')}</button>
-          <button onClick={handleLogout} className="bg-primary-40 py-2 px-4">{t('profileMenu.logout')}</button>
+          <button onClick={openLogoutModal} className="bg-primary-40 py-2 px-4">{t('profileMenu.logout')}</button>
         </div>
       </div>
       {settingsClicked && <Settings handleClose={handleClickSettings} />}
+      {logoutModal && <LogoutModal closeLogoutModal={closeLogoutModal} />}
     </>
 
 
