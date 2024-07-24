@@ -34,4 +34,5 @@ public class Complex {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "complex")
     private Set<WorkoutSession> workoutSessions;
+
 }

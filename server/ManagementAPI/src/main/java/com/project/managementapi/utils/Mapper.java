@@ -1,15 +1,18 @@
 package com.project.managementapi.utils;
 
-import com.project.managementapi.dtos.AddressDTO;
-import com.project.managementapi.dtos.CustomerDTO;
-import com.project.managementapi.dtos.ComplexDTO;
-import com.project.managementapi.dtos.EmployeeDTO;
-import com.project.managementapi.dtos.PersonalInfoDTO;
+import com.project.managementapi.dtos.*;
 import com.project.managementapi.entities.Address;
 import com.project.managementapi.entities.Complex;
 import com.project.managementapi.entities.Customer;
+import com.project.managementapi.entities.WorkoutSession;
 import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
+import com.project.managementapi.repositories.ComplexRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Mapper {
 
@@ -47,7 +50,10 @@ public class Mapper {
                 .build();
     }
 
-    public static ComplexDTO complexToDTO(Complex complex){
+    public static ComplexDTO complexToDTO(Complex complex, List<WorkoutSession> sessions){
+        Set<String> activities = new HashSet<>();
+        for(WorkoutSession w: sessions) activities.add(w.getActivityName());
+
         return ComplexDTO
                 .builder()
                 .title(complex.getTitle())
@@ -55,6 +61,7 @@ public class Mapper {
                 .phoneNumber(complex.getPhoneNumber())
                 .apertureDate(complex.getApertureDate())
                 .address(addressToDTO(complex.getAddress()))
+                .activities(activities)
                 .build();
     }
 
@@ -64,6 +71,18 @@ public class Mapper {
                 .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
                 .status(customer.getStatus())
                 .sport(customer.getSports().name())
+                .build();
+    }
+
+    public static WorkoutSessionDTO workoutSessionToDTO(WorkoutSession workoutSession) {
+        return WorkoutSessionDTO
+                .builder()
+                .startTime(workoutSession.getStartTime())
+                .endTime(workoutSession.getEndTime())
+                .activityName(workoutSession.getActivityName())
+                .color(workoutSession.getColor())
+                .dayOfWeek(workoutSession.getDayOfWeek())
+                .gymCuit(workoutSession.getComplex().getCuit())
                 .build();
     }
 }
