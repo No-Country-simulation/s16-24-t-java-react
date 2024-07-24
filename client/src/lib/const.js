@@ -38,6 +38,14 @@ export const DaysColumns = [
   'saturday'
 ]
 
+export const HeadquartersColumns = [
+  'title',
+  'cuit',
+  'aperture_date',
+  'phone_number',
+  'address',
+]
+
 export const Hours = [
   '00:00',
   '01:00',
@@ -64,3 +72,13 @@ export const Hours = [
   '22:00',
   '23:00',
 ]
+
+// "title": "Sportify ONE",
+//   "cuit": "20567898655",
+//   "apertureDate": "2020-04-01",
+//   "phoneNumber": "1234567890",
+//   "address": {
+//     "city": "Los Angeles",
+//     "postalCode": "90001",
+//     "street": "1234 Elm Street"
+//   }
