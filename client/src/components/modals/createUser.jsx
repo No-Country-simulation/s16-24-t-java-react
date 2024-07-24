@@ -165,7 +165,7 @@ const Selectable = ({
 	);
 };
 
-const CreateUser = ({ closeCallback }) => {
+const CreateUser = ({ handleCreateModal }) => {
 	const [firstname, setFirstName] = useState("");
 	const [lastname, setLastname] = useState("");
 	const [phone, setPhone] = useState("");
@@ -182,11 +182,6 @@ const CreateUser = ({ closeCallback }) => {
 
 	const { t } = useTranslation();
 
-	const submitActivity = async ({ }) => {
-		const { data } = await axios.post("", {
-
-		})
-	}
 
 	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
 		e.preventDefault();
@@ -269,7 +264,7 @@ const CreateUser = ({ closeCallback }) => {
 	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription, city, address, cp])
 	//
 	return (
-		<Modal closeCallback={closeCallback}>
+		<Modal >
 			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
 				<form
 					action=""
@@ -406,7 +401,7 @@ const CreateUser = ({ closeCallback }) => {
 					<input
 						type="button"
 						value={t("createUserModal.cancelar")}
-						onClick={() => closeCallback()}
+						onClick={handleCreateModal}
 						className="left-0 flex absolute transition-[background] rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
 					/>
