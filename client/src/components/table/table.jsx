@@ -401,15 +401,7 @@ const Staff = [
   }
 ]
 
-const Complexes = [
-  {
-    "title": "Sportify ONE",
-    "cuit": "20567898655",
-    "apertureDate": "2020-04-01",
-    "phoneNumber": "1234567890",
-    "address": "Los Angeles, 90001, 1234 Elm Street",
-  }
-]
+
 
 
 
@@ -420,18 +412,17 @@ function Table() {
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
   const [tableData, setTableData] = useState(Users);
-  const [initialTableData, setInitialTableData] = useState(Users);
+  const [initialTableData, setInitialTableData] = useState([]);
   const [search, setSearch] = useState("");
   const [createModal, setCreateModal] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
   const [profileModal, setProfileModal] = useState(false)
   const [userID, setUserID] = useState(null)
 
-  const complexes = useContext(ComplexContext);
-
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
+  const { complexes } = useContext(ComplexContext);
 
   useEffect(() => {
 
@@ -449,12 +440,13 @@ function Table() {
       setTableData(Staff);
     }
     if (pathname === PATHS.HEADQUARTERS) {
-      setInitialTableData(Complexes);
-      setTableData(Complexes);
       setTableHeaderInfo(HeadquartersColumns)
+      setInitialTableData(complexes);
+      setTableData(complexes);
+
     }
     filterData();
-  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData]);
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
