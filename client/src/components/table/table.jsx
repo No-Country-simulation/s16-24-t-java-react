@@ -10,7 +10,7 @@ import TableRow from './table-row.jsx'
 import NewModalButton from './new-modal-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
-import CreateUser from '../modals/createUser.jsx'
+import CreateUser from '../modals/create-user.jsx'
 import UserDetail from "../modals/userDetail.jsx"
 import CreateComplex from '../modals/create-complex.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
