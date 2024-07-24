@@ -3,6 +3,7 @@ import Icon from "../accesories/icon"
 import Modal from "./modal.jsx"
 import NotificationRow from "./notification-row"
 import LanguageSelector from "../languageSelector/laguage-selector"
+import ColorThief from "../brand-color/color-thief"
 
 function Settings({ handleClose }) {
 
@@ -52,6 +53,7 @@ function Settings({ handleClose }) {
               <label className="col-span-1  w-full text-center text-secondary-0 font-bold px-4 py-1 bg-primary-20 rounded-lg" htmlFor="">{t("settings.language")}:</label>
               <LanguageSelector className={"col-span-3"} />
             </div>
+            <ColorThief />
           </div>
         </div>
         <div className="flex gap-10 justify-end pt-5 mr-5">
