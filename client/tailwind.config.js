@@ -8,7 +8,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   plugins: [
-    twscrollbar
+    twscrollbar,
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.custom-date-input': {
+          '&::-webkit-calendar-picker-indicator': {
+            cursor: 'pointer',
+            filter: 'invert(1)',
+          },
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
   ],
   theme: {
     fontFamily: {
@@ -64,7 +76,9 @@ export default {
           80: "var(--color-35)"
         }
       },
-    }
+      
+    },
+  
 
   }
 }
