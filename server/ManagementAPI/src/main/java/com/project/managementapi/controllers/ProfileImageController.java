@@ -3,6 +3,8 @@ package com.project.managementapi.controllers;
 import com.project.managementapi.dtos.responses.ErrorResponse;
 import com.project.managementapi.dtos.responses.SuccessResponse;
 import com.project.managementapi.services.impl.ProfileImageServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/v1/profile-image")
+@Tag(name = "Profile Image")
 public class ProfileImageController {
 
     private final ProfileImageServiceImpl profileImageService;
     private final String url = "/api/v1/profile-image/";
 
 
+    @Operation(summary = "Upload profile image", description = "Upload a profile image providing customer_id")
     @PostMapping("/upload/{id}")
 //    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<?> upload(@PathVariable Long id, @RequestParam("image") MultipartFile mpf) throws IOException {
