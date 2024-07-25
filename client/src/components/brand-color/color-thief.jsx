@@ -54,16 +54,9 @@ function ColorThief() {
   }
 
   return (
-    <div>
-      <label htmlFor="image">subir imagen</label>
+    <div className="flex flex-col">
+      <label htmlFor="image">Logo de marca</label>
       <input type="file" name="image" onChange={handleLoadImage} />
-      {scaleColors.flat().map((color, index) => (
-        <div
-          key={index}
-          style={{ backgroundColor: color }}
-          className="w-8 h-8"
-        ></div>
-      ))}
     </div>
   )
 }

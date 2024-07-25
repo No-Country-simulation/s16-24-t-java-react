@@ -1,16 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from "react-i18next"
+import { useOutletContext } from 'react-router-dom'
+import { ComplexContext } from '../../contexts/complex-context.jsx'
+
 import Filter from './filter.jsx'
 import SearchInput from './search-input.jsx'
 import TableHeader from './table-header.jsx'
 import TableRow from './table-row.jsx'
-import NewMemberButton from './new-member-button.jsx'
+import NewModalButton from './new-modal-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
-import CreateUser from '../modals/createUser.jsx'
-import { useOutletContext } from 'react-router-dom'
+import CreateUser from '../modals/create-user.jsx'
 import UserDetail from "../modals/userDetail.jsx"
-import { PATHS, MembersColumns, StaffColumns, DaysColumns } from '../../lib/const.js'
+import CreateComplex from '../modals/create-complex.jsx'
+import CreateEmployee from '../modals/create-employee.jsx'
+
+import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
+import { flattenObject } from '../../lib/helpers.js'
+import useGetCustomers from '../../hooks/useGetCustomers.jsx'
+import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 
 const MainFilter = [
   "sport",
@@ -417,10 +425,10 @@ function Table() {
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
-  const [tableData, setTableData] = useState(usuariosTabla);
-  const [initialTableData, setInitialTableData] = useState(usuariosTabla);
+  const [tableData, setTableData] = useState([]);
+  const [initialTableData, setInitialTableData] = useState([]);
   const [search, setSearch] = useState("");
-  const [newMember, setNewMember] = useState(false);
+  const [createModal, setCreateModal] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
   const [users, setUsers] = useState(Users)
   const [isClicked, setIsClicked] = useState(false)
@@ -428,49 +436,37 @@ function Table() {
   const [profileModal, setProfileModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const [userID, setUserID] = useState(null)
+
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
-  
+  const { complexes } = useContext(ComplexContext);
+  const { customers } = useGetCustomers();
+  const { employees } = useGetEmployees();
+
   useEffect(() => {
-    Users.map(user => {
-      // Crea una nueva instancia de la clase usuarioParaTabla para cada usuario
-      let mapeado = new usuarioParaTabla(
-        user.nombreCompleto,
-        user.fechaNacimiento,
-        user.dni,
-        user.deporte,
-        user.tipoMembresia,
-        user.tipoCuota,
-        user.fechaVencimientoCuota,
-        user.diasDesdeVencimiento,
-        user.fechaAlta
-      );
-    
-      // Agrega la instancia creada al arreglo usuariosTabla
-      usuariosTabla.push(mapeado);
-    });
-  
-    
+
+    console.log("initialTableData", initialTableData);
+    console.log("tableData", tableData);
 
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
-      setTableData(usuariosTabla);
-      setInitialTableData(usuariosTabla);
+      setTableData(customers);
+      setInitialTableData(customers);
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
-      setTableData(Staff);
-      setInitialTableData(Staff);
+      setInitialTableData(employees);
+      setTableData(employees);
     }
-    if (pathname === PATHS.ACTIVITIES) {
-      setTableHeaderInfo(DaysColumns)
-      setTableData(Staff);
-      setInitialTableData(Staff);
-    }
+    if (pathname === PATHS.HEADQUARTERS) {
+      setTableHeaderInfo(HeadquartersColumns)
+      setInitialTableData(complexes);
+      setTableData(complexes);
 
+    }
     filterData();
-  }, [search, mainFilter, selectedSubFilter, pathname]);
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
@@ -545,8 +541,8 @@ function Table() {
     setSelectedSubFilter(e.target.value);
   };
 
-  const handleNewMember = () => {
-    setNewMember(!newMember);
+  const handleCreateModal = () => {
+    setCreateModal(!createModal);
   };
 
   const handleProfileModal = () => {
@@ -566,6 +562,15 @@ const handleClick = () => {
 }
 
 
+  const choseCreteModal = (pathname) => {
+    if (pathname === PATHS.HEADQUARTERS) {
+      return (<CreateComplex handleCreateModal={handleCreateModal} />)
+    } else if (pathname === PATHS.STAFF) {
+      return (<CreateEmployee handleCreateModal={handleCreateModal} />)
+    } else {
+      return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
+    }
+  }
 
   return (
 
@@ -574,7 +579,7 @@ const handleClick = () => {
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
-        <NewMemberButton handleNewMember={handleNewMember} />
+        <NewModalButton handleCreateModal={handleCreateModal} />
         <ReportButton />
         <ProfileButton isClicked={isClicked} handleClick={handleClick} openLogoutModal={openLogoutModal} closeLogoutModal={closeLogoutModal} logoutModal={logoutModal} />
       </div>
@@ -583,13 +588,13 @@ const handleClick = () => {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={flattenObject(data)} key={data.dni} />
             ))}
           </tbody>
         </table>
       </div>
-      {newMember && <CreateUser handleNewMember={handleNewMember} closeCallback={() => setNewMember(false)}/>}
-      {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={Users.filter((user) => user.dni === userID)} />}
+      {createModal && choseCreteModal(pathname)}
+      {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={customers.filter((customer) => customer.dni === userID)} />}
     </>
   )
 }

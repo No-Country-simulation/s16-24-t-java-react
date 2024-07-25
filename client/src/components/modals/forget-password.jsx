@@ -1,6 +1,7 @@
-import { InputData } from "./createUser";
+import { InputData } from "./create-user.jsx";
 import Modal from "./modal.jsx";
 import Icon from "../accesories/icon";
+import Logo from "../../../public/image/OIG21.jpeg";
 
 function ForgetPassword({ handleCloseModal }) {
 	const handleSendEmail = () => {
@@ -12,7 +13,10 @@ function ForgetPassword({ handleCloseModal }) {
 
 	return (
 		<Modal>
-			<div className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 p-10" onClick={(e) => e.stopPropagation()} >
+			<div
+				className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 p-10"
+				onClick={(e) => e.stopPropagation()}
+			>
 				<div className="bg-white w-[800px] min-h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
 					<button
 						className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
@@ -20,11 +24,7 @@ function ForgetPassword({ handleCloseModal }) {
 					>
 						<Icon iconName="x" />
 					</button>
-					<img
-						src="src/assets/OIG21.jpeg"
-						alt="Logo de la empresa"
-						className="mx-auto h-20"
-					/>
+					<img src={Logo} alt="Logo de la empresa" className="mx-auto h-20" />
 					<h3 className="text-2xl font-bold mb-4">
 						Ingresa tu correo electrónico
 					</h3>

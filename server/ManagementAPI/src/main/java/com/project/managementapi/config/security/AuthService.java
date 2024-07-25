@@ -13,9 +13,11 @@ import com.project.managementapi.exceptions.ResourceNotFoundException;
 import com.project.managementapi.repositories.EmployeeRepository;
 import com.project.managementapi.repositories.PersonalInfoRepository;
 import com.project.managementapi.repositories.UserEntityRepository;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,9 @@ public class AuthService {
         UserEntity user = userEntityRepository.findByEmployeePersonalInfoEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + request.getEmail()));
 
+        if(!user.getEmployee().getStatus())
+            throw new IllegalStateException("User with email: " + request.getEmail() + " is inactive and cannot be authorized");
+
         String token = jwtService.getToken(user, user.getAuthorities());
         return Optional.of(AuthResponse.builder()
                 .role(user.getRole().toString())
@@ -49,31 +54,4 @@ public class AuthService {
                 .build());
     }
 
-   /* public Optional<AuthResponse> register(RegisterRequest request) {
-        PersonalInfo personalInfo = personalInfoRepository.save(PersonalInfo
-                .builder()
-                .email(request.getEmail())
-                .build());
-
-        Employee employee = employeeRepository.save(Employee
-                .builder()
-                .eStaff(EStaff.ADMIN)
-                .status(true)
-                .personalInfo(personalInfo)
-                .build());
-
-        UserEntity userEntity = userEntityRepository.save(UserEntity
-                .builder()
-                .employee(employee)
-                .role(EUserRole.ADMIN)
-                .password(passwordEncoder.encode(request.getPassword()))
-                .build());
-
-        final String token = jwtService.getToken(userEntity, userEntity.getAuthorities());
-
-        return Optional.of(AuthResponse.builder()
-                .token(token)
-                .role(userEntity.getRole().toString())
-                .build());
-    }*/
 }

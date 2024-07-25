@@ -25,7 +25,7 @@ export const StaffColumns = [
   'phone_number',
   'role',
   'address',
-  'created_at',
+  // 'created_at',
 ]
 
 export const DaysColumns = [
@@ -36,6 +36,14 @@ export const DaysColumns = [
   'thursday',
   'friday',
   'saturday'
+]
+
+export const HeadquartersColumns = [
+  'title',
+  'cuit',
+  'aperture_date',
+  'phone_number',
+  'address',
 ]
 
 export const Hours = [

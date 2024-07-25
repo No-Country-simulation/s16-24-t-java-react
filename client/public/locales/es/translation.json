@@ -37,7 +37,10 @@
 		"email": "Email",
 		"status": "Estado",
 		"role": "Rol",
-		"address": "Dirección"
+		"address": "Dirección",
+		"title": "Nombre",
+		"cuit": "CUIT",
+		"aperture_date": "Fecha de apertura"
 	},
 	"filter": {
 		"all": "Todos",
@@ -122,5 +125,22 @@
 			"invalid_type": "Es requerido",
 			"invalid_times": "No puede ser mayor o coincidir con la hora final"
 		}
+	},
+	"search": {
+		"dni": "Ingresa un DNI",
+		"cuit": "Ingresa un Cuit" 
+	},
+	"new": {
+		"headquarters": "Agregar sede",
+		"member": "Agregar usuario"
+	},
+	"create_complex":{
+		"title": "Nombre de la sede",
+		"SSN": "CUIT",
+		"aperture_date":"Fecha de apertura",
+		"phone_number":"Teléfono",
+		"city":"Ciudad",
+		"postal_code":"Código postal",
+		"street":"Calle"
 	}
 }

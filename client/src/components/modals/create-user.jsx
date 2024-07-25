@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import axios from "axios";
@@ -35,25 +36,29 @@ const ciudades = [
 
 const payments = [
 	{
-		id: 1, name: "Efectivo",
+		id: 1,
+		name: "Efectivo",
 	},
 	{
-		id: 2, name: "Tarjeta",
+		id: 2,
+		name: "Tarjeta",
 	},
 	{
-		id: 3, name: "Transferencia",
+		id: 3,
+		name: "Transferencia",
 	},
 	{
-		id: 4, name: "Nose que mas",
-	}
-]
+		id: 4,
+		name: "Nose que mas",
+	},
+];
 
 const descuentos = [
 	{ id: 0, name: "Sin descuento" },
 	{ id: 1, name: "Descuento1" },
 	{ id: 2, name: "Descuento2" },
 	{ id: 3, name: "Descuento3" },
-]
+];
 
 const deportes = [
 	//  actividades (esta hardcodeado)
@@ -80,7 +85,7 @@ const subscriptions = [
 	{
 		id: "mes",
 		name: "Mensual",
-	}
+	},
 ];
 
 const FormOption = ({ data }) => {
@@ -182,35 +187,30 @@ const CreateUser = ({ closeCallback }) => {
 
 	const { t } = useTranslation();
 
-	const submitActivity = async ({ }) => {
-		const { data } = await axios.post("", {
-
-		})
-	}
-
-	const onSubmit = async (e) => { // En esta funcion se envian los datos al backend
+	const onSubmit = async (e) => {
+		// En esta funcion se envian los datos al backend
 		e.preventDefault();
 		if (canSubmit == true) {
 			const { data } = await axios.post(
 				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
 				{
-					"personalInfoDTO": {
-						"firstName": firstname,
-						"lastName": lastname,
-						"phoneNumber": phone,
+					personalInfoDTO: {
+						firstName: firstname,
+						lastName: lastname,
+						phoneNumber: phone,
 						email,
 						dni,
 						birthDate,
-						"address": {
-							"city": ciudades[city-1].name,
-							"postalCode": cp,
-							"street": address
-						}
-					}
+						address: {
+							city: ciudades[city - 1].name,
+							postalCode: cp,
+							street: address,
+						},
+					},
 				},
 				{
 					headers: {
-						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
+						Authorization: `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
 						"Content-Type": "Application/json",
 					},
 				},
@@ -227,7 +227,7 @@ const CreateUser = ({ closeCallback }) => {
 		if (type == "email") {
 			setEmail(value);
 		} else if (type == "birthDate") {
-			console.log(value)
+			console.log(value);
 			setBirthdate(value);
 		} else if (type == "dni") {
 			setDNI(value);
@@ -240,18 +240,19 @@ const CreateUser = ({ closeCallback }) => {
 		} else if (type == "subscription") {
 			setSubscription(value);
 		} else if (type == "phone") {
-			setPhone(value)
+			setPhone(value);
 		} else if (type == "city") {
-			setCity(value)
+			setCity(value);
 		} else if (type == "cp") {
-			setCP(value)
+			setCP(value);
 		} else if (type == "address") {
-			setAddress(value)
+			setAddress(value);
 		}
 	};
 
 	useEffect(() => {
-		if (isEmail(email) == true &&
+		if (
+			isEmail(email) == true &&
 			firstname.length >= 3 &&
 			lastname.length >= 3 &&
 			phone.length >= 8 &&
@@ -261,16 +262,32 @@ const CreateUser = ({ closeCallback }) => {
 			subscription.length >= 1 &&
 			city > 0 &&
 			address.length >= 5 &&
-			cp.length >= 3) {
-			setCanSubmit(true)
+			cp.length >= 3
+		) {
+			setCanSubmit(true);
 		} else {
-			setCanSubmit(false)
+			setCanSubmit(false);
 		}
-	}, [email, firstname, lastname, phone, birthDate, dni, activity, subscription, city, address, cp])
+	}, [
+		email,
+		firstname,
+		lastname,
+		phone,
+		birthDate,
+		dni,
+		activity,
+		subscription,
+		city,
+		address,
+		cp,
+	]);
 	//
 	return (
 		<Modal closeCallback={closeCallback}>
-			<div className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+			<div
+				className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl"
+				onClick={(e) => e.stopPropagation()}
+			>
 				<form
 					action=""
 					method="post"
@@ -341,7 +358,9 @@ const CreateUser = ({ closeCallback }) => {
 
 					<InputData
 						type="text"
-						className={"w-[calc(20%-5px)] absolute left-[calc(30%+10px)] top-[150px]"}
+						className={
+							"w-[calc(20%-5px)] absolute left-[calc(30%+10px)] top-[150px]"
+						}
 						placeholder={t("createUserModal.cp")}
 						required={true}
 						name={"cp"}
@@ -357,9 +376,11 @@ const CreateUser = ({ closeCallback }) => {
 						onChanged={onChanged}
 					/>
 				</form>
-
 			</div>
-			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+			<div
+				className="hidden relative inset-0 justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl"
+				onClick={(e) => e.stopPropagation()}
+			>
 				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
 					<Selectable
 						className={"w-full absolute right-0 top-0"}
@@ -393,7 +414,10 @@ const CreateUser = ({ closeCallback }) => {
 					/>
 				</div>
 			</div>
-			<div className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[80px] rounded-[32px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+			<div
+				className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[80px] rounded-[32px] shadow-2xl"
+				onClick={(e) => e.stopPropagation()}
+			>
 				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
 					<input
 						type="button"
@@ -410,11 +434,12 @@ const CreateUser = ({ closeCallback }) => {
 						className="left-0 flex absolute transition-[background] rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				hover:bg-red-600"
 					/>
-					<p className={`absolute h-[40px] right-[140px] transition-[opacity] ${canSubmit == true ? "opacity-0" : "opacity-100"} text-center content-center font-medium`}>
+					<p
+						className={`absolute h-[40px] right-[140px] transition-[opacity] ${canSubmit == true ? "opacity-0" : "opacity-100"} text-center content-center font-medium`}
+					>
 						{t("createUserModal.completarAviso")}
 					</p>
 				</div>
-
 			</div>
 		</Modal>
 	);

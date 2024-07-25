@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,6 +33,7 @@ public class GlobalExceptionManager {
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest webRequest) {
         ErrorResponse response = ErrorResponse.builder()
                 .dateTime(LocalDateTime.now())
+                .statusCode("400")
                 .message(ex.getMessage())
                 .url(webRequest.getDescription(false).replace("uri=", ""))
                 .build();
@@ -56,6 +58,7 @@ public class GlobalExceptionManager {
     public ResponseEntity<ErrorResponse> handlerBadRequestException(BadRequestException ex, WebRequest webRequest){
         ErrorResponse errorResponse = ErrorResponse
                 .builder()
+                .statusCode("400")
                 .dateTime(LocalDateTime.now())
                 .message(ex.getMessage())
                 .statusCode("400")
@@ -86,6 +89,29 @@ public class GlobalExceptionManager {
                 .builder()
                 .dateTime(LocalDateTime.now())
                 .message("Invalid credentials.")
+                .url(webRequest.getDescription(false).replace("uri=", ""))
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponse> handlerAuthorizationDeniedException(AuthorizationDeniedException ex, WebRequest webRequest){
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .dateTime(LocalDateTime.now())
+                .message(ex.getMessage())
+                .url(webRequest.getDescription(false).replace("uri=", ""))
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handlerIllegalStateException(IllegalStateException ex, WebRequest webRequest){
+        ErrorResponse errorResponse = ErrorResponse
+                .builder()
+                .dateTime(LocalDateTime.now())
+                .message(ex.getMessage())
                 .url(webRequest.getDescription(false).replace("uri=", ""))
                 .build();
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);

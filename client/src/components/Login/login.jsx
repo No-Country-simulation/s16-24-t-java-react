@@ -10,7 +10,7 @@ function Login() {
 	const [username, setUsername] = useState("admin@sportify.com");
 	const [password, setPassword] = useState("admin");
 	const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
-	const { handleLogin, handleIsLogged } = useContext(LoginContext);
+	const { handleLogin, handleIsLogged, setUser } = useContext(LoginContext);
 
 	const { t } = useTranslation();
 
@@ -30,6 +30,7 @@ function Login() {
 			password: password,
 		});
 		if (data.role) {
+			setUser({username: data.username, role: data.role});
 			handleIsLogged(data.token);
 		} else {
 			console.log("Usuario o contraseña incorrectos");
@@ -51,7 +52,7 @@ function Login() {
 
 	return (
 		<div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-20 to-secondary-50 font-nunito">
-			<div className="bg-slate-50/10 backdrop-blur-xl h-full shadow-2xl items-center shadow-black/30 rounded-lg flex p-8 gap-10">
+			<div className="bg-slate-50/10 backdrop-blur-xl h-full shadow-2xl items-center shadow-black/30 rounded-2xl flex p-8 gap-10">
 				{/* Imagen a la izquierda */}
 				<div className="w-full flex flex-col gap-5 items-center">
 					<img src={Logo} alt="Logo de la empresa" className="w-auto aspect-auto h-72" />
@@ -93,12 +94,12 @@ function Login() {
 						/>
 					</div>
 					<div className="flex flex-col gap-4">
-						<button
+						<a
 							onClick={handleForgetPasswordClick}
-							className="text-sm text-primary-20 font-semibold hover:text-primary-0"
+							className="text-sm text-primary-20 font-semibold hover:text-primary-0 block text-end"
 						>
 							{t('login.forget_password')}
-						</button>
+						</a>
 						<div className="flex gap-8">
 							<div className="flex items-center">
 								<input
@@ -125,8 +126,6 @@ function Login() {
 					</div>
 				</form>
 			</div>
-
-
 			{/* Modal de recuperación de contraseña */}
 			{showForgetPasswordModal && (
 				<ForgetPassword handleCloseModal={handleForgetPasswordClick} />

@@ -6,6 +6,8 @@ import com.project.managementapi.entities.employee.Employee;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Entity
@@ -24,6 +26,8 @@ public class PersonalInfo {
     private String email;
     @Column(unique = true)
     private String dni;
+
+    private LocalDate birthDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
