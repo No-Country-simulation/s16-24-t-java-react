@@ -17,14 +17,14 @@ const useGetCustomers = () => {
         });
 
         console.log("customers", data);
-        // setCustomers(data);
+        setCustomers(data);
       } catch (error) {
         setError(error);
         setCustomers([]);
       }
     }
 
-    // GetAllCustomers()
+    GetAllCustomers()
   }, [isLogged]);
 
   return { customers, error }
