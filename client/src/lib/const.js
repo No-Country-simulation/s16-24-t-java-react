@@ -76,3 +76,18 @@ export const Hours = [
 export const STAFF_CATEGORIES = [
   'COACH', 'CLEANING_STAFF', 'RECEPTIONIST', 'ADMIN'
 ] 
+
+export const EMPLOYEES_DATA = {
+  STAFF: "staff",
+  SALARY: "salary",
+  FIRST_NAME: "first_name",
+  LAST_NAME: "last_name",
+  EMAIL: "email",
+  DNI: "dni",
+  BIRTH_DATE: "birth_date",
+  PHONE_NUMBER: "phone_number",
+  CITY: "city",
+  POSTAL_CODE: "postal_code",
+  STREET: "street",
+}
+

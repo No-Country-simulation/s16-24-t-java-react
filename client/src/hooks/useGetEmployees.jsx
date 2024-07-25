@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/login-context";
 import { formatEmployeeData } from "../lib/helpers";
 
-const useGetEmployees = () => {
+const useGetEmployees = (refresh) => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const { isLogged } = useContext(LoginContext);
@@ -17,8 +17,8 @@ const useGetEmployees = () => {
           }
         });
         const { content } = data.object
-        console.log("employees", content);
-        const formatedContent = formatEmployeeData(content);
+        const [admin, ...employees] = content
+        const formatedContent = formatEmployeeData(employees);
         setEmployees(formatedContent);
       } catch (error) {
         setError(error);
@@ -27,7 +27,7 @@ const useGetEmployees = () => {
     }
 
     GetAllEmployees()
-  }, [isLogged]);
+  }, [isLogged, refresh]);
 
   return { employees, error }
 }

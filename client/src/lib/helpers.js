@@ -22,7 +22,7 @@ export const formatEmployeeData = (data) => {
       email: employee.personalInfo.email,
       phoneNumber: employee.personalInfo.phoneNumber,
       role: employee.staff,
-      address: employee.personalInfo.address
+      address: `${employee.personalInfo.address.city}, ${employee.personalInfo.address.postalCode}, ${employee.personalInfo.address.street}`
     }
   })
 
