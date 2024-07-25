@@ -12,18 +12,6 @@ export const capitalize = (str) => {
     .join(" ");
 };
 
-export const flattenObject = (obj) => {
-  const result = {};
-
-  Object.keys(obj).forEach(key => {
-    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
-      result[key] = Object.values(obj[key]).join(', ');
-    } else {
-      result[key] = obj[key];
-    }
-  });
-  return result;
-};
 
 export const formatEmployeeData = (data) => {
   const formatedEmployees = data.map(employee => {
@@ -34,9 +22,20 @@ export const formatEmployeeData = (data) => {
       email: employee.personalInfo.email,
       phoneNumber: employee.personalInfo.phoneNumber,
       role: employee.staff,
-      address: employee.personalInfo.address
+      address: `${employee.personalInfo.address.city}, ${employee.personalInfo.address.postalCode}, ${employee.personalInfo.address.street}`
     }
   })
 
   return formatedEmployees
+}
+
+export const formatComplexData = (data) => {
+  const formatedComplexes = data.map(complex => {
+    return {
+      ...complex,
+      address: `${complex.address.city}, ${complex.address.postalCode}, ${complex.address.street}`
+    }
+  })
+
+  return formatedComplexes
 }

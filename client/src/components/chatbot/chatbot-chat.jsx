@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Logo from "../../../public/image/OIG21.jpeg";
+import Logo from "../../../public/image/Logo.png";
 
 const ChatbotChat = () => {
 	const [messages, setMessages] = useState([]);
@@ -90,14 +90,12 @@ const ChatbotChat = () => {
 				{messages.map((message, index) => (
 					<div
 						key={index}
-						className={`flex ${
-							message.sender === "bot" ? "justify-start" : "justify-end"
-						} mb-2`}
+						className={`flex ${message.sender === "bot" ? "justify-start" : "justify-end"
+							} mb-2`}
 					>
 						<div
-							className={`rounded-lg p-2 ${
-								message.sender === "bot" ? "bg-tertiary-20" : "bg-primary-70"
-							}`}
+							className={`rounded-lg p-2 ${message.sender === "bot" ? "bg-tertiary-20" : "bg-primary-70"
+								}`}
 						>
 							{typeof message.text === "object" ? (
 								<>

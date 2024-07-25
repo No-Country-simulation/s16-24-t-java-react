@@ -16,7 +16,6 @@ import CreateComplex from '../modals/create-complex.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
 
 import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
-import { flattenObject } from '../../lib/helpers.js'
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 
@@ -436,13 +435,14 @@ function Table() {
   const [profileModal, setProfileModal] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const [userID, setUserID] = useState(null)
+  const [refresh, setRefresh] = useState(false)
 
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
   const { complexes } = useContext(ComplexContext);
   const { customers } = useGetCustomers();
-  const { employees } = useGetEmployees();
+  const { employees } = useGetEmployees(refresh);
 
   useEffect(() => {
 
@@ -466,7 +466,7 @@ function Table() {
 
     }
     filterData();
-  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees]);
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees, refresh]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
@@ -549,6 +549,10 @@ function Table() {
     setProfileModal(!profileModal)
   }
 
+  const handleRefresh = () => {
+    setRefresh(!refresh)
+  }
+
 const handleClick = () => {
   setIsClicked(!isClicked)
 }
@@ -566,16 +570,15 @@ const handleClick = () => {
     if (pathname === PATHS.HEADQUARTERS) {
       return (<CreateComplex handleCreateModal={handleCreateModal} />)
     } else if (pathname === PATHS.STAFF) {
-      return (<CreateEmployee handleCreateModal={handleCreateModal} />)
+      return (<CreateEmployee handleCreateModal={handleCreateModal} handleRefresh={handleRefresh}/>)
     } else {
       return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
     }
   }
 
   return (
-
     <>
-      <div className="flex gap-32 w-full py-4 justify-around bg-primary-0 px-4">
+      <div className="flex  w-full py-4 justify-around bg-primary-0 px-4">
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
@@ -588,7 +591,7 @@ const handleClick = () => {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={flattenObject(data)} key={data.dni} />
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
             ))}
           </tbody>
         </table>
