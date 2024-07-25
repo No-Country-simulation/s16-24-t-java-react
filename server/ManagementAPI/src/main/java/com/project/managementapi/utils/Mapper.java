@@ -6,9 +6,8 @@ import com.project.managementapi.entities.Complex;
 import com.project.managementapi.entities.Customer;
 import com.project.managementapi.entities.WorkoutSession;
 import com.project.managementapi.entities.employee.Employee;
+import com.project.managementapi.entities.membership.Membership;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
-import com.project.managementapi.repositories.ComplexRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.List;
@@ -74,6 +73,15 @@ public class Mapper {
                 .build();
     }
 
+    public static CustomerDTO customerToDTOWithMembership(Customer customer, Membership membership) {
+        return CustomerDTO.builder()
+                .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
+                .status(customer.getStatus())
+                .sport(customer.getSports().name())
+                .membershipDTO(membershipToDTO(membership))
+                .build();
+    }
+
     public static WorkoutSessionDTO workoutSessionToDTO(WorkoutSession workoutSession) {
         return WorkoutSessionDTO
                 .builder()
@@ -83,6 +91,13 @@ public class Mapper {
                 .color(workoutSession.getColor())
                 .dayOfWeek(workoutSession.getDayOfWeek())
                 .gymCuit(workoutSession.getComplex().getCuit())
+                .build();
+    }
+
+    public static MembershipDTO membershipToDTO(Membership membership) {
+        return MembershipDTO.builder()
+                .endDate(String.valueOf(membership.getEndDate()))
+                .membershipType(String.valueOf(membership.getMembershipType()))
                 .build();
     }
 }
