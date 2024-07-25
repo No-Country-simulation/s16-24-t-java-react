@@ -63,13 +63,14 @@ function Table() {
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
   const [profileModal, setProfileModal] = useState(false)
   const [userID, setUserID] = useState(null)
+  const [refresh, setRefresh] = useState(false)
 
   const { t } = useTranslation();
   const pathname = useOutletContext();
 
   const { complexes } = useContext(ComplexContext);
   const { customers } = useGetCustomers();
-  const { employees } = useGetEmployees();
+  const { employees } = useGetEmployees(refresh);
 
   useEffect(() => {
 
@@ -93,7 +94,7 @@ function Table() {
 
     }
     filterData();
-  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees]);
+  }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees, refresh]);
 
   const filterData = () => {
     let dataToFilter = [...initialTableData];
@@ -172,11 +173,15 @@ function Table() {
     setProfileModal(!profileModal)
   }
 
+  const handleRefresh = () => {
+    setRefresh(!refresh)
+  }
+
   const choseCreteModal = (pathname) => {
     if (pathname === PATHS.HEADQUARTERS) {
       return (<CreateComplex handleCreateModal={handleCreateModal} />)
     } else if (pathname === PATHS.STAFF) {
-      return (<CreateEmployee handleCreateModal={handleCreateModal} />)
+      return (<CreateEmployee handleCreateModal={handleCreateModal} handleRefresh={handleRefresh}/>)
     } else {
       return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
     }
