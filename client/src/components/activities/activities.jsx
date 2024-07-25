@@ -8,40 +8,41 @@ import { getHourIndex } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
 function Calendar() {
-	const [showAddActivityModal, setShowAddActivityModal] = useState(false);
+  const [showAddActivityModal, setShowAddActivityModal] = useState(false);
   const [selectedComplex, setSelectedComplex] = useState([]);
 
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const { complexes } = useContext(ComplexContext);
 
-	useEffect(() => {
+  useEffect(() => {
     console.log("complex", selectedComplex.activities);
 
-	},[selectedComplex]);
+  }, [selectedComplex]);
 
   const handleSelectComplex = (event) => {
     const complexToSelect = complexes.find((complex) => complex.cuit === event.target.value);
     setSelectedComplex(complexToSelect);
   }
 
-	const handleAddModal = () => {
-		setShowAddActivityModal(!showAddActivityModal);
-	};
+  const handleAddModal = () => {
+    setShowAddActivityModal(!showAddActivityModal);
+  };
 
-	return (
-		<section className="h-full w-full">
-      <label className="mr-10" htmlFor="complex">Sleccionar sede:</label>
-      <select name="complex" id="" onChange={handleSelectComplex}>
-        <option className="text-center" value="" selected>sedes</option>
-        {complexes.map((complex) => <option key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
-      </select>
-      <table className="w-full border-2 border-primary-0">
-        <thead >
-          <tr className="bg-primary-0 text-white">
-            <th className=" text-center relative"> <button onClick={handleAddModal} className="absolute top-0 left-0 bg-primary-30 text-white text-primary-0 p-3 mr-5"><Icon iconName="plus" width={24}/></button>{t('activities.schedule')} </th>
+  return (
+    <section className="h-full w-full relative">
+      <table className="w-full  border border-primary-0">
+        <thead>
+          <tr className="bg-primary-0 ">
+            <th className=" text-center relative">
+              <select className="w-full py-3  text-white bg-primary-30 outline-none border-collapse appearance-none h-full" name="complex" id="" onChange={handleSelectComplex}>
+                <option className="text-center bg-primary-10" value="" selected>Seleccionar sede</option>
+                {complexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
+              </select>
+            </th>
             {DaysColumns.map((day, index) => (
-              <th className="py-3 w-[calc(100%/8)]" key={index}>{t(`activities.${day}`)}</th>
+              <th className="py-3 w-[calc(100%/8)] relative text-white" key={index}>{t(`activities.${day}`)}{index === DaysColumns.length
+                - 1 && <button onClick={handleAddModal} className="absolute h-full self-center top-0 right-0 bg-primary-30 text-white text-primary-0 p-3 "><Icon iconName="plus" width={24} /></button>}</th>
             ))}
           </tr>
         </thead>
@@ -59,8 +60,8 @@ function Calendar() {
 
                 return (
                   <td
-                  style={{ backgroundColor: activity ? activity.color : "transparent" }}
-                    className= "py-2 text-center"
+                    style={{ backgroundColor: activity ? activity.color : "transparent" }}
+                    className="py-2 text-center"
                     key={colIndex}
                   >
                     {activity ? activity.activity_name : ""}
@@ -71,9 +72,9 @@ function Calendar() {
           ))}
         </tbody>
       </table>
-      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit}/>}
+      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} />}
     </section>
-	);
+  );
 }
 
 export default Calendar;
