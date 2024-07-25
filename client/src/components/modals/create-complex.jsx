@@ -70,7 +70,7 @@ function CreateComplex({ handleCreateModal }) {
 
   return (
     <Modal>
-      <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10  items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
+      <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
         <button className="absolute top-4 right-4" onClick={handleCreateModal}><Icon iconName="x" /></button>
         <h2 className="text-center text-4xl mb-10 font-bold">{t("create_complex.header")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-20 relative px-16">
