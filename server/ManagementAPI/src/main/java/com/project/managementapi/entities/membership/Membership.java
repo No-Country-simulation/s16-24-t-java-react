@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 @Getter
 @Setter
@@ -20,9 +21,20 @@ public class Membership {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
+    @Enumerated(EnumType.STRING)
     private EMembershipType membershipType;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @JsonBackReference
     private Customer customer;
+
+    @PrePersist
+    public void prePersist() {
+        this.startDate = LocalDate.now();
+        updateEndDate();
+    }
+
+    private void updateEndDate () {
+        this.endDate = startDate.plusMonths(1);
+    }
 }

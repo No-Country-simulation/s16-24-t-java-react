@@ -1,7 +1,11 @@
 package com.project.managementapi.services;
 
-import org.springframework.stereotype.Service;
+import com.project.managementapi.dtos.MembershipDTO;
+import com.project.managementapi.entities.Customer;
 
-@Service
 public interface IMembershipService {
+
+    void createMembership(Customer customer, MembershipDTO membershipDto);
+
+    void updateMembership(String dni, MembershipDTO membershipDTO);
 }
