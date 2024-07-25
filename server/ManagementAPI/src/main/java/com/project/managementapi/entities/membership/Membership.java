@@ -34,12 +34,6 @@ public class Membership {
         updateEndDate();
     }
 
-    @PreUpdate
-    public void preUpdate() {
-        this.startDate = LocalDate.now();
-        updateEndDate();
-    }
-
     private void updateEndDate () {
         this.endDate = startDate.plusMonths(1);
     }

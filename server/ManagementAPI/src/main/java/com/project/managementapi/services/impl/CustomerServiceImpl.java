@@ -50,7 +50,6 @@ public class CustomerServiceImpl implements ICustomerService {
 
         Customer customerToUpdate = customerOptional.get();
         personalInfoService.updatePersonalInfo(customerDTO.getPersonalInfoDTO(), customerToUpdate.getPersonalInfo().getId());
-        membershipService.updateMembership(customerToUpdate, customerDTO.getMembershipDTO());
         customerRepository.save(customerToUpdate);
     }
 
