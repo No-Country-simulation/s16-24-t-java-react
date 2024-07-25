@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/login-context";
+import { formatComplexData } from "../lib/helpers";
 
 
 
@@ -18,8 +19,9 @@ const useGetComplexes = () => {
             "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`
           }
         });
-        const { object } = data
-        setComplexes(object.content);
+        const { content } = data.object
+        const formatedContent = formatComplexData(content);
+        setComplexes(formatedContent);
       } catch (error) {
         setError(error);
         setComplexes([]);
