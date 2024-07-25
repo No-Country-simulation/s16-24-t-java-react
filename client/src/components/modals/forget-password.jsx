@@ -1,7 +1,7 @@
 import { InputData } from "./create-user.jsx";
 import Modal from "./modal.jsx";
 import Icon from "../accesories/icon";
-import Logo from "../../../public/image/OIG21.jpeg";
+import Logo from "../../../public/image/Logo.png";
 
 function ForgetPassword({ handleCloseModal }) {
 	const handleSendEmail = () => {

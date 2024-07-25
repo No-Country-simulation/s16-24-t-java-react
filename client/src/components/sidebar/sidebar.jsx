@@ -17,7 +17,7 @@ import ClassIcon from "@mui/icons-material/Class";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
-import Logo from "../../../public/image/OIG21.jpeg";
+import Logo from "../../../public/image/Logo.png";
 
 import CreateUser from "../modals/create-user.jsx"; // Ajusta la ruta según la estructura de tu proyecto
 
@@ -97,7 +97,7 @@ function SideBar() {
 					className="bg-primary-0 text-white h-dvh overflow-hidden"
 					style={{ width: drawerWidth }}
 				>
-					<div className="py-20 px-1">
+					<div className="py-20 px-1 flex flex-col">
 						<Box component="main" sx={{ flexGrow: 1, p: -1 }}>
 							<ListItem
 								color="inherit"
@@ -167,13 +167,15 @@ function SideBar() {
 								</ListItem>
 							</Link>
 						</List>
-						<div className="flex justify-center mt-40">
-							<img
-								src={Logo}
-								alt="Logo de la empresa"
-								className="h-20 rounded-full mt-4"
-							/>
-						</div>
+						{open && (
+							<div className={`mt-40 h-44 mx-auto rounded-full p-5 bg-white/5 shadow-sm shadow-white backdrop-blur-xl`}>
+								<img
+									src={Logo}
+									alt="Logo de la empresa"
+									className="object-contain w-full h-full"
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</Drawer>
