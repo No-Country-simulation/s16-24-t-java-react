@@ -16,7 +16,6 @@ import CreateComplex from '../modals/create-complex.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
 
 import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
-import { flattenObject } from '../../lib/helpers.js'
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 
@@ -184,7 +183,6 @@ function Table() {
   }
 
   return (
-
     <>
       <div className="flex gap-32 w-full py-4 justify-around bg-primary-0 px-4">
         <SearchInput handleSearch={handleSearch} />
@@ -199,7 +197,7 @@ function Table() {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={flattenObject(data)} key={data.dni} />
+              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
             ))}
           </tbody>
         </table>

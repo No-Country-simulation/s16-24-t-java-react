@@ -54,7 +54,7 @@ export const Hours = [
   '04:00',
   '05:00',
   '06:00',
-  '07:00',  
+  '07:00',
   '08:00',
   '09:00',
   '10:00',
@@ -72,3 +72,7 @@ export const Hours = [
   '22:00',
   '23:00',
 ]
+
+export const STAFF_CATEGORIES = [
+  'COACH', 'CLEANING_STAFF', 'RECEPTIONIST', 'ADMIN'
+] 

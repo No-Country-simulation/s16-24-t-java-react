@@ -1,6 +1,6 @@
 import React from "react";
 import { FaWhatsapp, FaDiscord, FaEnvelope } from "react-icons/fa";
-import Logo from "../../../public/image/OIG21.jpeg";
+import Logo from "../../../public/image/Logo.png";
 
 function TechnicalSupport() {
 	return (
