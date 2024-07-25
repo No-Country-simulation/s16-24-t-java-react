@@ -135,12 +135,14 @@
 		"member": "Agregar usuario"
 	},
 	"create_complex":{
+		"header": "Añadir una sede",
 		"title": "Nombre de la sede",
 		"SSN": "CUIT",
 		"aperture_date":"Fecha de apertura",
 		"phone_number":"Teléfono",
 		"city":"Ciudad",
 		"postal_code":"Código postal",
-		"street":"Calle"
+		"street":"Calle",
+		"save": "Guardar"
 	}
 }
