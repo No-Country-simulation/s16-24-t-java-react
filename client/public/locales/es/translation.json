@@ -133,5 +133,14 @@
 	"new": {
 		"headquarters": "Agregar sede",
 		"member": "Agregar usuario"
+	},
+	"create_complex":{
+		"title": "Nombre de la sede",
+		"SSN": "CUIT",
+		"aperture_date":"Fecha de apertura",
+		"phone_number":"Teléfono",
+		"city":"Ciudad",
+		"postal_code":"Código postal",
+		"street":"Calle"
 	}
 }

@@ -72,53 +72,53 @@ function CreateComplex({ handleCreateModal }) {
     <Modal>
       <div className="relative flex bg-gray-100 w-[800px] min-h-[450px] rounded-xl shadow-2xl flex-col p-10  items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
         <button className="absolute top-4 right-4" onClick={handleCreateModal}><Icon iconName="x" /></button>
-        <h2 className="text-center text-2xl mb-10">{t("createComplex.title")}</h2>
+        <h2 className="text-center text-2xl mb-10">{t("create_complex.title")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-4 [&>div>label]:font-bold">
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="title">{t("createComplex.title")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="title">{t("create_complex.title")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="title" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="title"  />
             </div>
           </div>
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="cuit">{t("createComplex.cuit")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="cuit">{t("create_complex.SSN")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="cuit" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="cuit"  />
             </div>
           </div>
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="aperture_date">{t("createComplex.aperture_date")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="aperture_date">{t("create_complex.aperture_date")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="aperture_date" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="aperture_date"  />
             </div>
           </div>
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="phone_number">{t("createComplex.phone_number")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="phone_number">{t("create_complex.phone_number")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="phone_number" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="phone_number"  />
             </div>
           </div>
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="city">{t("createComplex.city")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="city">{t("create_complex.city")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="city" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="city"  />
             </div>
           </div>
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="postal_code">{t("createComplex.postal_code")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="postal_code">{t("create_complex.postal_code")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="postal_code" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="postal_code"  />
             </div>
           </div><div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="street">{t("createComplex.street")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="street">{t("create_complex.street")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="street" placeholder={t("createComplex.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="street"  />
             </div>
           </div>
 
           <div className="col-span-2 flex flex-col justify-center">
             {errors.length > 0 && errors.map((error, index) => (
-              <p className="text-red-500 text-center" key={index}>{`*${t(`createComplex.${error.path[0]}`)} ${t(`createComplex.errors.${error.code}`)?.toLowerCase()}`}</p>
+              <p className="text-red-500 text-center" key={index}>{`*${t(`create_complex.${error.path[0]}`)} ${t(`create_complex.errors.${error.code}`)?.toLowerCase()}`}</p>
             ))}
           </div>
           <div className="col-span-2 mt-4 flex justify-center">

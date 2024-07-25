@@ -25,7 +25,7 @@ export const StaffColumns = [
   'phone_number',
   'role',
   'address',
-  'created_at',
+  // 'created_at',
 ]
 
 export const DaysColumns = [
@@ -72,13 +72,3 @@ export const Hours = [
   '22:00',
   '23:00',
 ]
-
-// "title": "Sportify ONE",
-//   "cuit": "20567898655",
-//   "apertureDate": "2020-04-01",
-//   "phoneNumber": "1234567890",
-//   "address": {
-//     "city": "Los Angeles",
-//     "postalCode": "90001",
-//     "street": "1234 Elm Street"
-//   }
