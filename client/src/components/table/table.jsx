@@ -184,7 +184,7 @@ function Table() {
 
   return (
     <>
-      <div className="flex gap-32 w-full py-4 justify-around bg-primary-0 px-4">
+      <div className="flex  w-full py-4 justify-around bg-primary-0 px-4">
         <SearchInput handleSearch={handleSearch} />
         <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
         <Filter filters={subFilter} handleChange={handleSubFilter} />
