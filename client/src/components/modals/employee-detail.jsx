@@ -4,7 +4,7 @@ import Modal from "./modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InputCreateModal from "../accesories/input-create-modal";
-import { EMPLOYEES_DATA, STAFF_CATEGORIES } from "../../lib/const";
+import { EMPLOYEES_DATA } from "../../lib/const";
 import { EmployeeScheme } from "../../lib/zod-schemas";
 
 function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
