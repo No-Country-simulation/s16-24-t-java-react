@@ -69,7 +69,7 @@ function Table() {
   const pathname = useOutletContext();
 
   const { complexes } = useContext(ComplexContext);
-  const { customers } = useGetCustomers();
+  const { customers } = useGetCustomers(refresh);
   const { employees } = useGetEmployees(refresh);
 
   useEffect(() => {
