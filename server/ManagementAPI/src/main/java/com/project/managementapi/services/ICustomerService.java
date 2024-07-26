@@ -9,7 +9,7 @@ public interface ICustomerService {
 
     void updateCustomer(CustomerDTO customer);
 
-    void deleteCustomer(Long id);
+    void deleteCustomer(String dni);
 
     List<CustomerDTO> listCustomer();
 }
