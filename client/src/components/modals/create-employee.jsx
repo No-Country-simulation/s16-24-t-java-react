@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import InputCreateModal from "../accesories/input-create-modal";
 import { EMPLOYEES_DATA, STAFF_CATEGORIES } from "../../lib/const";
+import { EmployeeScheme } from "../../lib/zod-schemas";
 
 function CreateEmployee({ handleCreateModal, handleRefresh }) {
   const [errors, setErrors] = useState([]);
@@ -30,18 +31,26 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
       status: true
     }
     console.log("nuevo empleado", newEmployee);
-    try {
-      const { data } = await axios.post("/api/v1/employees/create", newEmployee, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-          "Content-Type": "Application/json"
-        }
-      });
 
-      console.log(data);
-      if (data) {
-        handleRefresh();
-        handleCreateModal();
+    const { success, data, error } = EmployeeScheme.safeParse(newEmployee);
+    if (error) {
+      console.log(error.issues);
+      setErrors(error.issues);
+      return
+    }
+    try {
+      if (success) {
+        const response = await axios.post("/api/v1/employees/create", data, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+            "Content-Type": "Application/json"
+          }
+        });
+        console.log(response.data);
+        if (response.data) {
+          handleRefresh();
+          handleCreateModal();
+        }
       }
     } catch (error) {
       console.log(error);

@@ -6,6 +6,7 @@ import axios from "axios";
 import { ComplexContext } from "../../contexts/complex-context";
 import InputCreateModal from "../accesories/input-create-modal";
 import { COMPLEX_DATA } from "../../lib/const";
+import { ComplexSchema } from "../../lib/zod-schemas";
 
 function CreateComplex({ handleCreateModal }) {
   const [errors, setErrors] = useState([]);
@@ -25,17 +26,26 @@ function CreateComplex({ handleCreateModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { success, data, error } = ComplexSchema.safeParse(complex);
+    console.log(success, data, error);
+    if (error) {
+      console.log(error.issues);
+      setErrors(error.issues);
+      return
+    }
     try {
-      const { data } = await axios.post("/api/v1/complexes/create", complex, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-          "Content-Type": "Application/json"
+      if (success) {
+        const response = await axios.post("/api/v1/complexes/create", data, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+            "Content-Type": "Application/json"
+          }
+        });
+        if (response.data) {
+          handleRefresh();
+          handleCreateModal();
         }
-      });
-      if (data) {
-        handleRefresh();
-        handleCreateModal();
-      }
+      } 
     } catch (error) {
       console.log(error);
     }
