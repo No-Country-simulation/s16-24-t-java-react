@@ -143,7 +143,8 @@
 		"city": "Ciudad",
 		"postal_code": "Código postal",
 		"street": "Calle",
-		"save": "Guardar"
+		"save": "Guardar",
+		"edit_confirm": "Confirmar cambios"
 	},
 	"create_employee": {
 		"start_date": "Fecha de inicio",
