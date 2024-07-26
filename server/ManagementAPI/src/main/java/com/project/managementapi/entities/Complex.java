@@ -29,6 +29,10 @@ public class Complex {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "complex")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "complex")
     private Set<Attendance> attendances;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "complex")
+    private Set<WorkoutSession> workoutSessions;
+
 }

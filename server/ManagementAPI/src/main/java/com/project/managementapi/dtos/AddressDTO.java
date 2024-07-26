@@ -26,5 +26,4 @@ public class AddressDTO {
             example = "1234 Elm Street", required = true)
     @NotBlank(message = "Street is mandatory")
     private String street;
-
 }

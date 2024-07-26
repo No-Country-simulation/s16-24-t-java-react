@@ -1,6 +1,8 @@
 package com.project.managementapi.services;
 
 import com.project.managementapi.dtos.ComplexDTO;
+import com.project.managementapi.entities.Complex;
+import com.project.managementapi.entities.WorkoutSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,4 +18,9 @@ public interface IComplexService {
     );
 
     void updateComplex(ComplexDTO complexDTO);
+
+    Complex findComplexByCuit(String cuit);
+
+    void AddWorkoutSessionToComplex(Complex complex, WorkoutSession workoutSession);
+
 }

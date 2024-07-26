@@ -7,5 +7,5 @@ public interface IMembershipService {
 
     void createMembership(Customer customer, MembershipDTO membershipDto);
 
-    void updateMembership(Customer customer, MembershipDTO membershipDTO);
+    void updateMembership(String dni, MembershipDTO membershipDTO);
 }
