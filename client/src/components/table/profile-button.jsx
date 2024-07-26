@@ -9,7 +9,7 @@ function ProfileButton({ handleLogOut }) {
 		setIsClicked(!isClicked);
 	};
 	return (
-		<div className="right-[1px] flex">
+		<div className="right-[1px] flex z-[5]">
 			{isClicked == true ? (
 				<div
 					className="absolute left-0 top-0 w-screen h-screen"
