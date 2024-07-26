@@ -16,7 +16,6 @@ const useGetCustomers = (refresh) => {
           }
         });
 
-        console.log("customers", data);
         // setCustomers(data);
       } catch (error) {
         setError(error);
