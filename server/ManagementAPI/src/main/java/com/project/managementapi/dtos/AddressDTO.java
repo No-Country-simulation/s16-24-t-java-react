@@ -14,10 +14,6 @@ public class AddressDTO {
 
     @Schema(description = "Required and must not be blank.",
             example = "Los Angeles", required = true)
-    @NotBlank(message = "Country is mandatory")
-    private String country;
-    @NotBlank(message = "State is mandatory")
-    private String state;
     @NotBlank(message = "City is mandatory")
     private String city;
 
@@ -30,6 +26,4 @@ public class AddressDTO {
             example = "1234 Elm Street", required = true)
     @NotBlank(message = "Street is mandatory")
     private String street;
-    @NotBlank(message = "Street number is mandatory")
-    private String streetNumber;
 }
