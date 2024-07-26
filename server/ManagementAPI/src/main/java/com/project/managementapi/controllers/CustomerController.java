@@ -36,10 +36,10 @@ public class CustomerController {
                 .build(), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{dni}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<SuccessResponse> deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
+    public ResponseEntity<SuccessResponse> deleteCustomer(@PathVariable String dni) {
+        customerService.deleteCustomer(dni);
 
         return new ResponseEntity<>(SuccessResponse
                 .builder()

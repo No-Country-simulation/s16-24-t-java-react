@@ -61,8 +61,12 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public void deleteCustomer(Long id) {
-        Customer customer = customerRepository.findById(id).orElseThrow();
+    public void deleteCustomer(String dni) {
+        Optional<Customer> customerOptional = customerRepository.findByPersonalInfoDni(dni);
+        if (customerOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Customer with DNI: " + dni + " not found");
+        }
+        Customer customer = customerOptional.get();
         customer.setStatus(false);
         customerRepository.save(customer);
     }
