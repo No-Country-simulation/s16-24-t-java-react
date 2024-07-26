@@ -15,6 +15,8 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   const { t } = useTranslation();
  
   useEffect(() => {
+    console.log('employeeToEdit',employeeToEdit);
+    console.log('employee', employee);
     if (employeeToEdit) {
       setEmployee(employeeToEdit);
     }
@@ -50,6 +52,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
       return
     }
     try {
+      console.log('data', data);
       if (success) {
         const response = await axios.put("/api/v1/employees/update", data, {
           headers: {
@@ -81,7 +84,8 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
             <div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">
               <img className="w-full h-full aspect-square object-cover" src="/image/ImagePlaceHolder.png" alt="imagen por defeceto del complejo" />
             </div>
-            <p className="text-3xl text-primary-10">{`${employee.staff}`}</p>
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.startDate} htmlFor="startDate" type="date" handleChange={handleChange} label={t("create_complex.aperture_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+            <p className="text-3xl text-primary-10">{`${employee?.staff}`}</p>
           </div>
           <div className="col-span-1 col-start-2 gap-2 mb-20 grid grid-cols-2 ">
             <InputCreateModal editable={editable} value={employee?.personalInfo?.firstName} htmlFor="firstName" type="text" handleChange={handleChange} label={t("create_employee.first_name")} />
