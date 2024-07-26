@@ -1,4 +1,3 @@
-import React from "react";
 import { FaWhatsapp, FaDiscord, FaEnvelope } from "react-icons/fa";
 import Logo from "../../../public/image/Logo.png";
 
