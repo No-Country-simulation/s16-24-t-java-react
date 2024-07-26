@@ -5,63 +5,47 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { ComplexContext } from "../../contexts/complex-context";
 import InputCreateModal from "../accesories/input-create-modal";
+import { COMPLEX_DATA } from "../../lib/const";
+import { ComplexSchema } from "../../lib/zod-schemas";
 
 function CreateComplex({ handleCreateModal }) {
-  const [title, setTitle] = useState("");
-  const [cuit, setCuit] = useState("");
-  const [apertureDate, setApertureDate] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [street, setStreet] = useState("");
   const [errors, setErrors] = useState([]);
+  const [complex, setComplex] = useState({});
 
   const { t } = useTranslation();
   const { handleRefresh } = useContext(ComplexContext);
 
   const handleChange = (e) => {
-    if (e.target.name === "title") {
-      setTitle(e.target.value);
-    } else if (e.target.name === "cuit") {
-      setCuit(e.target.value);
-    } else if (e.target.name === "aperture_date") {
-      setApertureDate(e.target.value);
-    } else if (e.target.name === "phone_number") {
-      setPhoneNumber(e.target.value);
-    } else if (e.target.name === "city") {
-      setCity(e.target.value);
-    } else if (e.target.name === "postal_code") {
-      setPostalCode(e.target.value);
-    } else if (e.target.name === "street") {
-      setStreet(e.target.value);
+    const { name, value } = e.target;
+    if (name === COMPLEX_DATA.city || name === COMPLEX_DATA.postalCode || name === COMPLEX_DATA.street) {
+      setComplex({ ...complex, address: { ...complex.address, [name]: value } });
+    } else {
+      setComplex({ ...complex, [name]: value });
     }
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newComplex = {
-      title,
-      cuit,
-      apertureDate,
-      phoneNumber,
-      address: {
-        city,
-        postalCode,
-        street
-      }
+
+    const { success, data, error } = ComplexSchema.safeParse(complex);
+    console.log(success, data, error);
+    if (error) {
+      console.log(error.issues);
+      setErrors(error.issues);
+      return
     }
-    
     try {
-      const { data } = await axios.post("/api/v1/complexes/create", newComplex, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-          "Content-Type": "Application/json"
+      if (success) {
+        const response = await axios.post("/api/v1/complexes/create", data, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+            "Content-Type": "Application/json"
+          }
+        });
+        if (response.data) {
+          handleRefresh();
+          handleCreateModal();
         }
-      });
-      if (data) {
-        handleRefresh();
-        handleCreateModal();
-      }
+      } 
     } catch (error) {
       console.log(error);
     }
@@ -78,15 +62,15 @@ function CreateComplex({ handleCreateModal }) {
             <div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">
               <img className="w-full h-full aspect-square object-cover" src="/image/ImagePlaceHolder.png" alt="imagen por defeceto del complejo" />
             </div>
-            <InputCreateModal htmlFor="aperture_date" type="date" handleChange={handleChange} label={t("create_complex.aperture_date")} inputClassName="px-6 py-2 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+            <InputCreateModal htmlFor="apertureDate" type="date" handleChange={handleChange} label={t("create_complex.aperture_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
           </div>
           <div className="col-span-1 col-start-2 gap-4 mb-32 grid grid-cols-2 ">
-            <InputCreateModal htmlFor="title" type="text" handleChange={handleChange} label={t("create_complex.title")} containerClassName="w-full flex flex-col gap-1 col-span-2"/>
+            <InputCreateModal htmlFor="title" type="text" handleChange={handleChange} label={t("create_complex.title")} containerClassName="w-full flex flex-col gap-1 col-span-2" />
             <InputCreateModal htmlFor="cuit" type="text" handleChange={handleChange} label={t("create_complex.SSN")} />
             <InputCreateModal htmlFor="street" type="text" handleChange={handleChange} label={t("create_complex.street")} />
-            <InputCreateModal htmlFor="postal_code" type="text" handleChange={handleChange} label={t("create_complex.postal_code")} />
+            <InputCreateModal htmlFor="postalCode" type="text" handleChange={handleChange} label={t("create_complex.postal_code")} />
             <InputCreateModal htmlFor="city" type="text" handleChange={handleChange} label={t("create_complex.city")} />
-            <InputCreateModal htmlFor="phone_number" type="text" handleChange={handleChange} label={t("create_complex.phone_number")} />
+            <InputCreateModal htmlFor="phoneNumber" type="text" handleChange={handleChange} label={t("create_complex.phone_number")} />
           </div>
           <div className="col-span-2 flex flex-col justify-center">
             {errors.length > 0 && errors.map((error, index) => (
