@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ComplexContext } from "../../contexts/complex-context";
 
 import Icon from "../accesories/icon";
-import AddActivity from "../modals/add-activity";
+import CreateActivity from "../modals/create-activity";
 import { getHourIndex } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
@@ -16,7 +16,7 @@ function Calendar() {
   const { complexes } = useContext(ComplexContext);
 
   useEffect(() => {
-    console.log("complex", selectedComplex.activities);
+    
 
   }, [selectedComplex]);
 
@@ -42,7 +42,7 @@ function Calendar() {
             </th>
             {DaysColumns.map((day, index) => (
               <th className="py-3 w-[calc(100%/8)] relative text-white" key={index}>{t(`activities.${day}`)}{index === DaysColumns.length
-                - 1 && <button onClick={handleAddModal} className="absolute h-full self-center top-0 right-0 bg-primary-30 text-white text-primary-0 p-3 "><Icon iconName="plus" width={24} /></button>}</th>
+                - 1 && <button onClick={handleAddModal} className="absolute h-full self-center top-0 right-0 bg-primary-30 text-white text-primary-0 p-3 disabled:bg-secondarydark-20 disabled:text-secondarydark-80" disabled={!selectedComplex.cuit}><Icon iconName="plus" width={24} /></button>}</th>
             ))}
           </tr>
         </thead>
@@ -72,7 +72,7 @@ function Calendar() {
           ))}
         </tbody>
       </table>
-      {showAddActivityModal && <AddActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} />}
+      {showAddActivityModal && <CreateActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} />}
     </section>
   );
 }
