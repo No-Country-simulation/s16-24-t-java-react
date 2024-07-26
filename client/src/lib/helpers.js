@@ -30,12 +30,11 @@ export const formatEmployeeData = (data) => {
 }
 
 export const formatComplexData = (data) => {
-  const formatedComplexes = data.map(complex => {
+  const formatedComplexes = data.map(({activities, ...complex}) => {
     return {
       ...complex,
       address: `${complex.address.city}, ${complex.address.postalCode}, ${complex.address.street}`
     }
   })
-
   return formatedComplexes
 }
