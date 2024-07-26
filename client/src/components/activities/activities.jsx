@@ -10,24 +10,28 @@ import { DaysColumns, Hours } from "../../lib/const";
 function Calendar() {
   const [showAddActivityModal, setShowAddActivityModal] = useState(false);
   const [selectedComplex, setSelectedComplex] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const { t } = useTranslation();
 
-  const { complexes } = useContext(ComplexContext);
+  const { rawComplexes } = useContext(ComplexContext);
 
   useEffect(() => {
-    
-
-  }, [selectedComplex]);
+    console.log( "rawComplexes",rawComplexes);
+  }, [rawComplexes]);
 
   const handleSelectComplex = (event) => {
-    const complexToSelect = complexes.find((complex) => complex.cuit === event.target.value);
+    const complexToSelect = rawComplexes.find((complex) => complex.cuit === event.target.value);
     setSelectedComplex(complexToSelect);
   }
 
   const handleAddModal = () => {
     setShowAddActivityModal(!showAddActivityModal);
   };
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  }
 
   return (
     <section className="h-full w-full relative">
@@ -37,7 +41,7 @@ function Calendar() {
             <th className=" text-center relative">
               <select className="w-full py-3 text-white bg-primary-30 outline-none border-collapse text-center h-full" name="complex" id="" onChange={handleSelectComplex}>
                 <option className="text-center bg-primary-10" disabled selected>Seleccionar sede</option>
-                {complexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
+                {rawComplexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
               </select>
             </th>
             {DaysColumns.map((day, index) => (
@@ -72,7 +76,7 @@ function Calendar() {
           ))}
         </tbody>
       </table>
-      {showAddActivityModal && <CreateActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} />}
+      {showAddActivityModal && <CreateActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} handleRefresh={handleRefresh}/>}
     </section>
   );
 }
