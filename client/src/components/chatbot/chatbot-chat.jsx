@@ -5,7 +5,6 @@ const ChatbotChat = () => {
 	const [messages, setMessages] = useState([]);
 	const [inputText, setInputText] = useState("");
 
-	// Función para mostrar el mensaje de bienvenida al cargar el componente
 	useEffect(() => {
 		setMessages([
 			{
@@ -25,14 +24,12 @@ const ChatbotChat = () => {
 
 		let botResponse = "";
 
-		// Lógica de respuestas del bot
 		if (userMessage === "inicio") {
 			botResponse =
 				"Recuerda que la información que te puedo brindar es sobre membresías. ¿En qué tipo de membresía estás interesado?, escribe la palabra membresia para poder recibir informacion";
 		} else if (userMessage === "adios") {
 			botResponse = "¡Adiós! Espero haberte ayudado.";
 		} else if (userMessage.includes("membresia")) {
-			// Mostrar opciones como botones con descripción y precio
 			botResponse = {
 				text: "Elige una membresía:",
 				buttons: [
@@ -69,7 +66,6 @@ const ChatbotChat = () => {
 		setInputText("");
 	};
 
-	// Función para manejar la selección de botones
 	const handleButtonClick = (button) => {
 		const { label, description, price } = button;
 		setMessages([
@@ -90,12 +86,13 @@ const ChatbotChat = () => {
 				{messages.map((message, index) => (
 					<div
 						key={index}
-						className={`flex ${message.sender === "bot" ? "justify-start" : "justify-end"
-							} mb-2`}
+						className={`flex ${message.sender === "bot" ? "justify-start" : "justify-end"} mb-2`}
 					>
+						{message.sender === "bot" && (
+							<img src={Logo} alt="Bot Logo" className="w-6 h-6 mr-2" />
+						)}
 						<div
-							className={`rounded-lg p-2 ${message.sender === "bot" ? "bg-tertiary-20" : "bg-primary-70"
-								}`}
+							className={`rounded-lg p-2 ${message.sender === "bot" ? "bg-tertiary-20" : "bg-primary-70"}`}
 						>
 							{typeof message.text === "object" ? (
 								<>
