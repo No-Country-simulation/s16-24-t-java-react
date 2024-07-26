@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
@@ -10,45 +10,27 @@ import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
-function AddActivity({ handleAddModal, cuit }) {
-  const [activityName, setActivityName] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [dayOfWeek, setDayOfWeek] = useState(undefined);
+function CreateActivity({ handleAddModal, cuit }) {
   const [bgColor, setBgColor] = useState("#CCF5D1");
+  const [activity, setActivity] = useState({});
   const [errors, setErrors] = useState([]);
 
   const { t } = useTranslation();
-
-  useEffect(() => {
-
-  }, [errors]);
-
   const handleChange = (e) => {
-    if (e.target.name === "activity_name") {
-      setActivityName(e.target.value);
-    } else if (e.target.name === "start_time") {
-      setStartTime(e.target.value);
-    } else if (e.target.name === "end_time") {
-      setEndTime(e.target.value);
-    } else if (e.target.name === "day_of_week") {
-      setDayOfWeek(Number(e.target.value));
-    }
+    const { name, value } = e.target;
+    setActivity({ ...activity, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { activityName, startTime, endTime} = activity;
     setErrors([]);
-
     const newActivity = {
+      ...activity,
       gymCuit: cuit,
-      startTime: startTime,
-      endTime: endTime,
       activityName: capitalize(activityName),
-      dayOfWeek: dayOfWeek,
       color: bgColor
     }
-
     try {
       if (startTime >= endTime) {
         setErrors([{
@@ -63,9 +45,7 @@ function AddActivity({ handleAddModal, cuit }) {
         setErrors(error.issues);
         return
       }
-
       console.log("parsedDAta",data);
-      
       const response = await axios.post("/api/v1/WorkoutSessions/create", data , {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
@@ -100,16 +80,16 @@ function AddActivity({ handleAddModal, cuit }) {
         <h2 className="text-center text-2xl mb-10">{t("select.title")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-4 [&>div>label]:font-bold">
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
-            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="activity_name">{t("select.activity_name")}</label>
+            <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="activityName">{t("select.activity_name")}</label>
             <div className="w-full flex items-center col-span-1">
-              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="activity_name" placeholder={t("select.activity")} />
+              <input className="flex-1 px-4 py-2 bg-primary-80 text-primary-0" onChange={handleChange} type="text" name="activityName" placeholder={t("select.activity")} />
               <input className="w-10 h-full" type="color" value={bgColor} onChange={handleBgColor} name="color" />
             </div>
 
           </div>
-          <Select htmlFor={"start_time"} id={"start_time"} label={t("select.start_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
-          <Select htmlFor={"end_time"} id={"end_time"} label={t("select.end_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
-          <Select htmlFor={"day_of_week"} id={"day_of_week"} label={t("select.day_of_week")} firstOption={t("select.choose_day")} options={DaysColumns} handleChange={handleChange} optionValue={true} />
+          <Select htmlFor={"startTime"} id={"start_time"} label={t("select.start_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
+          <Select htmlFor={"endTime"} id={"end_time"} label={t("select.end_time")} firstOption={t("select.choose_time")} options={Hours} handleChange={handleChange} />
+          <Select htmlFor={"dayOfWeek"} id={"day_of_week"} label={t("select.day_of_week")} firstOption={t("select.choose_day")} options={DaysColumns} handleChange={handleChange} optionValue={true} />
           <div className="col-span-2 flex flex-col justify-center">
             {errors.length > 0 && errors.map((error, index) => (
               <p className="text-red-500 text-center" key={index}>{`*${t(`select.${error.path[0]}`)} ${t(`select.errors.${error.code}`)?.toLowerCase()}`}</p>
@@ -124,4 +104,4 @@ function AddActivity({ handleAddModal, cuit }) {
   )
 }
 
-export default AddActivity
+export default CreateActivity

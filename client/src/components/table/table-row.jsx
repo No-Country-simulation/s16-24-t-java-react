@@ -1,7 +1,10 @@
-function TableRow({ setUserID, handleProfileModal, data }) {
+import { PATHS } from "../../lib/const"
+
+function TableRow({ setID, pathname, handleEditModal, data }) {
   const handleClick = () => {
-    setUserID(data.dni)
-    handleProfileModal()
+    const ID = pathname === PATHS.HEADQUARTERS ? data.cuit : data.dni
+    setID(ID)
+    handleEditModal()
   }
 
   return (

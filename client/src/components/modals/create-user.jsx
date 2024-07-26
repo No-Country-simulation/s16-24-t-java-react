@@ -1,57 +1,9 @@
-
-import { useEffect, useState } from "react";
-import isEmail from "validator/lib/isEmail";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 
-import { useTranslation } from "react-i18next";
-
 import Modal from "./modal.jsx";
-
-const ciudades = [
-	{ id: 1, name: "Buenos Aires" },
-	{ id: 2, name: "CABA" },
-	{ id: 3, name: "Catamarca" },
-	{ id: 4, name: "Chaco" },
-	{ id: 5, name: "Chubut" },
-	{ id: 6, name: "Córdoba" },
-	{ id: 7, name: "Corrientes" },
-	{ id: 8, name: "Entre Ríos" },
-	{ id: 9, name: "Formosa" },
-	{ id: 10, name: "Jujuy" },
-	{ id: 11, name: "La Pampa" },
-	{ id: 12, name: "La Rioja" },
-	{ id: 13, name: "Mendoza" },
-	{ id: 14, name: "Misiones" },
-	{ id: 15, name: "Neuquén" },
-	{ id: 16, name: "Río Negro" },
-	{ id: 17, name: "Salta" },
-	{ id: 18, name: "San Juan" },
-	{ id: 19, name: "San Luis" },
-	{ id: 20, name: "Santa Cruz" },
-	{ id: 21, name: "Santa Fe" },
-	{ id: 22, name: "Santiago del Estero" },
-	{ id: 23, name: "Tierra del Fuego" },
-	{ id: 24, name: "Tucumán" },
-];
-
-const payments = [
-	{
-		id: 1,
-		name: "Efectivo",
-	},
-	{
-		id: 2,
-		name: "Tarjeta",
-	},
-	{
-		id: 3,
-		name: "Transferencia",
-	},
-	{
-		id: 4,
-		name: "Nose que mas",
-	},
-];
+import { CUSTOMERS_DATA } from "../../lib/const.js";
 
 const descuentos = [
 	{ id: 0, name: "Sin descuento" },
@@ -108,7 +60,7 @@ const InputData = ({
 				(className ? " " + className : "")
 			}
 		>
-			<label className="flex h-[18px] font-medium">{placeholder}</label>
+			<label htmlFor={name} className="flex h-[18px] font-medium">{placeholder}</label>
 			<div className={"rounded-full bg-gray-200 h-[55%] flex shadow-inner"}>
 				<input
 					className={
@@ -171,43 +123,29 @@ const Selectable = ({
 };
 
 const CreateUser = ({ closeCallback }) => {
-	const [firstname, setFirstName] = useState("");
-	const [lastname, setLastname] = useState("");
-	const [phone, setPhone] = useState("");
-	const [birthDate, setBirthdate] = useState("");
-	const [dni, setDNI] = useState("");
-	const [email, setEmail] = useState("");
-	const [activity, setActivity] = useState("");
-	const [subscription, setSubscription] = useState("");
-	const [city, setCity] = useState("");
-	const [cp, setCP] = useState("");
-	const [address, setAddress] = useState("");
-
+	const [customer, setCustomer] = useState({});
 	const [canSubmit, setCanSubmit] = useState(false);
 
 	const { t } = useTranslation();
-
-	const onSubmit = async (e) => {
+	const handleChange = (type, event) => {
+		const { name, value } = event.target;
+		if (name === CUSTOMERS_DATA.city || name === CUSTOMERS_DATA.postalCode || name === CUSTOMERS_DATA.street) {
+			setCustomer({ ...customer, personalInfoDTO: { ...customer.personalInfoDTO, address: { ...customer.personalInfoDTO.address, [name]: value } } });
+		} else if (name === CUSTOMERS_DATA.membership) {
+			setCustomer({ ...customer, membershipDTO: { ...customer.membershipDTO, [name]: value } });
+		} else if (name === CUSTOMERS_DATA.sport) {
+			setCustomer({ ...customer, [name]: value });
+		} else {
+			setCustomer({ ...customer, personalInfoDTO: { ...customer.personalInfoDTO, [name]: value } });
+		}
+	};
+	const handleSubmit = async (e) => {
 		// En esta funcion se envian los datos al backend
 		e.preventDefault();
 		if (canSubmit == true) {
 			const { data } = await axios.post(
 				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
-				{
-					personalInfoDTO: {
-						firstName: firstname,
-						lastName: lastname,
-						phoneNumber: phone,
-						email,
-						dni,
-						birthDate,
-						address: {
-							city: ciudades[city - 1].name,
-							postalCode: cp,
-							street: address,
-						},
-					},
-				},
+				customer,
 				{
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
@@ -215,73 +153,12 @@ const CreateUser = ({ closeCallback }) => {
 					},
 				},
 			);
-			console.log("Estos datos devuelve el backend:");
-			console.log(data);
+			console.log("Estos datos devuelve el backend:", data);
 		} else {
 			console.log("Hay datos que faltan por completar o se rellenaron mal");
 		}
 	};
 
-	const onChanged = (type, event) => {
-		const value = event.target.value;
-		if (type == "email") {
-			setEmail(value);
-		} else if (type == "birthDate") {
-			console.log(value);
-			setBirthdate(value);
-		} else if (type == "dni") {
-			setDNI(value);
-		} else if (type == "firstname") {
-			setFirstName(value);
-		} else if (type == "lastname") {
-			setLastname(value);
-		} else if (type == "activity") {
-			setActivity(value);
-		} else if (type == "subscription") {
-			setSubscription(value);
-		} else if (type == "phone") {
-			setPhone(value);
-		} else if (type == "city") {
-			setCity(value);
-		} else if (type == "cp") {
-			setCP(value);
-		} else if (type == "address") {
-			setAddress(value);
-		}
-	};
-
-	useEffect(() => {
-		if (
-			isEmail(email) == true &&
-			firstname.length >= 3 &&
-			lastname.length >= 3 &&
-			phone.length >= 8 &&
-			birthDate.length >= 6 &&
-			String(dni).length >= 6 &&
-			activity.length >= 1 &&
-			subscription.length >= 1 &&
-			city > 0 &&
-			address.length >= 5 &&
-			cp.length >= 3
-		) {
-			setCanSubmit(true);
-		} else {
-			setCanSubmit(false);
-		}
-	}, [
-		email,
-		firstname,
-		lastname,
-		phone,
-		birthDate,
-		dni,
-		activity,
-		subscription,
-		city,
-		address,
-		cp,
-	]);
-	//
 	return (
 		<Modal closeCallback={closeCallback}>
 			<div
@@ -294,21 +171,22 @@ const CreateUser = ({ closeCallback }) => {
 					id="createAlumno"
 					className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative"
 				>
+					{/* TODO - Cambiar estilos de todos los inputs */}
 					<InputData
 						type="text"
 						className={"w-[calc(33.33%-10px)] absolute left-0"}
 						placeholder={t("createUserModal.firstname")}
 						required={true}
-						name={"firstname"}
-						onChanged={onChanged}
+						name={"firstName"}
+						onChanged={handleChange}
 					/>
 					<InputData
 						type="text"
 						className={"w-[calc(33.33%-10px)] left-[calc(35%-7px)] absolute"}
 						placeholder={t("createUserModal.lastname")}
 						required={true}
-						name={"lastname"}
-						onChanged={onChanged}
+						name={"lastName"}
+						onChanged={handleChange}
 					/>
 					<InputData
 						type="text"
@@ -316,7 +194,7 @@ const CreateUser = ({ closeCallback }) => {
 						placeholder={t("createUserModal.dni")}
 						required={true}
 						name={"dni"}
-						onChanged={onChanged}
+						onChanged={handleChange}
 					/>
 					<InputData
 						type="date"
@@ -324,7 +202,7 @@ const CreateUser = ({ closeCallback }) => {
 						placeholder={t("createUserModal.fechaNacimiento")}
 						required={true}
 						name={"birthDate"}
-						onChanged={onChanged}
+						onChanged={handleChange}
 					/>
 					<InputData
 						type="text"
@@ -334,27 +212,22 @@ const CreateUser = ({ closeCallback }) => {
 						placeholder={t("createUserModal.email")}
 						required={true}
 						name={"email"}
-						onChanged={onChanged}
+						onChanged={handleChange}
 					/>
 					<InputData
 						type="text"
 						className={"w-[calc(33.3%-10px)] absolute right-0 top-[75px]"}
 						placeholder={t("createUserModal.telContacto")}
 						required={true}
-						name={"phone"}
-						onChanged={onChanged}
+						name={"phoneNumber"}
+						onChanged={handleChange}
 					/>
 
-					<Selectable
-						className={"w-[calc(30%-5px)] absolute left-0 top-[150px]"}
-						placeholder={t("createUserModal.ciudad")}
-						name={"city"}
-						forForm={"createAlumno"}
-						required={true}
-						onChanged={onChanged}
-						selectableArray={ciudades}
-						t={t}
-					/>
+					{/* TODO cambiar por input */}
+					<InputData type="text" className={
+						"w-[calc(20%)] absolute left-[10px] top-[150px]"
+					} placeholder={t("createUserModal.city")} required={true} name={"city"} onChanged={handleChange} />
+
 
 					<InputData
 						type="text"
@@ -363,8 +236,8 @@ const CreateUser = ({ closeCallback }) => {
 						}
 						placeholder={t("createUserModal.cp")}
 						required={true}
-						name={"cp"}
-						onChanged={onChanged}
+						name={"postalCode"}
+						onChanged={handleChange}
 					/>
 
 					<InputData
@@ -372,8 +245,8 @@ const CreateUser = ({ closeCallback }) => {
 						className={"w-[calc(50%-17px)] absolute right-0 top-[150px]"}
 						placeholder={t("createUserModal.direccion")}
 						required={true}
-						name={"address"}
-						onChanged={onChanged}
+						name={"street"}
+						onChanged={handleChange}
 					/>
 				</form>
 			</div>
@@ -388,7 +261,7 @@ const CreateUser = ({ closeCallback }) => {
 						name={"activity"}
 						forForm={"createAlumno"}
 						required={true}
-						onChanged={onChanged}
+						onChanged={handleChange}
 						selectableArray={deportes}
 						t={t}
 					/>
@@ -398,7 +271,7 @@ const CreateUser = ({ closeCallback }) => {
 						name={"subscription"}
 						forForm={"createAlumno"}
 						required={true}
-						onChanged={onChanged}
+						onChanged={handleChange}
 						selectableArray={subscriptions}
 						t={t}
 					/>
@@ -408,7 +281,7 @@ const CreateUser = ({ closeCallback }) => {
 						name={"descuento"}
 						forForm={"createAlumno"}
 						required={true}
-						onChanged={onChanged}
+						onChanged={handleChange}
 						selectableArray={descuentos}
 						t={t}
 					/>
@@ -421,8 +294,7 @@ const CreateUser = ({ closeCallback }) => {
 				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
 					<input
 						type="button"
-						disabled={!canSubmit}
-						onClick={onSubmit}
+						onClick={handleSubmit}
 						value={t("createUserModal.guardar")}
 						className="right-0 flex absolute transition-[background,color] rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
 				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300"

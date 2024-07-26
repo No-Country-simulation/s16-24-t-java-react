@@ -19,7 +19,6 @@ import HelpIcon from "@mui/icons-material/Help";
 import { styled, useTheme } from "@mui/material/styles";
 import Logo from "../../../public/image/Logo.png";
 
-
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -95,7 +94,7 @@ function SideBar() {
 					className="bg-primary-0 text-white h-dvh overflow-hidden"
 					style={{ width: drawerWidth }}
 				>
-					<div className="py-20 px-1 flex flex-col">
+					<div className="py-2 px-1 flex flex-col">
 						<Box component="main" sx={{ flexGrow: 1, p: -1 }}>
 							<ListItem
 								color="inherit"
@@ -165,13 +164,15 @@ function SideBar() {
 								</ListItem>
 							</Link>
 						</List>
-							<div className={`mt-40 h-44 mx-auto rounded-full p-5 bg-white/5 shadow-sm shadow-white backdrop-blur-xl transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}>
-								<img
-									src={Logo}
-									alt="Logo de la empresa"
-									className="object-contain w-full h-full"
-								/>
-							</div>
+						<div
+							className={`mt-40 h-44 mx-auto rounded-full p-5 bg-white/5 shadow-sm shadow-white backdrop-blur-xl transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}
+						>
+							<img
+								src={Logo}
+								alt="Logo de la empresa"
+								className="object-contain w-full h-full"
+							/>
+						</div>
 					</div>
 				</div>
 			</Drawer>
