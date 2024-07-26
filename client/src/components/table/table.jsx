@@ -18,6 +18,7 @@ import CreateEmployee from '../modals/create-employee.jsx'
 import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
+import ComplexDetail from '../modals/complex-detail.jsx'
 
 const MainFilter = [
   "sport",
@@ -61,8 +62,8 @@ function Table() {
   const [search, setSearch] = useState("");
   const [createModal, setCreateModal] = useState(false);
   const [tableHeaderInfo, setTableHeaderInfo] = useState(MembersColumns);
-  const [profileModal, setProfileModal] = useState(false)
-  const [userID, setUserID] = useState(null)
+  const [editModal, setEditModal] = useState(false)
+  const [ID, setID] = useState(null)
   const [refresh, setRefresh] = useState(false)
 
   const { t } = useTranslation();
@@ -73,10 +74,6 @@ function Table() {
   const { employees } = useGetEmployees(refresh);
 
   useEffect(() => {
-
-    console.log("initialTableData", initialTableData);
-    console.log("tableData", tableData);
-
     if (pathname === PATHS.HOME) {
       setTableHeaderInfo(MembersColumns)
       setTableData(customers);
@@ -169,8 +166,8 @@ function Table() {
     setCreateModal(!createModal);
   };
 
-  const handleProfileModal = () => {
-    setProfileModal(!profileModal)
+  const handleEditModal = () => {
+    setEditModal(!editModal)
   }
 
   const handleRefresh = () => {
@@ -181,9 +178,22 @@ function Table() {
     if (pathname === PATHS.HEADQUARTERS) {
       return (<CreateComplex handleCreateModal={handleCreateModal} />)
     } else if (pathname === PATHS.STAFF) {
-      return (<CreateEmployee handleCreateModal={handleCreateModal} handleRefresh={handleRefresh}/>)
+      return (<CreateEmployee handleCreateModal={handleCreateModal} handleRefresh={handleRefresh} />)
     } else {
       return <CreateUser handleCreateModal={handleCreateModal} closeCallback={() => setCreateModal(false)} />
+    }
+  }
+
+  const choseEditModal = (pathname) => {
+    if (pathname === PATHS.HEADQUARTERS) {
+      const [complex] = initialTableData.filter((complex) => complex.cuit === ID);
+      return (<ComplexDetail handleEditModal={handleEditModal} complexToEdit={complex} />)
+    } else if (pathname === PATHS.STAFF) {
+      console.log("employee", initialTableData.filter((employee) => employee.dni === ID));
+      // return (<EditEmployee handleEditModal={handleEditModal} handleRefresh={handleRefresh} />)
+    } else {
+      console.log("customer", initialTableData.filter((customer) => customer.dni === ID));
+      return <UserDetail handleProfileModal={handleEditModal} usuarioCorrecto={customers.filter((customer) => customer.dni === ID)} />
     }
   }
 
@@ -202,13 +212,13 @@ function Table() {
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
             {tableData.map((data) => (
-              <TableRow setUserID={setUserID} handleProfileModal={handleProfileModal} data={data} key={data.dni} />
+              <TableRow setID={setID} handleEditModal={handleEditModal} data={data} key={data.dni} pathname={pathname}/>
             ))}
           </tbody>
         </table>
       </div>
       {createModal && choseCreteModal(pathname)}
-      {profileModal && <UserDetail handleProfileModal={handleProfileModal} usuarioCorrecto={customers.filter((customer) => customer.dni === userID)} />}
+      {editModal &&  choseEditModal(pathname)}
     </>
   )
 }
