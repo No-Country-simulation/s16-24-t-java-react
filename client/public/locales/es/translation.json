@@ -128,21 +128,41 @@
 	},
 	"search": {
 		"dni": "Ingresa un DNI",
-		"cuit": "Ingresa un Cuit" 
+		"cuit": "Ingresa un Cuit"
 	},
 	"new": {
 		"headquarters": "Agregar sede",
 		"member": "Agregar usuario"
 	},
-	"create_complex":{
+	"create_complex": {
 		"header": "Añadir una sede",
 		"title": "Nombre de la sede",
 		"SSN": "CUIT",
-		"aperture_date":"Fecha de apertura",
-		"phone_number":"Teléfono",
-		"city":"Ciudad",
-		"postal_code":"Código postal",
-		"street":"Calle",
+		"aperture_date": "Fecha de apertura",
+		"phone_number": "Teléfono",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
 		"save": "Guardar"
+	},
+	"create_employee": {
+		"start_date": "Fecha de inicio",
+		"select_staff": "Cargo",
+		"save": "Guardar",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Teléfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"salary": "Salario",
+		"title": "Añadir personal",
+		"COACH": "Entrenador",
+		"CLEANING_STAFF": "Personal de limpieza",
+		"RECEPTIONIST": "Recepcionista"
 	}
 }
