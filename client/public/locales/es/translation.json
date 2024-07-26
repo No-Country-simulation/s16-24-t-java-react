@@ -143,6 +143,16 @@
 		"city": "Ciudad",
 		"postal_code": "Código postal",
 		"street": "Calle",
+		"save": "Guardar"
+	},
+	"complex_detail":{
+		"title": "Detalle de la sede",
+		"SSN": "CUIT",
+		"aperture_date": "Fecha de apertura",
+		"phone_number": "Teléfono",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
 		"save": "Guardar",
 		"edit_confirm": "Confirmar cambios"
 	},
