@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
@@ -10,17 +10,12 @@ import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 
-function AddActivity({ handleAddModal, cuit }) {
+function CreateActivity({ handleAddModal, cuit }) {
   const [bgColor, setBgColor] = useState("#CCF5D1");
   const [activity, setActivity] = useState({});
   const [errors, setErrors] = useState([]);
 
   const { t } = useTranslation();
-
-  useEffect(() => {
-
-  }, [errors]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setActivity({ ...activity, [name]: value });
@@ -30,14 +25,12 @@ function AddActivity({ handleAddModal, cuit }) {
     e.preventDefault();
     const { activityName, startTime, endTime} = activity;
     setErrors([]);
-
     const newActivity = {
       ...activity,
       gymCuit: cuit,
       activityName: capitalize(activityName),
       color: bgColor
     }
-
     try {
       if (startTime >= endTime) {
         setErrors([{
@@ -52,9 +45,7 @@ function AddActivity({ handleAddModal, cuit }) {
         setErrors(error.issues);
         return
       }
-
       console.log("parsedDAta",data);
-      
       const response = await axios.post("/api/v1/WorkoutSessions/create", data , {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
@@ -113,4 +104,4 @@ function AddActivity({ handleAddModal, cuit }) {
   )
 }
 
-export default AddActivity
+export default CreateActivity

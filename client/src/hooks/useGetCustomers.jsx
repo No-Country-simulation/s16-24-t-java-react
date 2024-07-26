@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/login-context";
 
-const useGetCustomers = () => {
+const useGetCustomers = (refresh) => {
   const [customers, setCustomers] = useState([]);
   const [error, setError] = useState(null);
   const { isLogged } = useContext(LoginContext);
@@ -24,8 +24,8 @@ const useGetCustomers = () => {
       }
     }
 
-    // GetAllCustomers()
-  }, [isLogged]);
+    GetAllCustomers()
+  }, [isLogged, refresh]);
 
   return { customers, error }
 }
