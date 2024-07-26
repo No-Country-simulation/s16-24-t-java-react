@@ -9,7 +9,6 @@ function Home() {
 
 	const { pathname } = useLocation();
 
-
 	return (
 		<>
 			<div className="flex flex-1 bg-gray-200">
