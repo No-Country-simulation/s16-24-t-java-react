@@ -31,11 +31,11 @@ function Calendar() {
 
   return (
     <section className="h-full w-full relative">
-      <table className="w-full  border border-primary-0">
+      <table className="w-full border border-primary-0">
         <thead>
           <tr className="bg-primary-0 ">
             <th className=" text-center relative">
-              <select className="w-full py-3  text-white bg-primary-30 outline-none border-collapse appearance-none h-full" name="complex" id="" onChange={handleSelectComplex}>
+              <select className="w-full py-3 text-white bg-primary-30 outline-none border-collapse text-center h-full" name="complex" id="" onChange={handleSelectComplex}>
                 <option className="text-center bg-primary-10" value="" selected>Seleccionar sede</option>
                 {complexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
               </select>
