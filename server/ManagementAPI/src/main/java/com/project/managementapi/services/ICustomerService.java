@@ -1,7 +1,8 @@
 package com.project.managementapi.services;
 
 import com.project.managementapi.dtos.CustomerDTO;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface ICustomerService {
     CustomerDTO createCustomer(CustomerDTO customer);
@@ -9,4 +10,6 @@ public interface ICustomerService {
     void updateCustomer(CustomerDTO customer);
 
     void deleteCustomer(Long id);
+
+    List<CustomerDTO> listCustomer();
 }
