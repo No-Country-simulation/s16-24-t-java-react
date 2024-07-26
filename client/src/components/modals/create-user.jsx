@@ -1,12 +1,9 @@
-
 import { useState } from "react";
-import axios from "axios";
-
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 import Modal from "./modal.jsx";
 import { CUSTOMERS_DATA } from "../../lib/const.js";
-
 
 const descuentos = [
 	{ id: 0, name: "Sin descuento" },
@@ -143,7 +140,6 @@ const CreateUser = ({ closeCallback }) => {
 		}
 	};
 	const handleSubmit = async (e) => {
-
 		// En esta funcion se envian los datos al backend
 		e.preventDefault();
 		if (canSubmit == true) {
