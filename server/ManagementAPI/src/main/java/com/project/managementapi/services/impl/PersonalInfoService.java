@@ -9,6 +9,7 @@ import com.project.managementapi.services.IPersonalInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 
@@ -32,6 +33,7 @@ public class PersonalInfoService implements IPersonalInfoService {
                 .birthDate(dto.getBirthDate())
                 .email(dto.getEmail())
                 .dni(dto.getDni())
+                .startDate(LocalDate.now())
                 .address(addressService.createAddress(dto.getAddress()))
                 .build());
     }

@@ -4,14 +4,12 @@ import com.project.managementapi.dtos.WorkoutSessionDTO;
 import com.project.managementapi.entities.Complex;
 import com.project.managementapi.entities.WorkoutSession;
 import com.project.managementapi.repositories.WorkoutSessionRepository;
-import com.project.managementapi.services.IComplexService;
 import com.project.managementapi.services.IWorkoutSessionService;
 import com.project.managementapi.utils.Mapper;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
-import java.util.List;
 
 @Service
 public class WorkoutSessionServiceImpl implements IWorkoutSessionService {
@@ -23,13 +21,12 @@ public class WorkoutSessionServiceImpl implements IWorkoutSessionService {
 
 
     @Override
-    public WorkoutSessionDTO createWorkoutSession(WorkoutSessionDTO dto){
+    public WorkoutSessionDTO createWorkoutSession(WorkoutSessionDTO dto) throws BadRequestException {
+        Complex complex = complexService.findComplexByCuit(dto.getGymCuit());
 
         if(workoutSessionRepository.existsOverlappingSession(dto.getDayOfWeek(),dto.getStartTime(), dto.getEndTime())) {
-            throw new IllegalArgumentException();
+            throw new BadRequestException("Ya existe una clase en ese horario.");
         }
-
-        Complex complex = complexService.findComplexByCuit(dto.getGymCuit());
 
         WorkoutSession workoutSession = workoutSessionRepository.save(
                 WorkoutSession

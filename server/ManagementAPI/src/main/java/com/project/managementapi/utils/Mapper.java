@@ -36,6 +36,7 @@ public class Mapper {
                 .birthDate(personalInfo.getBirthDate())
                 .phoneNumber(personalInfo.getPhoneNumber())
                 .address(addressToDTO(personalInfo.getAddress()))
+                .startDate(personalInfo.getStartDate())
                 .build();
     }
 
