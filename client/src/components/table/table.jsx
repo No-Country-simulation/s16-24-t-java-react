@@ -19,6 +19,7 @@ import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 import ComplexDetail from '../modals/complex-detail.jsx'
+import EmployeeDetail from '../modals/employee-detail.jsx'
 
 const MainFilter = [
   "sport",
@@ -71,7 +72,7 @@ function Table() {
 
   const { complexes } = useContext(ComplexContext);
   const { customers } = useGetCustomers(refresh);
-  const { employees } = useGetEmployees(refresh);
+  const { employees, rawEmployees } = useGetEmployees(refresh);
 
   useEffect(() => {
     if (pathname === PATHS.HOME) {
@@ -189,8 +190,8 @@ function Table() {
       const [complex] = initialTableData.filter((complex) => complex.cuit === ID);
       return (<ComplexDetail handleEditModal={handleEditModal} complexToEdit={complex} />)
     } else if (pathname === PATHS.STAFF) {
-      console.log("employee", initialTableData.filter((employee) => employee.dni === ID));
-      // return (<EditEmployee handleEditModal={handleEditModal} handleRefresh={handleRefresh} />)
+      const [employee] = rawEmployees.filter((employee) => employee.personalInfo.dni === ID);
+      return (<EmployeeDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} employeeToEdit={employee}/>)
     } else {
       console.log("customer", initialTableData.filter((customer) => customer.dni === ID));
       return <UserDetail handleProfileModal={handleEditModal} usuarioCorrecto={customers.filter((customer) => customer.dni === ID)} />

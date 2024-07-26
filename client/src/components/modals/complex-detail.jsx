@@ -55,7 +55,6 @@ function ComplexDetail({ handleEditModal, complexToEdit }) {
       return
     }
 
-    console.log("complejo editado", data);
     try {
       if (success) {
         const response = await axios.put("/api/v1/complexes/update", data, {
