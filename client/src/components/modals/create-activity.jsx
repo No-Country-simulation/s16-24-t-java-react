@@ -53,16 +53,11 @@ function CreateActivity({ handleAddModal, cuit }) {
         }
       });
 
-      console.log(response);
-      // if (response.data) {
-      //   // TODO: Handle success
-      //   setActivityName("");
-      //   setStartTime("");
-      //   setEndTime("");
-      //   setDayOfWeek("");
-      //   setErrors([]);
-      //   handleAddModal();
-      // }
+      if (response.data.statusCode === "201") {
+        console.log(response.data);
+        setErrors([]);
+        handleAddModal();
+      }
     }
     catch (error) {
       console.log(error);
