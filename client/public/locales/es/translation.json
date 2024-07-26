@@ -165,5 +165,23 @@
 		"COACH": "Entrenador",
 		"CLEANING_STAFF": "Personal de limpieza",
 		"RECEPTIONIST": "Recepcionista"
+	},
+	"employee_detail": {
+		"title" : "Detalle del personal",	
+		"start_date": "Fecha de inicio",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Teléfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"salary": "Salario",
+		"COACH": "Entrenador",
+		"CLEANING_STAFF": "Personal de limpieza",
+		"RECEPTIONIST": "Recepcionista"
 	}
 }

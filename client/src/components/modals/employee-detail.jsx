@@ -78,26 +78,26 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
           <button className={`${editable ? "" : "hidden"}`} onClick={handleEdit}><Icon iconName="pencil" /></button>
           <button className="" onClick={handleEditModal}><Icon iconName="x" /></button>
         </div>
-        <h2 className="text-center text-2xl mb-10">{t("create_employee.title")}</h2>
+        <h2 className="text-center text-3xl font-bold mb-10">{t("employee_detail.title")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-10 relative px-10">
           <div className="flex flex-col gap-10 items-center">
             <div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">
               <img className="w-full h-full aspect-square object-cover" src="/image/ImagePlaceHolder.png" alt="imagen por defeceto del complejo" />
             </div>
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.startDate} htmlFor="startDate" type="date" handleChange={handleChange} label={t("create_complex.aperture_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
-            <p className="text-3xl text-primary-10">{`${employee?.staff}`}</p>
+            <InputCreateModal editable={true} value={employee?.personalInfo?.startDate} htmlFor="startDate" type="date" handleChange={handleChange} label={t("employee_detail.start_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+            <p className="text-3xl text-primary-10 uppercase">{t(`employee_detail.${employee?.staff}`)}</p>
           </div>
           <div className="col-span-1 col-start-2 gap-2 mb-20 grid grid-cols-2 ">
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.firstName} htmlFor="firstName" type="text" handleChange={handleChange} label={t("create_employee.first_name")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.lastName} htmlFor="lastName" type="text" handleChange={handleChange} label={t("create_employee.last_name")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.birthDate} htmlFor="birthDate" type="date" handleChange={handleChange} label={t("create_employee.birth_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.dni} htmlFor="dni" type="text" handleChange={handleChange} label={t("create_employee.dni")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.email} htmlFor="email" type="email" handleChange={handleChange} label={t("create_employee.email")} containerClassName="w-full flex flex-col gap-1 col-span-2" />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.street} htmlFor="street" type="text" handleChange={handleChange} label={t("create_employee.street")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.postalCode} htmlFor="postalCode" type="text" handleChange={handleChange} label={t("create_employee.postal_code")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.city} htmlFor="city" type="text" handleChange={handleChange} label={t("create_employee.city")} />
-            <InputCreateModal editable={editable} value={employee?.personalInfo?.phoneNumber} htmlFor="phoneNumber" type="text" handleChange={handleChange} label={t("create_employee.phone_number")} />
-            <InputCreateModal editable={editable} value={employee?.salary} htmlFor="salary" type="number" handleChange={handleChange} label={t("create_employee.salary")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.firstName} htmlFor="firstName" type="text" handleChange={handleChange} label={t("employee_detail.first_name")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.lastName} htmlFor="lastName" type="text" handleChange={handleChange} label={t("employee_detail.last_name")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.birthDate} htmlFor="birthDate" type="date" handleChange={handleChange} label={t("employee_detail.birth_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.dni} htmlFor="dni" type="text" handleChange={handleChange} label={t("employee_detail.dni")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.email} htmlFor="email" type="email" handleChange={handleChange} label={t("employee_detail.email")} containerClassName="w-full flex flex-col gap-1 col-span-2" />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.street} htmlFor="street" type="text" handleChange={handleChange} label={t("employee_detail.street")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.postalCode} htmlFor="postalCode" type="text" handleChange={handleChange} label={t("employee_detail.postal_code")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.address?.city} htmlFor="city" type="text" handleChange={handleChange} label={t("employee_detail.city")} />
+            <InputCreateModal editable={editable} value={employee?.personalInfo?.phoneNumber} htmlFor="phoneNumber" type="text" handleChange={handleChange} label={t("employee_detail.phone_number")} />
+            <InputCreateModal editable={editable} value={employee?.salary} htmlFor="salary" type="number" handleChange={handleChange} label={t("employee_detail.salary")} />
           </div>
           <div className="col-span-2 flex flex-col justify-center">
             {errors.length > 0 && errors.map((error, index) => (
