@@ -101,5 +101,16 @@ export const COMPLEX_DATA = {
   street: "street",
 }
 
-
-
+export const CUSTOMERS_DATA = {
+  dni: "dni",
+  firstName: "firstName",
+  lastName: "lastName",
+  email: "email",
+  birthDate: "birthDate",
+  phoneNumber: "phoneNumber",
+  city: "city",
+  postalCode: "postalCode",
+  street: "street",
+  sport: "sport",
+  membership: "membership",
+}
