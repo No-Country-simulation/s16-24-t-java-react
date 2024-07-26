@@ -7,6 +7,7 @@ import { formatComplexData } from "../lib/helpers";
 
 const useGetComplexes = () => {
   const [complexes, setComplexes] = useState([]);
+  const [rawComplexes, setRawComplexes] = useState([]);
   const [error, setError] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const { isLogged } = useContext(LoginContext);
@@ -20,6 +21,7 @@ const useGetComplexes = () => {
           }
         });
         const { content } = data.object
+        setRawComplexes(content);
         const formatedContent = formatComplexData(content);
         setComplexes(formatedContent);
       } catch (error) {
@@ -35,7 +37,7 @@ const useGetComplexes = () => {
     setRefresh(!refresh);
   }
 
-  return { complexes, error, handleRefresh }
+  return { complexes, error, handleRefresh, rawComplexes }
 }
 
 export default useGetComplexes
