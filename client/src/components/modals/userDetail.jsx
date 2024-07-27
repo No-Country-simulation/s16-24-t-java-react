@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from "./modal"
-import defProfPic from "../../assets/defProfPic.png"
+// import defProfPic from "../../assets/defProfPic.png"
 
 const UserDetail = ({ usuarioCorrecto, profile, handleProfileModal, userData }) => {
   const [isEditing, setIsEditing] = useState(false);
