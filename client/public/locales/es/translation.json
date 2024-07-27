@@ -193,6 +193,10 @@
 		"membership": "Membresia",
 		"sport": "Actividad",
 		"payment_method": "Metodo de pago",
-		"select_complex": "Seleccionar sede"
+		"select_complex": "Seleccionar sede",
+		"cash": "Efectivo",
+		"credit_card": "Tarjeta de credito",
+		"debit_card": "Tarjeta de debito",
+		"transfer": "Transferencia"
 	}
 }
