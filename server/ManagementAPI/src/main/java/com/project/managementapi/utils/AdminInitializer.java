@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Component
 public class AdminInitializer implements ApplicationRunner {
     @Autowired
@@ -34,6 +36,7 @@ public class AdminInitializer implements ApplicationRunner {
             PersonalInfo personalInfo = personalInfoRepository.save(PersonalInfo
                     .builder()
                     .email("admin@sportify.com")
+                    .startDate(LocalDate.now())
                     .build());
 
             Employee employee = employeeRepository.save(Employee

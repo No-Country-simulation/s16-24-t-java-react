@@ -22,13 +22,11 @@ public class WorkoutSessionDTO {
 
     @Schema(description = "Start time of the workout session in the format HH:mm. Required and must not be blank.",
             example = "08:00")
-    @NotBlank(message = "Start time is mandatory")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
     @Schema(description = "End time of the workout session in the format HH:mm. Required and must not be blank.",
             example = "09:00")
-    @NotBlank(message = "End time is mandatory")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime endTime;
 
