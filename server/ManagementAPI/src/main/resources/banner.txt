@@ -1,0 +1,22 @@
+
+
+   SSSSSSSSSSSSSSS PPPPPPPPPPPPPPPPP        OOOOOOOOO     RRRRRRRRRRRRRRRRR   TTTTTTTTTTTTTTTTTTTTTTTIIIIIIIIIIFFFFFFFFFFFFFFFFFFFFFFYYYYYYY       YYYYYYY
+ SS:::::::::::::::SP::::::::::::::::P     OO:::::::::OO   R::::::::::::::::R  T:::::::::::::::::::::TI::::::::IF::::::::::::::::::::FY:::::Y       Y:::::Y
+S:::::SSSSSS::::::SP::::::PPPPPP:::::P  OO:::::::::::::OO R::::::RRRRRR:::::R T:::::::::::::::::::::TI::::::::IF::::::::::::::::::::FY:::::Y       Y:::::Y
+S:::::S     SSSSSSSPP:::::P     P:::::PO:::::::OOO:::::::ORR:::::R     R:::::RT:::::TT:::::::TT:::::TII::::::IIFF::::::FFFFFFFFF::::FY::::::Y     Y::::::Y
+S:::::S              P::::P     P:::::PO::::::O   O::::::O  R::::R     R:::::RTTTTTT  T:::::T  TTTTTT  I::::I    F:::::F       FFFFFFYYY:::::Y   Y:::::YYY
+S:::::S              P::::P     P:::::PO:::::O     O:::::O  R::::R     R:::::R        T:::::T          I::::I    F:::::F                Y:::::Y Y:::::Y
+ S::::SSSS           P::::PPPPPP:::::P O:::::O     O:::::O  R::::RRRRRR:::::R         T:::::T          I::::I    F::::::FFFFFFFFFF       Y:::::Y:::::Y
+  SS::::::SSSSS      P:::::::::::::PP  O:::::O     O:::::O  R:::::::::::::RR          T:::::T          I::::I    F:::::::::::::::F        Y:::::::::Y
+    SSS::::::::SS    P::::PPPPPPPPP    O:::::O     O:::::O  R::::RRRRRR:::::R         T:::::T          I::::I    F:::::::::::::::F         Y:::::::Y
+       SSSSSS::::S   P::::P            O:::::O     O:::::O  R::::R     R:::::R        T:::::T          I::::I    F::::::FFFFFFFFFF          Y:::::Y
+            S:::::S  P::::P            O:::::O     O:::::O  R::::R     R:::::R        T:::::T          I::::I    F:::::F                    Y:::::Y
+            S:::::S  P::::P            O::::::O   O::::::O  R::::R     R:::::R        T:::::T          I::::I    F:::::F                    Y:::::Y
+SSSSSSS     S:::::SPP::::::PP          O:::::::OOO:::::::ORR:::::R     R:::::R      TT:::::::TT      II::::::IIFF:::::::FF                  Y:::::Y
+S::::::SSSSSS:::::SP::::::::P           OO:::::::::::::OO R::::::R     R:::::R      T:::::::::T      I::::::::IF::::::::FF               YYYY:::::YYYY
+S:::::::::::::::SS P::::::::P             OO:::::::::OO   R::::::R     R:::::R      T:::::::::T      I::::::::IF::::::::FF               Y:::::::::::Y
+ SSSSSSSSSSSSSSS   PPPPPPPPPP               OOOOOOOOO     RRRRRRRR     RRRRRRR      TTTTTTTTTTT      IIIIIIIIIIFFFFFFFFFFF               YYYYYYYYYYYYY
+
+
+
+
