@@ -11,7 +11,7 @@ function Home() {
 
 	return (
 		<>
-			<div className="flex flex-1 bg-gray-200">
+			<div className="flex flex-1 bg-gradient-to-br from-primary-80 via-40% via-white to-secondary-80">
 				<Sidebar />
 				<main className="h-full w-full">
 					<Outlet context={pathname}/>
