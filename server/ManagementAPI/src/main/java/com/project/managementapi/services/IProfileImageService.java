@@ -8,4 +8,6 @@ import java.io.IOException;
 @Service
 public interface IProfileImageService {
     String save(MultipartFile mpf, Long id) throws IOException;
+
+    String getProfileImageByCustomerID(Long id);
 }
