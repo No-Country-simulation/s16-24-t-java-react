@@ -47,7 +47,6 @@ function CreateActivity({ handleAddModal, cuit }) {
         setErrors(error.issues);
         return
       }
-      console.log("parsedDAta",data);
       const response = await axios.post("/api/v1/WorkoutSessions/create", data , {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
@@ -56,7 +55,6 @@ function CreateActivity({ handleAddModal, cuit }) {
       });
 
       if (response.data.statusCode === "201") {
-        console.log(response.data);
         setErrors([]);
         handleRefresh();
         handleAddModal();

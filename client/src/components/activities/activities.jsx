@@ -16,7 +16,6 @@ function Calendar() {
   const { rawComplexes} = useContext(ComplexContext);
 
   useEffect(() => {
-    console.log( "Calendario",rawComplexes);
     if (selectedComplex.cuit) {
       const complexToUpdate = rawComplexes.find((complex) => complex.cuit === selectedComplex.cuit);
       if (complexToUpdate) {

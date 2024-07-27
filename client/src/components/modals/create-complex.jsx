@@ -27,9 +27,7 @@ function CreateComplex({ handleCreateModal }) {
     e.preventDefault();
 
     const { success, data, error } = ComplexSchema.safeParse(complex);
-    console.log(success, data, error);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }

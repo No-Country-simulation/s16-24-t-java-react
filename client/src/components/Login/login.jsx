@@ -33,8 +33,6 @@ function Login() {
 			setUser({username: data.username, role: data.role});
 			handleIsLogged(data.token);
 		} else {
-			console.log("Usuario o contraseña incorrectos");
-
 			Swal.fire({
 				icon: "error",
 				title: "Error de inicio de sesión",
