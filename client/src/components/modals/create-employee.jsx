@@ -30,11 +30,9 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
       ...employee,
       status: true
     }
-    console.log("nuevo empleado", newEmployee);
 
     const { success, data, error } = EmployeeScheme.safeParse(newEmployee);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }
@@ -46,7 +44,6 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
             "Content-Type": "Application/json"
           }
         });
-        console.log(response.data);
         if (response.data) {
           handleRefresh();
           handleCreateModal();

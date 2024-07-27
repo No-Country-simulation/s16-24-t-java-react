@@ -15,8 +15,6 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   const { t } = useTranslation();
  
   useEffect(() => {
-    console.log('employeeToEdit',employeeToEdit);
-    console.log('employee', employee);
     if (employeeToEdit) {
       setEmployee(employeeToEdit);
     }
@@ -43,16 +41,12 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
       ...employee,
       status: true
     }
-    console.log("nuevo empleado", newEmployee);
-
     const { success, data, error } = EmployeeScheme.safeParse(newEmployee);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }
     try {
-      console.log('data', data);
       if (success) {
         const response = await axios.put("/api/v1/employees/update", data, {
           headers: {
@@ -60,7 +54,6 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
             "Content-Type": "Application/json"
           }
         });
-        console.log(response.data);
         if (response.data) {
           handleRefresh();
           handleEditModal();
