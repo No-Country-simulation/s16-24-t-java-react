@@ -3,13 +3,15 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 import Modal from "./modal.jsx";
-import { CUSTOMERS_DATA, STAFF_CATEGORIES, DISCOUNTS, MEMBERSHIP } from "../../lib/const.js";
+import { CUSTOMERS_DATA, DISCOUNTS, MEMBERSHIP, PAYMENT_METHODS } from "../../lib/const.js";
 import InputCreateModal from "../accesories/input-create-modal.jsx";
 import Icon from "../accesories/icon.jsx";
 import { ComplexContext } from "../../contexts/complex-context.jsx";
+import { addDaysToDate } from "../../lib/helpers.js";
+import { CustomerScheme } from "../../lib/zod-schemas.js";
 
 
-const CreateUser = ({handleCreateModal, handleRefresh}) => {
+const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 	const [customer, setCustomer] = useState({});
 	const [selectedComplex, setSelectedComplex] = useState(null);
 	const [activities, setActivities] = useState([]);
@@ -20,18 +22,21 @@ const CreateUser = ({handleCreateModal, handleRefresh}) => {
 
 	useEffect(() => {
 		if (selectedComplex) {
-			console.log("acitvidades", selectedComplex.activities);
-			setActivities(selectedComplex.activities);
+			const activities = selectedComplex.activities.map(({ activityName }) => activityName);
+			const uniqueActivities = Array.from(new Set(activities))
+			setActivities(uniqueActivities);
 		}
 	}, [selectedComplex]);
-	const handleChange = (type, event) => {
-		const { name, value } = event.target;
+	const handleChange = (e) => {
+		const { name, value } = e.target;
 		if (name === CUSTOMERS_DATA.city || name === CUSTOMERS_DATA.postalCode || name === CUSTOMERS_DATA.street) {
 			setCustomer({ ...customer, personalInfoDTO: { ...customer.personalInfoDTO, address: { ...customer.personalInfoDTO.address, [name]: value } } });
 		} else if (name === CUSTOMERS_DATA.membership) {
 			setCustomer({ ...customer, membershipDTO: { ...customer.membershipDTO, [name]: value } });
 		} else if (name === CUSTOMERS_DATA.sport) {
 			setCustomer({ ...customer, [name]: value });
+		} else if (name === CUSTOMERS_DATA.membershipType) {
+			setCustomer({ ...customer, membershipDTO: { ...customer.membershipDTO, [name]: value } });
 		} else {
 			setCustomer({ ...customer, personalInfoDTO: { ...customer.personalInfoDTO, [name]: value } });
 		}
@@ -40,12 +45,46 @@ const CreateUser = ({handleCreateModal, handleRefresh}) => {
 	const handleSelectedComplex = (e) => {
 		const { value } = e.target;
 		const [selectedcomplex] = rawComplexes.filter((complex) => complex.cuit === value);
-		setSelectedComplex(selectedcomplex);
 		console.log("selected complex", selectedcomplex);
+		setSelectedComplex(selectedcomplex);
 	}
 	const handleSubmit = async (e) => {
 		// En esta funcion se envian los datos al backend
 		e.preventDefault();
+		const newCustomer = {
+			...customer,
+			status: true,
+			membershipDTO: {
+				...customer.membershipDTO,
+				endDate: addDaysToDate(customer.personalInfoDTO.startDate, 30)
+			}
+		}
+
+		console.log("nuevo cliente", newCustomer);
+		const { success, data, error } = CustomerScheme.safeParse(newCustomer);
+		console.log('schema',success, data, error);
+		if (error) {
+			console.log(error.issues);
+			setErrors(error.issues);
+			return
+		}
+		try {
+			if (success) {
+				const response = await axios.post("/api/v1/customers/create", data, {
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+						"Content-Type": "Application/json"
+					}
+				});
+				console.log("Estos datos devuelve el backend:", response.data);
+				// if (response.data) {
+				// 	handleRefresh();
+				// 	handleCreateModal();
+				// }
+			}
+		} catch (error) {
+			console.log(error);
+		}
 		// const { data } = await axios.post(
 		// 	"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
 		// 	customer,
@@ -67,27 +106,27 @@ const CreateUser = ({handleCreateModal, handleRefresh}) => {
 				<form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-10 relative px-10 gap-y-6">
 					<div className="flex flex-col gap-8 items-center">
 						<div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">
-							<img className="w-full h-full aspect-square object-cover" src="/image/ProfileImagePlaceholder.png" alt="imagen por defeceto de usuario" loading="lazy"/>
+							<img className="w-full h-full aspect-square object-cover" src="/image/ProfileImagePlaceholder.png" alt="imagen por defeceto de usuario" loading="lazy" />
 						</div>
 						<InputCreateModal htmlFor="startDate" type="date" handleChange={handleChange} label={t("create_customer.start_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
 						<div className="col-span-2 w-full">
-						<label htmlFor="complex" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
-						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleSelectedComplex}>
-							<option value="" selected disabled>{t("create_customer.select_complex")}</option>
-							{rawComplexes.map((complex) => (
-								<option key={complex.title} value={complex.cuit}>{complex.title}</option>
-							))}
-						</select>
-					</div>
+							<label htmlFor="complex" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleSelectedComplex}>
+								<option value="" selected disabled>{t("create_customer.select_complex")}</option>
+								{rawComplexes.map((complex) => (
+									<option key={complex.title} value={complex.cuit}>{complex.title}</option>
+								))}
+							</select>
+						</div>
 						<div className="self-start">
-						<label htmlFor="discount" className="text-primary-10 font-bold ml-5">{t('create_customer.discount')}</label>
-						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="discount" onChange={handleChange}>
-							<option value="" selected disabled>{t("create_customer.discount")}</option>
-							{DISCOUNTS.map((category) => (
-								<option key={category} value={category}>{category}</option>
-							))}
-						</select>
-					</div>
+							<label htmlFor="discount" className="text-primary-10 font-bold ml-5">{t('create_customer.discount')}</label>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="discount" onChange={handleChange}>
+								<option value="" selected disabled>{t("create_customer.discount")}</option>
+								{DISCOUNTS.map((category) => (
+									<option key={category} value={category}>{category}</option>
+								))}
+							</select>
+						</div>
 					</div>
 					<div className="col-span-1 col-start-2 gap-2 grid grid-cols-2">
 						<InputCreateModal htmlFor="firstName" type="text" handleChange={handleChange} label={t("create_customer.first_name")} />
@@ -101,44 +140,42 @@ const CreateUser = ({handleCreateModal, handleRefresh}) => {
 						<InputCreateModal htmlFor="phoneNumber" type="text" handleChange={handleChange} label={t("create_customer.phone_number")} />
 					</div>
 					<div className="col-span-1 col-start-2 gap-2 mb-20 grid grid-cols-2">
-					<div className="col-span-2">
-						<label htmlFor="sport" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
-						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleChange}>
-						<option value="" selected disabled>{t("create_customer.sport")}</option>
-							{activities.map((activity) => (
-								<option key={activity} value={activity}>{activity}</option>
-							))}
-						</select>
+						<div className="col-span-2">
+							<label htmlFor="sport" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleChange} disabled={!selectedComplex}>
+								<option value="" selected disabled>{t("create_customer.sport")}</option>
+								{activities.map((activityName) => (<option key={activityName} value={activityName}>{activityName}</option>))}
+							</select>
+						</div>
+						<div className="col-span-2">
+							<label htmlFor="membershipType" className="text-primary-10 font-bold ml-5">{t('create_customer.membership')}</label>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="membershipType" onChange={handleChange} disabled={!selectedComplex}>
+								<option value="" selected disabled>{t("create_customer.membership")}</option>
+								{MEMBERSHIP.map((category) => (
+									<option key={category} value={category}>{category}</option>
+								))}
+							</select>
+						</div>
+						<div className="col-span-2">
+							<label htmlFor="paymentMethod" className="text-primary-10 font-bold ml-5">{t('create_customer.payment_method')}</label>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="paymentMethod" onChange={handleChange} disabled={!selectedComplex}>
+								<option value="" selected disabled>{t("create_customer.payment_method")}</option>
+								{PAYMENT_METHODS.map((category) => (
+									<option key={category} value={category}>{t(`create_customer.${category}`)}</option>
+								))}
+							</select>
+						</div>
 					</div>
-					<div className="col-span-2">
-						<label htmlFor="membershipType" className="text-primary-10 font-bold ml-5">{t('create_customer.membership')}</label>
-						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="membershipType" onChange={handleChange}>
-							<option value="" selected disabled>{t("create_customer.membership")}</option>
-							{MEMBERSHIP.map((category) => (
-								<option key={category} value={category}>{category}</option>
-							))}
-						</select>
-					</div>
-					<div className="col-span-2">
-						<label htmlFor="staff" className="text-primary-10 font-bold ml-5">{t('create_customer.payment_method')}</label>
-						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="staff" onChange={handleChange}>
-							<option value="" selected disabled>{t("create_customer.payment_method")}</option>
-							{STAFF_CATEGORIES.map((category) => (
-								<option key={category} value={category}>{t(`create_customer.${category}`)}</option>
-							))}
-						</select>
-					</div>
-			</div>
 
-			<div className="col-span-2 flex flex-col justify-center">
-				{errors.length > 0 && errors.map((error, index) => (
-					<p className="text-red-500 text-center" key={index}>{`*${t(`create_employee.${error.path[0]}`)} ${t(`create_employee.errors.${error.code}`)?.toLowerCase()}`}</p>
-				))}
-			</div>
-			<div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-				<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
-			</div>
-		</form>
+					<div className="col-span-2 flex flex-col justify-center">
+						{errors.length > 0 && errors.map((error, index) => (
+							<p className="text-red-500 text-center" key={index}>{`*${t(`create_employee.${error.path[0]}`)} ${t(`create_employee.errors.${error.code}`)?.toLowerCase()}`}</p>
+						))}
+					</div>
+					<div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
+						<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
+					</div>
+				</form>
 			</div >
 		</Modal >
 	);

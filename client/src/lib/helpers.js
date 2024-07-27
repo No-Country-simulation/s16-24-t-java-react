@@ -38,3 +38,18 @@ export const formatComplexData = (data) => {
   })
   return formatedComplexes
 }
+
+export const addDaysToDate = (dateStr, daysToAdd) => {
+  // Convertir la cadena de fecha a un objeto Date
+  const date = new Date(dateStr);
+
+  // Añadir los días
+  date.setDate(date.getDate() + daysToAdd);
+
+  // Convertir la nueva fecha de vuelta a una cadena en formato "YYYY-MM-DD"
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses están indexados en 0
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
