@@ -9,15 +9,20 @@ import { DaysColumns, Hours } from "../../lib/const";
 
 function Calendar() {
   const [showAddActivityModal, setShowAddActivityModal] = useState(false);
-  const [selectedComplex, setSelectedComplex] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [selectedComplex, setSelectedComplex] = useState({});
 
   const { t } = useTranslation();
 
-  const { rawComplexes } = useContext(ComplexContext);
+  const { rawComplexes} = useContext(ComplexContext);
 
   useEffect(() => {
-    console.log( "rawComplexes",rawComplexes);
+    console.log( "Calendario",rawComplexes);
+    if (selectedComplex.cuit) {
+      const complexToUpdate = rawComplexes.find((complex) => complex.cuit === selectedComplex.cuit);
+      if (complexToUpdate) {
+        setSelectedComplex(complexToUpdate);
+      }
+    }
   }, [rawComplexes]);
 
   const handleSelectComplex = (event) => {
@@ -28,10 +33,6 @@ function Calendar() {
   const handleAddModal = () => {
     setShowAddActivityModal(!showAddActivityModal);
   };
-
-  const handleRefresh = () => {
-    setRefresh(!refresh);
-  }
 
   return (
     <section className="h-full w-full relative">
@@ -55,20 +56,19 @@ function Calendar() {
             <tr key={rowIndex}>
               <td className="bg-tertiary-30 font-semibold text-center py-2">{hour}</td>
               {DaysColumns.map((_, colIndex) => {
-                const activity = selectedComplex.activities?.find(
+                const activity = selectedComplex?.activities?.find(
                   (activity) =>
-                    activity.day_of_week === colIndex + 1 &&
-                    getHourIndex(activity.start_time) <= rowIndex &&
-                    getHourIndex(activity.end_time) > rowIndex
+                    activity.dayOfWeek === colIndex + 1 &&
+                    getHourIndex(activity.startTime) <= rowIndex &&
+                    getHourIndex(activity.endTime) > rowIndex
                 );
-
                 return (
                   <td
                     style={{ backgroundColor: activity ? activity.color : "transparent" }}
                     className="py-2 text-center"
                     key={colIndex}
                   >
-                    {activity ? activity.activity_name : ""}
+                    {activity ? activity.activityName : ""}
                   </td>
                 );
               })}
@@ -76,7 +76,7 @@ function Calendar() {
           ))}
         </tbody>
       </table>
-      {showAddActivityModal && <CreateActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} handleRefresh={handleRefresh}/>}
+      {showAddActivityModal && <CreateActivity handleAddModal={handleAddModal} cuit={selectedComplex.cuit} />}
     </section>
   );
 }
