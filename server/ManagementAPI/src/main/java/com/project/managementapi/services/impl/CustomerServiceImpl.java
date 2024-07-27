@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements ICustomerService {
         Customer customer = customerRepository.save(Customer.builder()
                 .personalInfo(personalInfoService.createPersonalInfo(customerDTO.getPersonalInfoDTO()))
                 .status(true)
-                .sports(Sports.valueOf(customerDTO.getSport()))
+                .sports(customerDTO.getSport())
                 .build());
 
         MembershipDTO membershipDTO = customerDTO.getMembershipDTO();
