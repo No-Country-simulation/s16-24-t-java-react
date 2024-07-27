@@ -28,6 +28,7 @@ public class PersonalInfo {
     private String dni;
 
     private LocalDate birthDate;
+    private LocalDate startDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")

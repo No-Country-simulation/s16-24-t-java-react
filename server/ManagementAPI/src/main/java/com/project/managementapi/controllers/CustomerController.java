@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
@@ -34,10 +36,10 @@ public class CustomerController {
                 .build(), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{dni}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<SuccessResponse> deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
+    public ResponseEntity<SuccessResponse> deleteCustomer(@PathVariable String dni) {
+        customerService.deleteCustomer(dni);
 
         return new ResponseEntity<>(SuccessResponse
                 .builder()
@@ -61,4 +63,15 @@ public class CustomerController {
                 .build(), HttpStatus.OK);
     }
 
+    @GetMapping("/findAll")
+    public ResponseEntity<SuccessResponse> findAllCustomers() {
+        List<CustomerDTO> customerDTOS = customerService.listCustomer();
+
+        return new ResponseEntity<>(SuccessResponse.builder()
+                .statusCode("200")
+                .message("List of all customers")
+                .object(customerDTOS)
+                .url(url+"/findAll")
+                .build(), HttpStatus.OK);
+    }
 }

@@ -193,7 +193,6 @@ function Table() {
       const [employee] = rawEmployees.filter((employee) => employee.personalInfo.dni === ID);
       return (<EmployeeDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} employeeToEdit={employee}/>)
     } else {
-      console.log("customer", initialTableData.filter((customer) => customer.dni === ID));
       return <UserDetail handleProfileModal={handleEditModal} usuarioCorrecto={customers.filter((customer) => customer.dni === ID)} />
     }
   }

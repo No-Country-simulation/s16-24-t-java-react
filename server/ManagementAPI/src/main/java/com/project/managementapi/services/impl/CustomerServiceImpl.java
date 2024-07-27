@@ -3,8 +3,10 @@ package com.project.managementapi.services.impl;
 import com.project.managementapi.dtos.CustomerDTO;
 import com.project.managementapi.dtos.MembershipDTO;
 import com.project.managementapi.entities.Customer;
+import com.project.managementapi.entities.membership.Membership;
 import com.project.managementapi.exceptions.ResourceNotFoundException;
 import com.project.managementapi.repositories.CustomerRepository;
+import com.project.managementapi.repositories.MembershipRepository;
 import com.project.managementapi.services.ICustomerService;
 import com.project.managementapi.services.IMembershipService;
 import com.project.managementapi.utils.Mapper;
@@ -12,6 +14,8 @@ import com.project.managementapi.utils.Sports;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +29,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private IMembershipService membershipService;
+
+    @Autowired
+    private MembershipRepository membershipRepository;
 
     @Override
     public CustomerDTO createCustomer(CustomerDTO customerDTO) {
@@ -50,14 +57,30 @@ public class CustomerServiceImpl implements ICustomerService {
 
         Customer customerToUpdate = customerOptional.get();
         personalInfoService.updatePersonalInfo(customerDTO.getPersonalInfoDTO(), customerToUpdate.getPersonalInfo().getId());
-        membershipService.updateMembership(customerToUpdate, customerDTO.getMembershipDTO());
         customerRepository.save(customerToUpdate);
     }
 
     @Override
-    public void deleteCustomer(Long id) {
-        Customer customer = customerRepository.findById(id).orElseThrow();
+    public void deleteCustomer(String dni) {
+        Optional<Customer> customerOptional = customerRepository.findByPersonalInfoDni(dni);
+        if (customerOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Customer with DNI: " + dni + " not found");
+        }
+        Customer customer = customerOptional.get();
         customer.setStatus(false);
         customerRepository.save(customer);
+    }
+
+    @Override
+    public List<CustomerDTO> listCustomer() {
+        List<Customer> customers = customerRepository.findAll();
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        for (Customer customer : customers) {
+            Membership membership = membershipRepository.findFirstByCustomerOrderByEndDateDesc(customer.getId());
+            customerDTOS.add(
+                    Mapper.customerToDTOWithMembership(customer, membership)
+            );
+        }
+        return customerDTOS;
     }
 }

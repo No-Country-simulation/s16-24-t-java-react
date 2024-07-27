@@ -48,9 +48,7 @@ function ComplexDetail({ handleEditModal, complexToEdit }) {
     e.preventDefault();
 
     const { success, data, error } = ComplexSchema.safeParse(complex);
-    console.log(success, data, error);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }
@@ -64,7 +62,6 @@ function ComplexDetail({ handleEditModal, complexToEdit }) {
           }
         });
         if (response.data) {
-          console.log('respuesta',response.data);
           handleRefresh();
           handleEditModal();
         }

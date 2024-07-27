@@ -50,4 +50,6 @@ public class PersonalInfoDTO {
             implementation = AddressDTO.class)
     @NotNull(message = "Address is mandatory")
     private AddressDTO address;
+
+    private LocalDate startDate;
 }
