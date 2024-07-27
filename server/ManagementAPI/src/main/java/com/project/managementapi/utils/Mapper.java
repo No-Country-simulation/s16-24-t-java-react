@@ -74,7 +74,7 @@ public class Mapper {
         return CustomerDTO.builder()
                 .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
                 .status(customer.getStatus())
-                .sport(customer.getSports().name())
+                .sport(customer.getSports())
                 .build();
     }
 
@@ -82,7 +82,7 @@ public class Mapper {
         return CustomerDTO.builder()
                 .personalInfoDTO(personalInfoToDTO(customer.getPersonalInfo()))
                 .status(customer.getStatus())
-                .sport(customer.getSports().name())
+                .sport(customer.getSports())
                 .membershipDTO(membershipToDTO(membership))
                 .build();
     }
