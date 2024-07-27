@@ -9,6 +9,7 @@ import com.project.managementapi.entities.employee.Employee;
 import com.project.managementapi.entities.membership.Membership;
 import com.project.managementapi.entities.personalInfo.PersonalInfo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,8 +52,11 @@ public class Mapper {
     }
 
     public static ComplexDTO complexToDTO(Complex complex, List<WorkoutSession> sessions){
-        Set<String> activities = new HashSet<>();
-        for(WorkoutSession w: sessions) activities.add(w.getActivityName());
+
+        List<WorkoutSessionDTO> list = new ArrayList<>();
+        for(WorkoutSession w: sessions){
+            list.add(workoutSessionToDTO(w));
+        }
 
         return ComplexDTO
                 .builder()
@@ -61,7 +65,7 @@ public class Mapper {
                 .phoneNumber(complex.getPhoneNumber())
                 .apertureDate(complex.getApertureDate())
                 .address(addressToDTO(complex.getAddress()))
-                .activities(activities)
+                .activities(list)
                 .build();
     }
 
