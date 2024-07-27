@@ -114,3 +114,19 @@ export const CUSTOMERS_DATA = {
   sport: "sport",
   membership: "membership",
 }
+
+export const DISCOUNTS = [
+  "5%",
+  "10%",
+  "15%",
+  "20%",
+  "25%",
+  "30%"
+]
+
+export const MEMBERSHIP = [
+  "Bronze",
+  "Silver",
+  "Gold",
+  "Platinum"
+]

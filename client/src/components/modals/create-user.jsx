@@ -1,132 +1,29 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 import Modal from "./modal.jsx";
-import { CUSTOMERS_DATA } from "../../lib/const.js";
+import { CUSTOMERS_DATA, STAFF_CATEGORIES, DISCOUNTS, MEMBERSHIP } from "../../lib/const.js";
+import InputCreateModal from "../accesories/input-create-modal.jsx";
+import Icon from "../accesories/icon.jsx";
+import { ComplexContext } from "../../contexts/complex-context.jsx";
 
-const descuentos = [
-	{ id: 0, name: "Sin descuento" },
-	{ id: 1, name: "Descuento1" },
-	{ id: 2, name: "Descuento2" },
-	{ id: 3, name: "Descuento3" },
-];
 
-const deportes = [
-	//  actividades (esta hardcodeado)
-	{
-		id: "football1",
-		name: "Football 111111111",
-	},
-	{
-		id: "football2",
-		name: "Football 222222222",
-	},
-	{
-		id: "natacion1",
-		name: "Natacion 111111111",
-	},
-	{
-		id: "natacion2",
-		name: "Natacion 222222222",
-	},
-];
-
-const subscriptions = [
-	//  subscripciones (esta hardcodeado)
-	{
-		id: "mes",
-		name: "Mensual",
-	},
-];
-
-const FormOption = ({ data }) => {
-	return <option value={data.id}>{data.name}</option>;
-};
-
-// Para componentes invalidos usar estos estilos:  border-red-400 border-[1px]
-const InputData = ({
-	type,
-	required,
-	onChanged,
-	name,
-	className,
-	placeholder,
-}) => {
-	return (
-		<div
-			className={
-				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
-				(className ? " " + className : "")
-			}
-		>
-			<label htmlFor={name} className="flex h-[18px] font-medium">{placeholder}</label>
-			<div className={"rounded-full bg-gray-200 h-[55%] flex shadow-inner"}>
-				<input
-					className={
-						"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none focus:bg-transparent"
-					}
-					type={type}
-					name={name}
-					placeholder={""}
-					required={required | true}
-					onChange={(e) => onChanged(name, e)}
-				/>
-			</div>
-		</div>
-	);
-};
-
-const Selectable = ({
-	name,
-	forForm,
-	required,
-	className,
-	onChanged,
-	selectableArray,
-	placeholder,
-	t,
-}) => {
-	return (
-		<div
-			className={
-				"bg-transparent h-[64px] flex flex-col gap-[10px] " +
-				(className ? " " + className : "")
-			}
-		>
-			<label className="flex h-[18px] left-[5px] font-medium">
-				{placeholder}
-			</label>
-			<div
-				className={"h-[34px] w-[100%] bg-gray-200 rounded-full shadow-inner"}
-			>
-				<select
-					className={
-						"w-[calc(100%-20px)] h-full bg-transparent mx-[10px] outline-none cursor-pointer"
-					}
-					name={name}
-					form={forForm}
-					required={required | true}
-					onChange={(e) => onChanged(name, e)}
-					defaultValue={"DEFAULT"}
-				>
-					<option disabled value="DEFAULT">
-						{t("createUserModal.elegirSelectable")}
-					</option>
-					{selectableArray.map((element, key) => {
-						return <FormOption data={element} key={key} />;
-					})}
-				</select>
-			</div>
-		</div>
-	);
-};
-
-const CreateUser = ({ closeCallback }) => {
+const CreateUser = ({handleCreateModal, handleRefresh}) => {
 	const [customer, setCustomer] = useState({});
-	const [canSubmit, setCanSubmit] = useState(false);
+	const [selectedComplex, setSelectedComplex] = useState(null);
+	const [activities, setActivities] = useState([]);
+	const [errors, setErrors] = useState([]);
 
+	const { rawComplexes } = useContext(ComplexContext);
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		if (selectedComplex) {
+			console.log("acitvidades", selectedComplex.activities);
+			setActivities(selectedComplex.activities);
+		}
+	}, [selectedComplex]);
 	const handleChange = (type, event) => {
 		const { name, value } = event.target;
 		if (name === CUSTOMERS_DATA.city || name === CUSTOMERS_DATA.postalCode || name === CUSTOMERS_DATA.street) {
@@ -139,184 +36,112 @@ const CreateUser = ({ closeCallback }) => {
 			setCustomer({ ...customer, personalInfoDTO: { ...customer.personalInfoDTO, [name]: value } });
 		}
 	};
+
+	const handleSelectedComplex = (e) => {
+		const { value } = e.target;
+		const [selectedcomplex] = rawComplexes.filter((complex) => complex.cuit === value);
+		setSelectedComplex(selectedcomplex);
+		console.log("selected complex", selectedcomplex);
+	}
 	const handleSubmit = async (e) => {
 		// En esta funcion se envian los datos al backend
 		e.preventDefault();
-		if (canSubmit == true) {
-			const { data } = await axios.post(
-				"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
-				customer,
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem("sportify_jwt_access") || "NO-TENEMOS-TOKEN"}`,
-						"Content-Type": "Application/json",
-					},
-				},
-			);
-			console.log("Estos datos devuelve el backend:", data);
-		} else {
-			console.log("Hay datos que faltan por completar o se rellenaron mal");
-		}
+		// const { data } = await axios.post(
+		// 	"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
+		// 	customer,
+		// 	{
+		// 		headers: {
+		// 			Authorization: `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+		// 			"Content-Type": "Application/json",
+		// 		},
+		// 	},
+		// );
+		// console.log("Estos datos devuelve el backend:", data);
 	};
 
 	return (
-		<Modal closeCallback={closeCallback}>
-			<div
-				className="relative inset-0 flex justify-center items-center bg-gray-100 w-[800px] h-[260px] rounded-[32px] shadow-2xl"
-				onClick={(e) => e.stopPropagation()}
-			>
-				<form
-					action=""
-					method="post"
-					id="createAlumno"
-					className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative"
-				>
-					{/* TODO - Cambiar estilos de todos los inputs */}
-					<InputData
-						type="text"
-						className={"w-[calc(33.33%-10px)] absolute left-0"}
-						placeholder={t("createUserModal.firstname")}
-						required={true}
-						name={"firstName"}
-						onChanged={handleChange}
-					/>
-					<InputData
-						type="text"
-						className={"w-[calc(33.33%-10px)] left-[calc(35%-7px)] absolute"}
-						placeholder={t("createUserModal.lastname")}
-						required={true}
-						name={"lastName"}
-						onChanged={handleChange}
-					/>
-					<InputData
-						type="text"
-						className={"w-[calc(33.33%-10px)] absolute right-0"}
-						placeholder={t("createUserModal.dni")}
-						required={true}
-						name={"dni"}
-						onChanged={handleChange}
-					/>
-					<InputData
-						type="date"
-						className={"w-[calc(33.3%-10px)] absolute left-0 top-[75px]"}
-						placeholder={t("createUserModal.fechaNacimiento")}
-						required={true}
-						name={"birthDate"}
-						onChanged={handleChange}
-					/>
-					<InputData
-						type="text"
-						className={
-							"w-[calc(33.3%-10px)] absolute left-[calc(35%-7px)] top-[75px]"
-						}
-						placeholder={t("createUserModal.email")}
-						required={true}
-						name={"email"}
-						onChanged={handleChange}
-					/>
-					<InputData
-						type="text"
-						className={"w-[calc(33.3%-10px)] absolute right-0 top-[75px]"}
-						placeholder={t("createUserModal.telContacto")}
-						required={true}
-						name={"phoneNumber"}
-						onChanged={handleChange}
-					/>
-
-					{/* TODO cambiar por input */}
-					<InputData type="text" className={
-						"w-[calc(20%)] absolute left-[10px] top-[150px]"
-					} placeholder={t("createUserModal.city")} required={true} name={"city"} onChanged={handleChange} />
-
-
-					<InputData
-						type="text"
-						className={
-							"w-[calc(20%-5px)] absolute left-[calc(30%+10px)] top-[150px]"
-						}
-						placeholder={t("createUserModal.cp")}
-						required={true}
-						name={"postalCode"}
-						onChanged={handleChange}
-					/>
-
-					<InputData
-						type="text"
-						className={"w-[calc(50%-17px)] absolute right-0 top-[150px]"}
-						placeholder={t("createUserModal.direccion")}
-						required={true}
-						name={"street"}
-						onChanged={handleChange}
-					/>
-				</form>
+		<Modal>
+			<div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
+				<button className="absolute top-4 right-4" onClick={handleCreateModal}><Icon iconName="x" /></button>
+				<h2 className="text-center text-3xl font-bold mb-10">{t("create_customer.title")}</h2>
+				<form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-10 relative px-10 gap-y-6">
+					<div className="flex flex-col gap-8 items-center">
+						<div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">
+							<img className="w-full h-full aspect-square object-cover" src="/image/ProfileImagePlaceholder.png" alt="imagen por defeceto de usuario" loading="lazy"/>
+						</div>
+						<InputCreateModal htmlFor="startDate" type="date" handleChange={handleChange} label={t("create_customer.start_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+						<div className="col-span-2 w-full">
+						<label htmlFor="complex" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
+						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleSelectedComplex}>
+							<option value="" selected disabled>{t("create_customer.select_complex")}</option>
+							{rawComplexes.map((complex) => (
+								<option key={complex.title} value={complex.cuit}>{complex.title}</option>
+							))}
+						</select>
+					</div>
+						<div className="self-start">
+						<label htmlFor="discount" className="text-primary-10 font-bold ml-5">{t('create_customer.discount')}</label>
+						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="discount" onChange={handleChange}>
+							<option value="" selected disabled>{t("create_customer.discount")}</option>
+							{DISCOUNTS.map((category) => (
+								<option key={category} value={category}>{category}</option>
+							))}
+						</select>
+					</div>
+					</div>
+					<div className="col-span-1 col-start-2 gap-2 grid grid-cols-2">
+						<InputCreateModal htmlFor="firstName" type="text" handleChange={handleChange} label={t("create_customer.first_name")} />
+						<InputCreateModal htmlFor="lastName" type="text" handleChange={handleChange} label={t("create_customer.last_name")} />
+						<InputCreateModal htmlFor="birthDate" type="date" handleChange={handleChange} label={t("create_customer.birth_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
+						<InputCreateModal htmlFor="dni" type="text" handleChange={handleChange} label={t("create_customer.dni")} />
+						<InputCreateModal htmlFor="email" type="email" handleChange={handleChange} label={t("create_customer.email")} containerClassName="w-full flex flex-col gap-1 col-span-2" />
+						<InputCreateModal htmlFor="city" type="text" handleChange={handleChange} label={t("create_customer.city")} />
+						<InputCreateModal htmlFor="street" type="text" handleChange={handleChange} label={t("create_customer.street")} />
+						<InputCreateModal htmlFor="postalCode" type="text" handleChange={handleChange} label={t("create_customer.postal_code")} />
+						<InputCreateModal htmlFor="phoneNumber" type="text" handleChange={handleChange} label={t("create_customer.phone_number")} />
+					</div>
+					<div className="col-span-1 col-start-2 gap-2 mb-20 grid grid-cols-2">
+					<div className="col-span-2">
+						<label htmlFor="sport" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
+						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleChange}>
+						<option value="" selected disabled>{t("create_customer.sport")}</option>
+							{activities.map((activity) => (
+								<option key={activity} value={activity}>{activity}</option>
+							))}
+						</select>
+					</div>
+					<div className="col-span-2">
+						<label htmlFor="membershipType" className="text-primary-10 font-bold ml-5">{t('create_customer.membership')}</label>
+						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="membershipType" onChange={handleChange}>
+							<option value="" selected disabled>{t("create_customer.membership")}</option>
+							{MEMBERSHIP.map((category) => (
+								<option key={category} value={category}>{category}</option>
+							))}
+						</select>
+					</div>
+					<div className="col-span-2">
+						<label htmlFor="staff" className="text-primary-10 font-bold ml-5">{t('create_customer.payment_method')}</label>
+						<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="staff" onChange={handleChange}>
+							<option value="" selected disabled>{t("create_customer.payment_method")}</option>
+							{STAFF_CATEGORIES.map((category) => (
+								<option key={category} value={category}>{t(`create_customer.${category}`)}</option>
+							))}
+						</select>
+					</div>
 			</div>
-			<div
-				className="hidden relative inset-0 justify-center items-center m bg-gray-100 w-[800px] h-[190px] rounded-[32px] shadow-2xl"
-				onClick={(e) => e.stopPropagation()}
-			>
-				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
-					<Selectable
-						className={"w-full absolute right-0 top-0"}
-						placeholder={t("createUserModal.seleccionarActividad")}
-						name={"activity"}
-						forForm={"createAlumno"}
-						required={true}
-						onChanged={handleChange}
-						selectableArray={deportes}
-						t={t}
-					/>
-					<Selectable
-						className={"w-[calc(100%-25%-15px)] absolute left-0 top-[75px]"}
-						placeholder={t("createUserModal.seleccionarSubscripcion")}
-						name={"subscription"}
-						forForm={"createAlumno"}
-						required={true}
-						onChanged={handleChange}
-						selectableArray={subscriptions}
-						t={t}
-					/>
-					<Selectable
-						className={"w-[25%] absolute right-0 top-[75px]"}
-						placeholder={t("createUserModal.seleccionarDescuento")}
-						name={"descuento"}
-						forForm={"createAlumno"}
-						required={true}
-						onChanged={handleChange}
-						selectableArray={descuentos}
-						t={t}
-					/>
-				</div>
+
+			<div className="col-span-2 flex flex-col justify-center">
+				{errors.length > 0 && errors.map((error, index) => (
+					<p className="text-red-500 text-center" key={index}>{`*${t(`create_employee.${error.path[0]}`)} ${t(`create_employee.errors.${error.code}`)?.toLowerCase()}`}</p>
+				))}
 			</div>
-			<div
-				className="relative inset-0 flex justify-center items-center m bg-gray-100 w-[800px] h-[80px] rounded-[32px] shadow-2xl"
-				onClick={(e) => e.stopPropagation()}
-			>
-				<div className="flex flex-col w-full h-full ml-5 mr-5 -mb-10 relative">
-					<input
-						type="button"
-						onClick={handleSubmit}
-						value={t("createUserModal.guardar")}
-						className="right-0 flex absolute transition-[background,color] rounded-full bg-green-500 hover:bg-green-600 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
-				disabled:text-slate-500 disabled:bg-slate-300 disabled:cursor-not-allowed disabled:hover:bg-slate-300"
-					/>
-					<input
-						type="button"
-						value={t("createUserModal.cancelar")}
-						onClick={() => closeCallback()}
-						className="left-0 flex absolute transition-[background] rounded-full bg-red-500 w-[120px] h-[40px] text-white font-bold cursor-pointer shadow-md
-				hover:bg-red-600"
-					/>
-					<p
-						className={`absolute h-[40px] right-[140px] transition-[opacity] ${canSubmit == true ? "opacity-0" : "opacity-100"} text-center content-center font-medium`}
-					>
-						{t("createUserModal.completarAviso")}
-					</p>
-				</div>
+			<div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
+				<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
 			</div>
-		</Modal>
+		</form>
+			</div >
+		</Modal >
 	);
 };
-
-export { Selectable, InputData };
 
 export default CreateUser;
