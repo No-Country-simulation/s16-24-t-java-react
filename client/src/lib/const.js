@@ -75,7 +75,7 @@ export const Hours = [
 
 export const STAFF_CATEGORIES = [
   'COACH', 'CLEANING_STAFF', 'RECEPTIONIST'
-] 
+]
 
 export const EMPLOYEES_DATA = {
   staff: "staff",
@@ -112,7 +112,7 @@ export const CUSTOMERS_DATA = {
   postalCode: "postalCode",
   street: "street",
   sport: "sport",
-  membership: "membership",
+  membershipType: "membershipType",
 }
 
 export const DISCOUNTS = [
@@ -125,8 +125,14 @@ export const DISCOUNTS = [
 ]
 
 export const MEMBERSHIP = [
-  "Bronze",
-  "Silver",
-  "Gold",
-  "Platinum"
+  "STANDARD",
+  "GOLD",
+  "PLATINUM"
+]
+
+export const PAYMENT_METHODS = [
+  "cash",
+  "credit_card",
+  "debit_card",
+  "transfer"
 ]
