@@ -1,4 +1,4 @@
-import { InputData } from "./create-user.jsx";
+// import { InputData } from "./create-user.jsx";
 import Modal from "./modal.jsx";
 import Icon from "../accesories/icon";
 import Logo from "../../../public/image/Logo.png";
@@ -29,12 +29,12 @@ function ForgetPassword({ handleCloseModal }) {
 						Ingresa tu correo electrónico
 					</h3>
 
-					<InputData
+					{/* <InputData
 						type="text"
 						name="email"
 						placeholder="Email"
 						className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary-200 mb-4"
-					/>
+					/> */}
 					<button
 						onClick={handleSendEmail}
 						className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
