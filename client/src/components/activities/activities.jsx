@@ -53,7 +53,7 @@ function Calendar() {
         <tbody>
           {Hours.map((hour, rowIndex) => (
             <tr key={rowIndex}>
-              <td className="bg-tertiary-10 font-semibold text-center py-2">{hour}</td>
+              <td className="bg-tertiary-30 font-semibold text-center py-2">{hour}</td>
               {DaysColumns.map((_, colIndex) => {
                 const activity = selectedComplex.activities?.find(
                   (activity) =>
