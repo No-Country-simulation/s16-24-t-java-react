@@ -51,6 +51,7 @@ export const formatCustomerData = (data) => {
       endDate: customer.membershipDTO.endDate,
       dueDate: calculateDaysDelayed(customer.membershipDTO.endDate),
       phoneNumber: customer.personalInfoDTO.phoneNumber,
+      status: customer.status
     }
   })
   return formatedCustomers
