@@ -76,6 +76,7 @@ function Table() {
 
   useEffect(() => {
     if (pathname === PATHS.HOME) {
+      console.log("customers tabla", customers);
       setTableHeaderInfo(MembersColumns)
       setTableData(customers);
       setInitialTableData(customers);

@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../contexts/login-context";
+import { formatCustomerData } from "../lib/helpers";
 
 const useGetCustomers = (refresh) => {
   const [customers, setCustomers] = useState([]);
+  const [rawCustomers, setRawCustomers] = useState([]);
   const [error, setError] = useState(null);
   const { isLogged } = useContext(LoginContext);
 
@@ -15,8 +17,9 @@ const useGetCustomers = (refresh) => {
             "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`
           }
         });
-
-        // setCustomers(data);
+        setRawCustomers(data.object);
+        const formatedCustomers = formatCustomerData(data.object);
+        setCustomers(formatedCustomers);
       } catch (error) {
         setError(error);
         setCustomers([]);
@@ -26,7 +29,7 @@ const useGetCustomers = (refresh) => {
     GetAllCustomers()
   }, [isLogged, refresh]);
 
-  return { customers, error }
+  return { customers, error, rawCustomers }
 }
 
 export default useGetCustomers
