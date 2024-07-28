@@ -123,8 +123,12 @@ function Table() {
     }
 
     if (search) {
-      dataToFilter = dataToFilter.filter((data) =>
-        data.dni.includes(search)
+      dataToFilter = dataToFilter.filter((data) => {
+        if (pathname !== PATHS.HEADQUARTERS) {
+          return data.dni.includes(search)
+        }
+        return data.cuit.includes(search)
+      }
       );
     }
     setTableData(dataToFilter);
