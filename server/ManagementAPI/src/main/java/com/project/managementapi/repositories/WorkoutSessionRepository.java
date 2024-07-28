@@ -15,9 +15,11 @@ public interface WorkoutSessionRepository extends JpaRepository<WorkoutSession, 
     @Query("SELECT CASE WHEN COUNT(ws) > 0 THEN true ELSE false END " +
             "FROM WorkoutSession ws " +
             "WHERE ws.dayOfWeek = :dayOfWeek " +
-            "AND (ws.startTime < :endTime AND ws.endTime > :startTime)")
+            "AND (ws.startTime < :endTime AND ws.endTime > :startTime) " +
+            "AND ws.complex.cuit = :cuit")
     boolean existsOverlappingSession(@Param("dayOfWeek") Integer dayOfWeek,
                                      @Param("startTime") LocalTime startTime,
-                                     @Param("endTime") LocalTime endTime);
+                                     @Param("endTime") LocalTime endTime,
+                                     @Param("cuit") String cuit);
 
 }
