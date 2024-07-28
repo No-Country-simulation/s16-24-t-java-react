@@ -99,7 +99,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
           </div>
           <div className="col-span-2 mt-4 flex gap-10 justify-center absolute bottom-0 right-5">
             <button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("create_complex.save")}</button>
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("create_complex.edit_confirm")}</button>
+            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("employee_detail.edit_confirm")}</button>
           </div>
         </form>
       </div>
