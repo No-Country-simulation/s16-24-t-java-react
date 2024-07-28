@@ -11,7 +11,7 @@ import { addDaysToDate } from "../../lib/helpers.js";
 import { CustomerScheme } from "../../lib/zod-schemas.js";
 
 
-const CreateUser = ({ handleCreateModal, handleRefresh }) => {
+const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 	const [customer, setCustomer] = useState({});
 	const [selectedComplex, setSelectedComplex] = useState(null);
 	const [activities, setActivities] = useState([]);
@@ -49,7 +49,6 @@ const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 		setSelectedComplex(selectedcomplex);
 	}
 	const handleSubmit = async (e) => {
-		// En esta funcion se envian los datos al backend
 		e.preventDefault();
 		const newCustomer = {
 			...customer,
@@ -62,7 +61,7 @@ const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 
 		console.log("nuevo cliente", newCustomer);
 		const { success, data, error } = CustomerScheme.safeParse(newCustomer);
-		console.log('schema',success, data, error);
+		console.log('schema', success, data, error);
 		if (error) {
 			console.log(error.issues);
 			setErrors(error.issues);
@@ -77,25 +76,14 @@ const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 					}
 				});
 				console.log("Estos datos devuelve el backend:", response.data);
-				// if (response.data) {
-				// 	handleRefresh();
-				// 	handleCreateModal();
-				// }
+				if (response.data) {
+					handleRefresh();
+					handleCreateModal();
+				}
 			}
 		} catch (error) {
 			console.log(error);
 		}
-		// const { data } = await axios.post(
-		// 	"/api/v1/customers/create", // El base url se toma desde 'App.jsx'
-		// 	customer,
-		// 	{
-		// 		headers: {
-		// 			Authorization: `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-		// 			"Content-Type": "Application/json",
-		// 		},
-		// 	},
-		// );
-		// console.log("Estos datos devuelve el backend:", data);
 	};
 
 	return (
@@ -110,7 +98,7 @@ const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 						</div>
 						<InputCreateModal htmlFor="startDate" type="date" handleChange={handleChange} label={t("create_customer.start_date")} inputClassName="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner shadow-black border-2 border-primary-50 custom-date-input" />
 						<div className="col-span-2 w-full">
-							<label htmlFor="complex" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
+							<label htmlFor="complex" className="text-primary-10 font-bold ml-5">{t('create_customer.complex')}</label>
 							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleSelectedComplex}>
 								<option value="" selected disabled>{t("create_customer.select_complex")}</option>
 								{rawComplexes.map((complex) => (
@@ -181,4 +169,4 @@ const CreateUser = ({ handleCreateModal, handleRefresh }) => {
 	);
 };
 
-export default CreateUser;
+export default CreateCustomer;
