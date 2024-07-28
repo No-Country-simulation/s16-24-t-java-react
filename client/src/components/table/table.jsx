@@ -10,16 +10,16 @@ import TableRow from './table-row.jsx'
 import NewModalButton from './new-modal-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
-import CreateUser from '../modals/create-user.jsx'
-import UserDetail from "../modals/userDetail.jsx"
-import CreateComplex from '../modals/create-complex.jsx'
+import CreateCustomer from '../modals/create-customer.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
+import CreateComplex from '../modals/create-complex.jsx'
+import CustomerDetail from "../modals/customer-detail.jsx"
+import ComplexDetail from '../modals/complex-detail.jsx'
+import EmployeeDetail from '../modals/employee-detail.jsx'
 
 import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../lib/const.js'
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
-import ComplexDetail from '../modals/complex-detail.jsx'
-import EmployeeDetail from '../modals/employee-detail.jsx'
 
 const MainFilter = [
   "sport",
@@ -71,12 +71,12 @@ function Table() {
   const pathname = useOutletContext();
 
   const { complexes } = useContext(ComplexContext);
-  const { customers } = useGetCustomers(refresh);
+  const { customers, rawCustomers } = useGetCustomers(refresh);
   const { employees, rawEmployees } = useGetEmployees(refresh);
 
   useEffect(() => {
     if (pathname === PATHS.HOME) {
-      console.log("customers tabla", customers);
+      // TODO : filtrar por status o ver como hacer para los que estan dados de baja aparezcan en otro color
       setTableHeaderInfo(MembersColumns)
       setTableData(customers);
       setInitialTableData(customers);
@@ -182,7 +182,7 @@ function Table() {
     } else if (pathname === PATHS.STAFF) {
       return (<CreateEmployee handleCreateModal={handleCreateModal} handleRefresh={handleRefresh} />)
     } else {
-      return <CreateUser handleCreateModal={handleCreateModal} handleRefresh={handleRefresh} />
+      return <CreateCustomer handleCreateModal={handleCreateModal} handleRefresh={handleRefresh} />
     }
   }
 
@@ -194,7 +194,8 @@ function Table() {
       const [employee] = rawEmployees.filter((employee) => employee.personalInfo.dni === ID);
       return (<EmployeeDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} employeeToEdit={employee}/>)
     } else {
-      return <UserDetail handleProfileModal={handleEditModal} usuarioCorrecto={customers.filter((customer) => customer.dni === ID)} />
+      const [customer] = rawCustomers.filter((customer) => customer.personalInfoDTO.dni === ID);
+      return <CustomerDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} customerToEdit={customer} />
     }
   }
 
