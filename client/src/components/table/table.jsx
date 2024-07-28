@@ -10,6 +10,7 @@ import TableRow from './table-row.jsx'
 import NewModalButton from './new-modal-button.jsx'
 import ReportButton from './report-button.jsx'
 import ProfileButton from './profile-button.jsx'
+import LoadingSpinner from '../login/loading-spinner.jsx'
 import CreateCustomer from '../modals/create-customer.jsx'
 import CreateEmployee from '../modals/create-employee.jsx'
 import CreateComplex from '../modals/create-complex.jsx'
@@ -197,7 +198,7 @@ function Table() {
       return (<ComplexDetail handleEditModal={handleEditModal} complexToEdit={complex} />)
     } else if (pathname === PATHS.STAFF) {
       const [employee] = rawEmployees.filter((employee) => employee.personalInfo.dni === ID);
-      return (<EmployeeDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} employeeToEdit={employee}/>)
+      return (<EmployeeDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} employeeToEdit={employee} />)
     } else {
       const [customer] = rawCustomers.filter((customer) => customer.personalInfoDTO.dni === ID);
       return <CustomerDetail handleEditModal={handleEditModal} handleRefresh={handleRefresh} customerToEdit={customer} />
@@ -218,14 +219,14 @@ function Table() {
         <table className="w-full text-primary-0 font-bold px-10">
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
-            {tableData.map((data) => (
-              <TableRow setID={setID} handleEditModal={handleEditModal} data={data} key={data.dni} pathname={pathname}/>
+            {tableData.length === 0 ? (<td colSpan={tableHeaderInfo.length - 1}><LoadingSpinner size={40} text={"Cargando..."} classNameContainer={"text-xl items-center gap-10 flex flex-col text-primary-20  absolute top-1/2 left-1/2 right-1/2 bottom-1/2 justify-center mx-auto bg-transparent"} /></td>) : (tableData.map((data) => (
+              <TableRow setID={setID} handleEditModal={handleEditModal} data={data} key={data.dni} pathname={pathname} />)
             ))}
           </tbody>
         </table>
       </div>
       {createModal && choseCreteModal(pathname)}
-      {editModal &&  choseEditModal(pathname)}
+      {editModal && choseEditModal(pathname)}
     </>
   )
 }
