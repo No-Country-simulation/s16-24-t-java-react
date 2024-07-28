@@ -21,37 +21,38 @@ import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 
+//TODO - fix main filter 
 const MainFilter = [
   "sport",
   "subscription",
   "payment",
 ]
 
-const Sports = [
-  "football",
-  "tennis",
-  "swimming",
-  "gymnastics",
-  "cycling",
-  "yoga",
-  "pilates",
-  "boxing",
-  "running",
-  "crossfit"
-]
+// const Sports = [
+//   "football",
+//   "tennis",
+//   "swimming",
+//   "gymnastics",
+//   "cycling",
+//   "yoga",
+//   "pilates",
+//   "boxing",
+//   "running",
+//   "crossfit"
+// ]
 
-const Payment = [
-  "monthly",
-  "quarterly",
-  "semiannual",
-  "annual"
-]
+// const Payment = [
+//   "monthly",
+//   "quarterly",
+//   "semiannual",
+//   "annual"
+// ]
 
-const Subscriptions = [
-  "black",
-  "gold",
-  "platinum"
-]
+// const Subscriptions = [
+//   "black",
+//   "gold",
+//   "platinum"
+// ]
 
 
 function Table() {
