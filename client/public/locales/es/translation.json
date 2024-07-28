@@ -197,6 +197,11 @@
 		"cash": "Efectivo",
 		"credit_card": "Tarjeta de credito",
 		"debit_card": "Tarjeta de debito",
-		"transfer": "Transferencia"
+		"transfer": "Transferencia",
+		"complex": "Sede"
+	},
+	"customer_detail": {
+		"title" : "Detalle del cliente",
+		"select_activity": "Seleccionar actividad"
 	}
 }
