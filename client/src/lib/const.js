@@ -11,6 +11,7 @@ export const MembersColumns = [
   'birth_date',
   'id',
   'sport',
+  'email',
   'subscription',
   'due_date',
   'days_from_due',
