@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-import { useTranslation } from "react-i18next"
 import { useOutletContext } from 'react-router-dom'
 import { ComplexContext } from '../../contexts/complex-context.jsx'
 
@@ -36,7 +35,6 @@ function Table() {
   const [ID, setID] = useState(null)
   const [refresh, setRefresh] = useState(false)
 
-  const { t } = useTranslation();
   const pathname = useOutletContext();
 
   const { complexes } = useContext(ComplexContext);
