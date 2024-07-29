@@ -45,7 +45,6 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 	const handleSelectedComplex = (e) => {
 		const { value } = e.target;
 		const [selectedcomplex] = rawComplexes.filter((complex) => complex.cuit === value);
-		console.log("selected complex", selectedcomplex);
 		setSelectedComplex(selectedcomplex);
 	}
 	const handleSubmit = async (e) => {
@@ -58,12 +57,9 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 				endDate: addDaysToDate(customer.personalInfoDTO.startDate, 30)
 			}
 		}
-
-		console.log("nuevo cliente", newCustomer);
 		const { success, data, error } = CustomerScheme.safeParse(newCustomer);
-		console.log('schema', success, data, error);
 		if (error) {
-			console.log(error.issues);
+			console.log(error);
 			setErrors(error.issues);
 			return
 		}
@@ -75,7 +71,6 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 						"Content-Type": "Application/json"
 					}
 				});
-				console.log("Estos datos devuelve el backend:", response.data);
 				if (response.data) {
 					handleRefresh();
 					handleCreateModal();
@@ -161,7 +156,7 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 						))}
 					</div>
 					<div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-						<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
+						<button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
 					</div>
 				</form>
 			</div >
