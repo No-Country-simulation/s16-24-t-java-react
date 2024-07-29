@@ -30,11 +30,9 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
       ...employee,
       status: true
     }
-    console.log("nuevo empleado", newEmployee);
 
     const { success, data, error } = EmployeeScheme.safeParse(newEmployee);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }
@@ -46,7 +44,6 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
             "Content-Type": "Application/json"
           }
         });
-        console.log(response.data);
         if (response.data) {
           handleRefresh();
           handleCreateModal();
@@ -61,7 +58,7 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
     <Modal>
       <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
         <button className="absolute top-4 right-4" onClick={handleCreateModal}><Icon iconName="x" /></button>
-        <h2 className="text-center text-2xl mb-10">{t("create_employee.title")}</h2>
+        <h2 className="text-center text-3xl font-bold mb-10">{t("create_employee.title")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-10 relative px-10">
           <div className="flex flex-col gap-10 items-center">
             <div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">

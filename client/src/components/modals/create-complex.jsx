@@ -27,9 +27,7 @@ function CreateComplex({ handleCreateModal }) {
     e.preventDefault();
 
     const { success, data, error } = ComplexSchema.safeParse(complex);
-    console.log(success, data, error);
     if (error) {
-      console.log(error.issues);
       setErrors(error.issues);
       return
     }
@@ -56,7 +54,7 @@ function CreateComplex({ handleCreateModal }) {
     <Modal>
       <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
         <button className="absolute top-4 right-4" onClick={handleCreateModal}><Icon iconName="x" /></button>
-        <h2 className="text-center text-4xl mb-10 font-bold">{t("create_complex.header")}</h2>
+        <h2 className="text-center text-3xl mb-10 font-bold">{t("create_complex.header")}</h2>
         <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-20 relative px-16">
           <div className="flex flex-col gap-10 items-center">
             <div className="h-40 w-40 rounded-xl overflow-hidden border-primary-0 border-2">

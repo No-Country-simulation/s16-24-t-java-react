@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
@@ -9,12 +9,14 @@ import Select from "../accesories/select";
 import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
+import { ComplexContext } from "../../contexts/complex-context";
 
 function CreateActivity({ handleAddModal, cuit }) {
   const [bgColor, setBgColor] = useState("#CCF5D1");
   const [activity, setActivity] = useState({});
   const [errors, setErrors] = useState([]);
 
+  const {handleRefresh} = useContext(ComplexContext);
   const { t } = useTranslation();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +47,6 @@ function CreateActivity({ handleAddModal, cuit }) {
         setErrors(error.issues);
         return
       }
-      console.log("parsedDAta",data);
       const response = await axios.post("/api/v1/WorkoutSessions/create", data , {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
@@ -53,16 +54,11 @@ function CreateActivity({ handleAddModal, cuit }) {
         }
       });
 
-      console.log(response);
-      // if (response.data) {
-      //   // TODO: Handle success
-      //   setActivityName("");
-      //   setStartTime("");
-      //   setEndTime("");
-      //   setDayOfWeek("");
-      //   setErrors([]);
-      //   handleAddModal();
-      // }
+      if (response.data.statusCode === "201") {
+        setErrors([]);
+        handleRefresh();
+        handleAddModal();
+      }
     }
     catch (error) {
       console.log(error);

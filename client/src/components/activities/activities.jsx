@@ -9,19 +9,23 @@ import { DaysColumns, Hours } from "../../lib/const";
 
 function Calendar() {
   const [showAddActivityModal, setShowAddActivityModal] = useState(false);
-  const [selectedComplex, setSelectedComplex] = useState([]);
+  const [selectedComplex, setSelectedComplex] = useState({});
 
   const { t } = useTranslation();
 
-  const { complexes } = useContext(ComplexContext);
+  const { rawComplexes} = useContext(ComplexContext);
 
   useEffect(() => {
-    
-
-  }, [selectedComplex]);
+    if (selectedComplex.cuit) {
+      const complexToUpdate = rawComplexes.find((complex) => complex.cuit === selectedComplex.cuit);
+      if (complexToUpdate) {
+        setSelectedComplex(complexToUpdate);
+      }
+    }
+  }, [rawComplexes]);
 
   const handleSelectComplex = (event) => {
-    const complexToSelect = complexes.find((complex) => complex.cuit === event.target.value);
+    const complexToSelect = rawComplexes.find((complex) => complex.cuit === event.target.value);
     setSelectedComplex(complexToSelect);
   }
 
@@ -37,7 +41,7 @@ function Calendar() {
             <th className=" text-center relative">
               <select className="w-full py-3 text-white bg-primary-30 outline-none border-collapse text-center h-full" name="complex" id="" onChange={handleSelectComplex}>
                 <option className="text-center bg-primary-10" disabled selected>Seleccionar sede</option>
-                {complexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
+                {rawComplexes.map((complex) => <option className="bg-primary-10" key={complex.cuit} value={complex.cuit}>{complex.title}</option>)}
               </select>
             </th>
             {DaysColumns.map((day, index) => (
@@ -49,22 +53,21 @@ function Calendar() {
         <tbody>
           {Hours.map((hour, rowIndex) => (
             <tr key={rowIndex}>
-              <td className="bg-tertiary-10 font-semibold text-center py-2">{hour}</td>
+              <td className="bg-tertiary-30 font-semibold text-center py-2">{hour}</td>
               {DaysColumns.map((_, colIndex) => {
-                const activity = selectedComplex.activities?.find(
+                const activity = selectedComplex?.activities?.find(
                   (activity) =>
-                    activity.day_of_week === colIndex + 1 &&
-                    getHourIndex(activity.start_time) <= rowIndex &&
-                    getHourIndex(activity.end_time) > rowIndex
+                    activity.dayOfWeek === colIndex + 1 &&
+                    getHourIndex(activity.startTime) <= rowIndex &&
+                    getHourIndex(activity.endTime) > rowIndex
                 );
-
                 return (
                   <td
                     style={{ backgroundColor: activity ? activity.color : "transparent" }}
                     className="py-2 text-center"
                     key={colIndex}
                   >
-                    {activity ? activity.activity_name : ""}
+                    {activity ? activity.activityName : ""}
                   </td>
                 );
               })}

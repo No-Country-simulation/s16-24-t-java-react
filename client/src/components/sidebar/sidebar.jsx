@@ -94,7 +94,7 @@ function SideBar() {
 					className="bg-primary-0 text-white h-dvh overflow-hidden"
 					style={{ width: drawerWidth }}
 				>
-					<div className="py-2 px-1 flex flex-col">
+					<div className="pt-24 px-1 flex flex-col">
 						<Box component="main" sx={{ flexGrow: 1, p: -1 }}>
 							<ListItem
 								color="inherit"
@@ -165,7 +165,7 @@ function SideBar() {
 							</Link>
 						</List>
 						<div
-							className={`mt-40 h-44 mx-auto rounded-full p-5 bg-white/5 shadow-sm shadow-white backdrop-blur-xl transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}
+							className={`mt-40 h-44 mx-auto rounded-full p-5 bg-gradient-to-br from-primary-70 via-40% via-white to-secondary-70 shadow-sm shadow-white backdrop-blur-xl transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}
 						>
 							<img
 								src={Logo}

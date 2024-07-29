@@ -11,6 +11,7 @@ export const MembersColumns = [
   'birth_date',
   'id',
   'sport',
+  'email',
   'subscription',
   'due_date',
   'days_from_due',
@@ -75,7 +76,7 @@ export const Hours = [
 
 export const STAFF_CATEGORIES = [
   'COACH', 'CLEANING_STAFF', 'RECEPTIONIST'
-] 
+]
 
 export const EMPLOYEES_DATA = {
   staff: "staff",
@@ -112,5 +113,27 @@ export const CUSTOMERS_DATA = {
   postalCode: "postalCode",
   street: "street",
   sport: "sport",
-  membership: "membership",
+  membershipType: "membershipType",
 }
+
+export const DISCOUNTS = [
+  "5%",
+  "10%",
+  "15%",
+  "20%",
+  "25%",
+  "30%"
+]
+
+export const MEMBERSHIP = [
+  "STANDARD",
+  "GOLD",
+  "PLATINUM"
+]
+
+export const PAYMENT_METHODS = [
+  "cash",
+  "credit_card",
+  "debit_card",
+  "transfer"
+]

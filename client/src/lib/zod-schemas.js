@@ -29,6 +29,7 @@ export const EmployeeScheme = z.object({
     dni: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
     birthDate: z.string({ required_error: 'Field is required' }).min(1, 'Field is required'),
     phoneNumber: z.string({ required_error: 'Field is required' }).min(1, 'Field is required').max(10, 'Field must be at most 10 characters'),
+    startDate: z.string({ required_error: 'Field is required' }).min(1, 'Field is required'),
     address: z.object({
       city: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
       postalCode: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
@@ -36,6 +37,29 @@ export const EmployeeScheme = z.object({
     })
   }),
   staff: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
-  salary: z.number(),
+  salary: z.string().transform(value => parseInt(value)),
+  status: z.boolean()
+})
+
+export const CustomerScheme = z.object({
+  personalInfoDTO: z.object({
+    firstName: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    lastName: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    email: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    dni: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    birthDate: z.string({ required_error: 'Field is required' }).min(1, 'Field is required'),
+    phoneNumber: z.string({ required_error: 'Field is required' }).min(1, 'Field is required').max(10, 'Field must be at most 10 characters'),
+    startDate: z.string({ required_error: 'Field is required' }).min(1, 'Field is required'),
+    address: z.object({
+      city: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+      postalCode: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+      street: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    })
+  }),
+  membershipDTO: z.object({
+    membershipType: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
+    endDate: z.string({ required_error: 'Field is required' }).min(1, 'Field is required'),
+  }),
+  sport: z.string().min(1, 'Field is required').max(30, 'Field must be at most 30 characters'),
   status: z.boolean()
 })

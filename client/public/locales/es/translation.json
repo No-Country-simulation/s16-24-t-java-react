@@ -4,25 +4,6 @@
 		"forget_password": "¿Olvidaste tu contraseña?",
 		"remember_me": "Recordarme"
 	},
-	"createUserModal": {
-		"nombrecompleto": "Nombre completo:",
-		"firstname": "Nombre:",
-		"lastname": "Apellido:",
-		"dni": "Numero de documento:",
-		"fechaNacimiento": "Fecha de nacimiento:",
-		"email": "Email:",
-		"telContacto": "Celular/Tel. de contacto:",
-		"seleccionarActividad": "Seleccionar actividad:",
-		"seleccionarSubscripcion": "Seleccionar subscripcion",
-		"guardar": "Guardar",
-		"cancelar": "Cancelar",
-		"elegirSelectable": "Elegir",
-		"completarAviso": "Completar todos los campos!",
-		"ciudad": "Ciudad:",
-		"cp": "Codigo Postal:",
-		"direccion": "Direccion:",
-		"seleccionarDescuento": "Selec. Descuento:"
-	},
 	"tableHeader": {
 		"full_name": "Nombre completo",
 		"birth_date": "Fecha de nacimiento",
@@ -143,6 +124,16 @@
 		"city": "Ciudad",
 		"postal_code": "Código postal",
 		"street": "Calle",
+		"save": "Guardar"
+	},
+	"complex_detail":{
+		"title": "Detalle de la sede",
+		"SSN": "CUIT",
+		"aperture_date": "Fecha de apertura",
+		"phone_number": "Teléfono",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
 		"save": "Guardar",
 		"edit_confirm": "Confirmar cambios"
 	},
@@ -165,5 +156,53 @@
 		"COACH": "Entrenador",
 		"CLEANING_STAFF": "Personal de limpieza",
 		"RECEPTIONIST": "Recepcionista"
+	},
+	"employee_detail": {
+		"title" : "Detalle del personal",	
+		"start_date": "Fecha de inicio",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Teléfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"salary": "Salario",
+		"edit_confirm": "Confirmar cambios",
+		"COACH": "Entrenador",
+		"CLEANING_STAFF": "Personal de limpieza",
+		"RECEPTIONIST": "Recepcionista"
+	},
+	"create_customer": {
+		"start_date": "Fecha de inicio",
+		"save": "Guardar",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Telféfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"title": "Añadir cliente",
+		"discount": "Descuento",
+		"membership": "Membresia",
+		"sport": "Actividad",
+		"payment_method": "Metodo de pago",
+		"select_complex": "Seleccionar sede",
+		"cash": "Efectivo",
+		"credit_card": "Tarjeta de credito",
+		"debit_card": "Tarjeta de debito",
+		"transfer": "Transferencia",
+		"complex": "Sede"
+	},
+	"customer_detail": {
+		"title" : "Detalle del cliente",
+		"select_activity": "Seleccionar actividad"
 	}
 }

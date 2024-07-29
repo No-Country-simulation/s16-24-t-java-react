@@ -3,7 +3,7 @@ import Logo from "../../../public/image/Logo.png";
 
 function TechnicalSupport() {
 	return (
-		<div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
+		<div className="max-w-md mx-auto mt-40 p-6 bg-white shadow-xl rounded-lg">
 			<img src={Logo} className="mx-auto mb-4" alt="Logo" />
 			<h2 className="text-xl font-semibold mb-4">
 				Contacto de Soporte Técnico

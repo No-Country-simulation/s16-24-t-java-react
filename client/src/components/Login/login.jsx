@@ -33,8 +33,6 @@ function Login() {
 			setUser({username: data.username, role: data.role});
 			handleIsLogged(data.token);
 		} else {
-			console.log("Usuario o contraseña incorrectos");
-
 			Swal.fire({
 				icon: "error",
 				title: "Error de inicio de sesión",
@@ -51,8 +49,8 @@ function Login() {
 	};
 
 	return (
-		<div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-20 to-secondary-50 font-nunito">
-			<div className="bg-slate-50/10 backdrop-blur-xl h-full shadow-2xl items-center shadow-black/30 rounded-2xl flex p-8 gap-10">
+		<div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-primary-70 via-40% via-white to-secondary-70 font-nunito">
+			<div className="bg-white/10 backdrop-blur-xl h-full shadow-2xl items-center shadow-black/60 rounded-2xl flex p-8 gap-10">
 				{/* Imagen a la izquierda */}
 				<div className="w-full flex flex-col gap-5 items-center">
 					<img src={Logo} alt="Logo de la empresa" className="w-auto aspect-auto h-72" />
@@ -71,7 +69,7 @@ function Login() {
 							type="text"
 							autoComplete="username"
 							required
-							className="min-w-96 px-6 py-2 rounded-full shadow-inner shadow-black/40 "
+							className="min-w-96 px-6 py-2 rounded-full shadow-inner focus:outline-primary-40 shadow-black/40 border-secondary-30 border"
 							placeholder="Username"
 							value={username}
 							onChange={handleUsernameChange}
@@ -87,7 +85,7 @@ function Login() {
 							type="password"
 							autoComplete="current-password"
 							required
-							className="min-w-96 px-6 py-2 rounded-full shadow-inner shadow-black/40"
+							className="min-w-96 px-6 py-2 rounded-full shadow-inner focus:outline-primary-40 shadow-black/40 border-secondary-30 border"
 							placeholder="Password"
 							value={password}
 							onChange={handlePasswordChange}
