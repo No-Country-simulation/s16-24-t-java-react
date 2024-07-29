@@ -90,7 +90,7 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
             ))}
           </div>
           <div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
+            <button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
           </div>
         </form>
       </div>
