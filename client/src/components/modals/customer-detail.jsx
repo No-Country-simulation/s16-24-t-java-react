@@ -82,7 +82,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 
 	const handleDelete = async () => {
 		try {
-			const response = await axios.delete(`/api/v1/customers/${customer.personalInfoDTO.dni}`, {
+			const response = await axios.delete(`/api/v1/customers/delete/${customer.personalInfoDTO.dni}`, {
 				headers: {
 					"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
 					"Content-Type": "Application/json"
