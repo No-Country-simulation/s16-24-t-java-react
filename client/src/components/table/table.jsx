@@ -85,9 +85,17 @@ function Table() {
       }
     }
 
-    if (mainFilter === "payment") {
+    if (mainFilter === "status") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        dataToFilter = dataToFilter.filter((data) => data.tipoCuota === t(`filter.${selectedSubFilter}`).toLowerCase());
+        dataToFilter = dataToFilter.filter((data) => data.status === selectedSubFilter);
+      } else {
+        dataToFilter = [...initialTableData];
+      }
+    }
+
+    if (mainFilter === "role") {
+      if (selectedSubFilter && selectedSubFilter !== "all") {
+        dataToFilter = dataToFilter.filter((data) => data.role === selectedSubFilter);
       } else {
         dataToFilter = [...initialTableData];
       }
@@ -127,9 +135,17 @@ function Table() {
       setSubFilter(subFilter);
       setSelectedSubFilter(null)
     }
-    if (e.target.value === "payment") {
+    if (e.target.value === "status") {
       setMainFilter(e.target.value);
-      setSubFilter(Payment);
+      const subFilter = Array.from(new Set(initialTableData.map((data) => data.status)));
+      setSubFilter(subFilter);
+      setSelectedSubFilter(null)
+    }
+    if (e.target.value === "role") {
+      setMainFilter(e.target.value);
+      console.log(initialTableData);
+      const subFilter = Array.from(new Set(initialTableData.map((data) => data.role)));
+      setSubFilter(subFilter);
       setSelectedSubFilter(null)
     }
   };
