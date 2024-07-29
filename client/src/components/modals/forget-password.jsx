@@ -1,13 +1,16 @@
-// import { InputData } from "./create-user.jsx";
 import Modal from "./modal.jsx";
 import Icon from "../accesories/icon";
 import Logo from "../../../public/image/Logo.png";
+import { useState } from "react";
 
 function ForgetPassword({ handleCloseModal }) {
+	const [email, setEmail] = useState("");
+
+	const handleChange = (e) => {
+		setEmail(e.target.value);
+	}
 	const handleSendEmail = () => {
-		// Lógica para enviar el correo electrónico
-		// Aquí puedes implementar la funcionalidad para enviar el correo electrónico
-		// Esta función puede ser extendida según los requerimientos de tu aplicación
+		
 		console.log("Enviar correo electrónico");
 	};
 
@@ -17,7 +20,7 @@ function ForgetPassword({ handleCloseModal }) {
 				className="fixed inset-0 flex justify-center items-center bg-gray-100 bg-opacity-75 p-10"
 				onClick={(e) => e.stopPropagation()}
 			>
-				<div className="bg-white w-[800px] min-h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
+				<div className="bg-gradient-to-br from-primary-70 via-40% via-white to-secondary-70 min-w-[800px] min-h-[400px] rounded-xl shadow-2xl flex flex-col items-center gap-5 p-8 relative">
 					<button
 						className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
 						onClick={handleCloseModal}
@@ -29,15 +32,22 @@ function ForgetPassword({ handleCloseModal }) {
 						Ingresa tu correo electrónico
 					</h3>
 
-					{/* <InputData
-						type="text"
-						name="email"
-						placeholder="Email"
-						className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary-200 mb-4"
-					/> */}
+					<div className="flex flex-col gap-4 justify-center items-center">
+						<label htmlFor="email" className="sr-only">
+							Email
+						</label>
+						<input
+							name="email"
+							type="email"
+							className="min-w-96 px-6 py-2 rounded-full shadow-inner focus:outline-primary-40 shadow-black/40 border-secondary-30 border"
+							placeholder="sportify@example.com"
+							value={email}
+							onChange={handleChange}
+						/>
+					</div>
 					<button
 						onClick={handleSendEmail}
-						className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+						className="px-6 py-2 rounded-full shadow-md shadow-primary-0  font-semibold text-primary-0 bg-white hover:text-white hover:bg-primary-20 active:shadow-none"
 					>
 						Enviar
 					</button>
