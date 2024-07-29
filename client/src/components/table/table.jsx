@@ -207,8 +207,8 @@ function Table() {
         <table className="w-full text-primary-0 font-bold px-10">
           <TableHeader headers={tableHeaderInfo} />
           <tbody>
-            {tableData.length === 0 ? (<td colSpan={tableHeaderInfo.length - 1}><LoadingSpinner size={40} text={"Cargando..."} classNameContainer={"text-xl items-center gap-10 flex flex-col text-primary-20  absolute top-1/2 left-1/2 right-1/2 bottom-1/2 justify-center mx-auto bg-transparent"} /></td>) : (tableData.map((data) => (
-              <TableRow setID={setID} handleEditModal={handleEditModal} data={data} key={data.dni} pathname={pathname} />)
+            {tableData.length === 0 ? (<td colSpan={tableHeaderInfo.length - 1}><LoadingSpinner size={40} text={"Cargando..."} classNameContainer={"text-xl items-center gap-10 flex flex-col text-primary-20  absolute top-1/2 left-1/2 right-1/2 bottom-1/2 justify-center mx-auto bg-transparent"} /></td>) : (tableData.map((data, index) => (
+              <TableRow setID={setID} handleEditModal={handleEditModal} data={data} key={index} pathname={pathname} />)
             ))}
           </tbody>
         </table>
