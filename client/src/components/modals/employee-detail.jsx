@@ -15,7 +15,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   const [editable, setEditable] = useState(true);
 
   const { t } = useTranslation();
- 
+
   useEffect(() => {
     if (employeeToEdit) {
       setEmployee(employeeToEdit);
@@ -68,10 +68,12 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.patch(`/api/v1/employees/toggle-status?dni=${employee.personalInfo.dni}`,{
+      const response = await axios.patch(`/api/v1/employees/toggle-status`, null, {
+        params: {
+          dni: employee.personalInfo.dni
+        },
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-          "Content-Type": "Application/json"
         }
       });
       if (response.data) {
@@ -86,7 +88,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   return (
     <Modal>
       <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
-      <div className="absolute top-4 right-4 flex gap-4">
+        <div className="absolute top-4 right-4 flex gap-4">
           <button className={`${editable ? "" : "hidden"}`} onClick={handleEdit}><Icon iconName="pencil" /></button>
           <button className="" onClick={handleEditModal}><Icon iconName="x" /></button>
         </div>
