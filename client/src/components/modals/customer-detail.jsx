@@ -21,7 +21,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		if(customerToEdit) {
+		if (customerToEdit) {
 			console.log("customer to edit", customerToEdit);
 			setCustomer(customerToEdit);
 		}
@@ -53,7 +53,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 	}
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-	
+
 		console.log("nuevo cliente", customer);
 		const { success, data, error } = CustomerScheme.safeParse(customer);
 		console.log('schema', success, data, error);
@@ -82,16 +82,33 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 	};
 
 	const handleEdit = () => {
-    setEditable(!editable);
-  }
+		setEditable(!editable);
+	}
+
+	const handleDelete = async () => {
+		try {
+			const response = await axios.delete(`/api/v1/customers/${customer.personalInfoDTO.dni}`, {
+				headers: {
+					"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+					"Content-Type": "Application/json"
+				}
+			});
+			if (response.data) {
+				handleRefresh();
+				handleEditModal();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	return (
 		<Modal>
 			<div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
-			<div className="absolute top-4 right-4 flex gap-4">
-          <button className={`${editable ? "" : "hidden"}`} onClick={handleEdit}><Icon iconName="pencil" /></button>
-          <button className="" onClick={handleEditModal}><Icon iconName="x" /></button>
-        </div>
+				<div className="absolute top-4 right-4 flex gap-4">
+					<button className={`${editable ? "" : "hidden"}`} onClick={handleEdit}><Icon iconName="pencil" /></button>
+					<button className="" onClick={handleEditModal}><Icon iconName="x" /></button>
+				</div>
 				<h2 className="text-center text-3xl font-bold mb-10">{t("customer_detail.title")}</h2>
 				<form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-x-10 relative px-10 gap-y-6">
 					<div className="flex flex-col gap-8 items-center">
@@ -108,7 +125,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 								))}
 							</select>
 						</div>
-					
+
 					</div>
 					<div className="col-span-1 col-start-2 gap-2 grid grid-cols-2">
 						<InputCreateModal value={customerToEdit.personalInfoDTO.firstName} editable={editable} htmlFor="firstName" type="text" handleChange={handleChange} label={t("create_customer.first_name")} />
@@ -124,7 +141,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 					<div className="col-span-1 col-start-2 gap-2 mb-20 grid grid-cols-2">
 						<div className="col-span-2">
 							<label htmlFor="sport" className="text-primary-10 font-bold ml-5">{t('create_customer.sport')}</label>
-							<select  className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleChange} disabled={!selectedComplex || editable}>
+							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="sport" onChange={handleChange} disabled={!selectedComplex || editable}>
 								{activities.length === 0 ? (<option value={customerToEdit.sport} selected>{customerToEdit.sport}</option>) : (<option value="" disabled>{customerToEdit.sport}</option>)}
 								{activities.map((activityName) => (<option key={activityName} value={activityName}>{activityName}</option>))}
 							</select>
@@ -132,7 +149,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 						<div className="col-span-2">
 							<label htmlFor="membershipType" className="text-primary-10 font-bold ml-5">{t('create_customer.membership')}</label>
 							<select className="px-6 py-1 bg-primary-20 text-white rounded-full shadow-inner w-full shadow-black border-2 border-primary-50" name="membershipType" onChange={handleChange} disabled={!selectedComplex || editable}>
-							{activities.length === 0 ? (<option value={customerToEdit.membershipDTO.membershipType} selected>{customerToEdit.membershipDTO.membershipType}</option>) : (<option value="" disabled>{customerToEdit.membershipDTO.membershipType}</option>)}
+								{activities.length === 0 ? (<option value={customerToEdit.membershipDTO.membershipType} selected>{customerToEdit.membershipDTO.membershipType}</option>) : (<option value="" disabled>{customerToEdit.membershipDTO.membershipType}</option>)}
 								{MEMBERSHIP.map((category) => (
 									<option key={category} value={category}>{category}</option>
 								))}
@@ -155,9 +172,10 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 						))}
 					</div>
 					<div className="col-span-2 mt-4 flex gap-10 justify-center absolute bottom-0 right-5">
-            <button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("complex_detail.save")}</button>
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("complex_detail.edit_confirm")}</button>
-          </div>
+						<button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("complex_detail.save")}</button>
+						<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("complex_detail.edit_confirm")}</button>
+					</div>
+					<button onClick={handleDelete} className="bg-secondarydark-40 absolute left-10 bottom-0 border-secondary-30 border rounded-full shadow-md text-xl shadow-secondary-10 text-white px-6 py-2 active:shadow-none" type="button">Dar de baja</button>
 				</form>
 			</div >
 		</Modal >
