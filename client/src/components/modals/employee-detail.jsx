@@ -1,9 +1,11 @@
-import { useTranslation } from "react-i18next";
-import Icon from "../accesories/icon";
-import Modal from "./modal";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
+
+import Modal from "./modal";
+import Icon from "../accesories/icon";
 import InputCreateModal from "../accesories/input-create-modal";
+
 import { EMPLOYEES_DATA } from "../../lib/const";
 import { EmployeeScheme } from "../../lib/zod-schemas";
 
@@ -64,6 +66,26 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
     }
   }
 
+  const handleDelete = async () => {
+    const employeeToDown = {
+      dni: employee.personalInfo.dni
+    }
+    try {
+      const response = await axios.patch(`/api/v1/employees/toggle-status?dni=${employee.personalInfo.dni}`,{
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
+          "Content-Type": "Application/json"
+        }
+      });
+      if (response.data) {
+        handleRefresh();
+        handleEditModal();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Modal>
       <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
@@ -101,6 +123,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
             <button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("create_complex.save")}</button>
             <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("employee_detail.edit_confirm")}</button>
           </div>
+          <button onClick={handleDelete} className="bg-secondarydark-40 absolute left-10 bottom-0 border-secondary-30 border rounded-full shadow-md text-xl shadow-secondary-10 text-white px-6 py-2 active:shadow-none" type="button">Dar de baja</button>
         </form>
       </div>
     </Modal>
