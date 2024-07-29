@@ -128,7 +128,6 @@ function Table() {
     }
     if (e.target.value === "membership") {
       setMainFilter(e.target.value);
-      console.log(initialTableData);
       const subFilter = Array.from(new Set(initialTableData.map((data) => data.membershipType)));
       setSubFilter(subFilter);
       setSelectedSubFilter(null)
@@ -141,7 +140,6 @@ function Table() {
     }
     if (e.target.value === "role") {
       setMainFilter(e.target.value);
-      console.log(initialTableData);
       const subFilter = Array.from(new Set(initialTableData.map((data) => data.role)));
       setSubFilter(subFilter);
       setSelectedSubFilter(null)
