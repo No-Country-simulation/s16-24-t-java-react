@@ -22,41 +22,8 @@ import { PATHS, MembersColumns, StaffColumns, HeadquartersColumns } from '../../
 import useGetCustomers from '../../hooks/useGetCustomers.jsx'
 import useGetEmployees from '../../hooks/useGetEmployees.jsx'
 
-//TODO - fix main filter 
-const MainFilter = [
-  "sport",
-  "subscription",
-  "payment",
-]
-
-// const Sports = [
-//   "football",
-//   "tennis",
-//   "swimming",
-//   "gymnastics",
-//   "cycling",
-//   "yoga",
-//   "pilates",
-//   "boxing",
-//   "running",
-//   "crossfit"
-// ]
-
-// const Payment = [
-//   "monthly",
-//   "quarterly",
-//   "semiannual",
-//   "annual"
-// ]
-
-// const Subscriptions = [
-//   "black",
-//   "gold",
-//   "platinum"
-// ]
-
-
 function Table() {
+  const [selectedMainFilter, setSelectedMainFilter] = useState([]);
   const [mainFilter, setMainFilter] = useState("all");
   const [subFilter, setSubFilter] = useState([]);
   const [selectedSubFilter, setSelectedSubFilter] = useState(null);
@@ -77,22 +44,24 @@ function Table() {
   const { employees, rawEmployees } = useGetEmployees(refresh);
 
   useEffect(() => {
+
     if (pathname === PATHS.HOME) {
       // TODO : filtrar por status o ver como hacer para los que estan dados de baja aparezcan en otro color
       setTableHeaderInfo(MembersColumns)
       setTableData(customers);
       setInitialTableData(customers);
+      setSelectedMainFilter(['activity', 'membership'])
     }
     if (pathname === PATHS.STAFF) {
       setTableHeaderInfo(StaffColumns)
       setInitialTableData(employees);
       setTableData(employees);
+      setSelectedMainFilter(['status','role'])
     }
     if (pathname === PATHS.HEADQUARTERS) {
       setTableHeaderInfo(HeadquartersColumns)
       setInitialTableData(complexes);
       setTableData(complexes);
-
     }
     filterData();
   }, [search, mainFilter, selectedSubFilter, pathname, initialTableData, complexes, customers, employees, refresh]);
@@ -100,17 +69,17 @@ function Table() {
   const filterData = () => {
     let dataToFilter = [...initialTableData];
 
-    if (mainFilter === "sport") {
+    if (mainFilter === "activity") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        dataToFilter = dataToFilter.filter((data) => data.deporte === t(`filter.${selectedSubFilter}`))
+        dataToFilter = dataToFilter.filter((data) => data.activity === selectedSubFilter)
       } else {
         dataToFilter = [...initialTableData];
       }
     }
 
-    if (mainFilter === "subscription") {
+    if (mainFilter === "membership") {
       if (selectedSubFilter && selectedSubFilter !== "all") {
-        dataToFilter = dataToFilter.filter((data) => (data.tipoMembresia === t(`filter.${selectedSubFilter}`).toLowerCase()));
+        dataToFilter = dataToFilter.filter((data) => (data.membershipType === selectedSubFilter));
       } else {
         dataToFilter = [...initialTableData];
       }
@@ -145,14 +114,17 @@ function Table() {
       setTableData(initialTableData);
       setSubFilter([]);
     }
-    if (e.target.value === "sport") {
+    if (e.target.value === "activity") {
       setMainFilter(e.target.value);
-      setSubFilter(Sports);
+      const subFilter = Array.from(new Set(initialTableData.map((data) => data.activity)));
+      setSubFilter(subFilter);
       setSelectedSubFilter(null)
     }
-    if (e.target.value === "subscription") {
+    if (e.target.value === "membership") {
       setMainFilter(e.target.value);
-      setSubFilter(Subscriptions);
+      console.log(initialTableData);
+      const subFilter = Array.from(new Set(initialTableData.map((data) => data.membershipType)));
+      setSubFilter(subFilter);
       setSelectedSubFilter(null)
     }
     if (e.target.value === "payment") {
@@ -182,7 +154,7 @@ function Table() {
     setRefresh(!refresh)
   }
 
-  const choseCreteModal = (pathname) => {
+  const chooseCreteModal = (pathname) => {
     if (pathname === PATHS.HEADQUARTERS) {
       return (<CreateComplex handleCreateModal={handleCreateModal} />)
     } else if (pathname === PATHS.STAFF) {
@@ -192,7 +164,7 @@ function Table() {
     }
   }
 
-  const choseEditModal = (pathname) => {
+  const chooseEditModal = (pathname) => {
     if (pathname === PATHS.HEADQUARTERS) {
       const [complex] = initialTableData.filter((complex) => complex.cuit === ID);
       return (<ComplexDetail handleEditModal={handleEditModal} complexToEdit={complex} />)
@@ -209,8 +181,12 @@ function Table() {
     <>
       <div className="flex  w-full py-4 justify-around bg-primary-0 px-4">
         <SearchInput handleSearch={handleSearch} />
-        <Filter filters={MainFilter} handleChange={handleChangeMainFilter} />
-        <Filter filters={subFilter} handleChange={handleSubFilter} />
+        {pathname === PATHS.HEADQUARTERS ? null : 
+        (<>
+          <Filter filters={selectedMainFilter} handleChange={handleChangeMainFilter} />
+          <Filter subfilters={subFilter} handleChange={handleSubFilter} />
+        </>)}
+        
         <NewModalButton handleCreateModal={handleCreateModal} />
         <ReportButton />
         <ProfileButton />
@@ -225,8 +201,8 @@ function Table() {
           </tbody>
         </table>
       </div>
-      {createModal && choseCreteModal(pathname)}
-      {editModal && choseEditModal(pathname)}
+      {createModal && chooseCreteModal(pathname)}
+      {editModal && chooseEditModal(pathname)}
     </>
   )
 }
