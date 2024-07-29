@@ -35,7 +35,7 @@ function Calendar() {
 
   return (
     <section className="h-full w-full relative">
-      <table className="w-full border border-primary-0">
+      <table className="w-full border-b border-primary-0">
         <thead>
           <tr className="bg-primary-0 ">
             <th className=" text-center relative">
