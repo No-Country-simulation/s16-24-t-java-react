@@ -25,27 +25,11 @@
 	},
 	"filter": {
 		"all": "Todos",
-		"sport": "Deporte",
-		"subscription": "Membresia",
-		"payment": "Cuota",
-		"search": "Buscar",
-		"football": "Fútbol",
-		"tennis": "Tenis",
-		"swimming": "Natación",
-		"gymnastics": "Gimnasia",
-		"cycling": "Ciclismo",
-		"yoga": "Yoga",
-		"pilates": "Pilates",
-		"boxing": "Boxeo",
-		"running": "Running",
-		"crossfit": "CrossFit",
-		"monthly": "Mensual",
-		"quarterly": "Trimestral",
-		"semiannual": "Semestral",
-		"annual": "Anual",
-		"black": "Black",
-		"gold": "Gold",
-		"platinum": "Platinum"
+		"activity": "Actividad",
+		"membership": "Membresia",
+		"role": "Rol",
+		"status": "Estado",
+		"search": "Buscar"
 	},
 	"profileMenu": {
 		"logout": "Cerrar sesión",
@@ -126,7 +110,7 @@
 		"street": "Calle",
 		"save": "Guardar"
 	},
-	"complex_detail":{
+	"complex_detail": {
 		"title": "Detalle de la sede",
 		"SSN": "CUIT",
 		"aperture_date": "Fecha de apertura",
@@ -158,7 +142,7 @@
 		"RECEPTIONIST": "Recepcionista"
 	},
 	"employee_detail": {
-		"title" : "Detalle del personal",	
+		"title": "Detalle del personal",
 		"start_date": "Fecha de inicio",
 		"first_name": "Nombre",
 		"last_name": "Apellido",
@@ -202,7 +186,7 @@
 		"complex": "Sede"
 	},
 	"customer_detail": {
-		"title" : "Detalle del cliente",
+		"title": "Detalle del cliente",
 		"select_activity": "Seleccionar actividad"
 	}
 }
