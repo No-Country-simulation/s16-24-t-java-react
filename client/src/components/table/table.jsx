@@ -189,6 +189,16 @@ function Table() {
     }
   }
 
+  const chooseReportButtonData = (pathname) => {
+    if (pathname === PATHS.HEADQUARTERS) {
+      return initialTableData
+    } else if (pathname === PATHS.STAFF) {
+      return rawEmployees
+    } else {
+      return rawCustomers
+    }
+  }
+
   return (
     <>
       <div className="flex  w-full py-4 justify-around bg-primary-0 px-4">
@@ -200,7 +210,7 @@ function Table() {
         </>)}
         
         <NewModalButton handleCreateModal={handleCreateModal} />
-        <ReportButton />
+        <ReportButton data={chooseReportButtonData(pathname)} pathname={pathname}/>
         <ProfileButton />
       </div>
       <div className="overflow-y-auto max-h-[800px]">
