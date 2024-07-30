@@ -43,7 +43,7 @@ public class ProfileImageServiceImpl implements IProfileImageService {
         Map result = cloudinaryHelper.uploadImage(mpf);
         profileImage.setUrl((String) result.get("url"));
         profileImage.setCloudinaryId((String) result.get("public_id"));
-        profileImage.setName(mpf.getName());
+        profileImage.setName((String) result.get("original_filename"));
         PersonalInfo personalInfoDB = customerDB.get().getPersonalInfo();
         personalInfoDB.setImage(ProfileImage.builder()
                 .url(profileImage.getUrl())
