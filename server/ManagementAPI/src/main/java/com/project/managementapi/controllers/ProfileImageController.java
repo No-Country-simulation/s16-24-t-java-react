@@ -30,6 +30,7 @@ public class ProfileImageController {
 //    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<?> upload(@PathVariable Long id, @RequestParam("image") MultipartFile mpf) throws IOException {
         String result = profileImageService.save(mpf, id);
+        System.out.println(result);
         return result == null ?
                 ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(ErrorResponse
@@ -45,6 +46,29 @@ public class ProfileImageController {
                 .statusCode("200")
                 .url("http://localhost:8080/api/v1/profile-image/upload/" + id)
                 .message("Image uploaded successfully")
+                .object(result)
+                .build()
+        );
+    }
+
+    @GetMapping("/search/{id}")
+    public ResponseEntity<?> searchProfileImage(@PathVariable Long id) {
+        String result = profileImageService.getProfileImageByCustomerID(id);
+        return result == null ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ErrorResponse
+                                .builder()
+                                .message("Image not found")
+                                .dateTime(LocalDateTime.now())
+                                .statusCode("404")
+                                .url(url.concat("search/"))
+                                .build()
+                        )
+                : ResponseEntity.ok(SuccessResponse
+                .builder()
+                .statusCode("200")
+                .url("http://localhost:8080/api/v1/profile-image/search/" + id)
+                .message("Image find successfully")
                 .object(result)
                 .build()
         );

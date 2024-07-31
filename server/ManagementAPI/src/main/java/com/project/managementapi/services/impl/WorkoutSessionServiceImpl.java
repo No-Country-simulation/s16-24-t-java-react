@@ -24,7 +24,7 @@ public class WorkoutSessionServiceImpl implements IWorkoutSessionService {
     public WorkoutSessionDTO createWorkoutSession(WorkoutSessionDTO dto) throws BadRequestException {
         Complex complex = complexService.findComplexByCuit(dto.getGymCuit());
 
-        if(workoutSessionRepository.existsOverlappingSession(dto.getDayOfWeek(),dto.getStartTime(), dto.getEndTime())) {
+        if(workoutSessionRepository.existsOverlappingSession(dto.getDayOfWeek(),dto.getStartTime(), dto.getEndTime(), dto.getGymCuit())) {
             throw new BadRequestException("Ya existe una clase en ese horario.");
         }
 

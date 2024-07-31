@@ -104,6 +104,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Employee saved = empOpt.get();
         saved.setStatus(!saved.getStatus());
 
-        return Mapper.employeeToDTO(employeeRepository.save(saved));
+        Employee save = employeeRepository.save(saved);
+        return Mapper.employeeToDTO(save);
     }
 }

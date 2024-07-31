@@ -32,6 +32,5 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Attendance> attendances;
 
-    @Enumerated(EnumType.STRING)
-    private Sports sports;
+    private String sports;
 }
