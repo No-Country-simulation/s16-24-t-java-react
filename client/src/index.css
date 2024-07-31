@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-0: #210A4D;
+  --color-1: #330F77;
+  --color-2: #4515A0;
+  --color-3: #561ACA;
+  --color-4: #6D2FE4;
+  --color-5: #8A59E9;
+  --color-6: #A782EF;
+  --color-7: #C5ACF4;
+  --color-8: #E2D5FA;
+
+  --color-9: #226662;
+  --color-10: #2C8580;
+  --color-11: #37A49E;
+  --color-12: #44C1B9;
+  --color-13: #63CBC5;
+  --color-14: #82D5D1;
+  --color-15: #A2E0DC;
+  --color-16: #C1EAE8;
+  --color-17: #E0F5F3;
+
+  --color-18: #226662;
+  --color-19: #1E5B57;
+  --color-20: #1A4F4C;
+  --color-21: #174441;
+  --color-22: #133936;
+  --color-23: #0F2D2C;
+  --color-24: #0B2221;
+  --color-25: #081716;
+  --color-26: #040B0B;
+
+  --color-27: #EAD8FD;
+  --color-28: #ECDCFD;
+  --color-29: #EFE1FD;
+  --color-30: #F1E5FE;
+  --color-31: #F3E9FE;
+  --color-32: #F6EEFE;
+  --color-33: #F8F2FE;
+  --color-34: #FAF6FF;
+  --color-35: #FDFBFF;
+}

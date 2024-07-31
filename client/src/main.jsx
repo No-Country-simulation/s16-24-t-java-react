@@ -1,10 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router.jsx";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// Supports weights 200-900
+import '@fontsource-variable/nunito';
+// Supports weights 200-900
+import '@fontsource-variable/nunito-sans';
+// Supports weights 200-800
+import '@fontsource-variable/assistant';
+
+
+import "./lib/i18n";
+import I18nWrapper from "./lib/i18nWrapper.jsx";
+import { LoginProvider } from "./contexts/login-context.jsx";
+import { ComplexProvider } from "./contexts/complex-context.jsx";
+
+const root = createRoot(document.getElementById("root"))
+
+root.render(
+	<I18nWrapper>
+		<LoginProvider>
+			<ComplexProvider>
+				<RouterProvider router={router} />
+			</ComplexProvider>
+		</LoginProvider>
+	</I18nWrapper>
+);
+
+

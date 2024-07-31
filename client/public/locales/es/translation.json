@@ -1,0 +1,192 @@
+{
+	"login": {
+		"login": "Iniciar Sesión",
+		"forget_password": "¿Olvidaste tu contraseña?",
+		"remember_me": "Recordarme"
+	},
+	"tableHeader": {
+		"full_name": "Nombre completo",
+		"birth_date": "Fecha de nacimiento",
+		"id": "DNI",
+		"sport": "Actividad",
+		"subscription": "Subscripción",
+		"payment": "Cuota",
+		"due_date": "Vencimiento",
+		"days_from_due": "Días de mora",
+		"created_at": "Fecha de alta",
+		"phone_number": "Teléfono",
+		"email": "Email",
+		"status": "Estado",
+		"role": "Rol",
+		"address": "Dirección",
+		"title": "Nombre",
+		"cuit": "CUIT",
+		"aperture_date": "Fecha de apertura"
+	},
+	"filter": {
+		"all": "Todos",
+		"activity": "Actividad",
+		"membership": "Membresia",
+		"role": "Rol",
+		"status": "Estado",
+		"search": "Buscar"
+	},
+	"profileMenu": {
+		"logout": "Cerrar sesión",
+		"settings": "Configuraciones"
+	},
+	"settings": {
+		"profile_title": "Perfil",
+		"notifications_title": "Notificaciones",
+		"system_title": "Sistema",
+		"new_report": "Nuevo reporte",
+		"withdrawal": "Nuevo retiro",
+		"income": "Nuevo ingreso",
+		"new_member": "Nuevo miembro",
+		"save_changes": "Cambios guardados",
+		"dark_theme": "Tema oscuro",
+		"light_theme": "Tema claro",
+		"language": "Idioma",
+		"save": "Guardar",
+		"cancel": "Cancelar"
+	},
+	"sidebar": {
+		"home": "Inicio",
+		"staff": "Personal",
+		"activities": "Actividades",
+		"headquarters": "Mi sede",
+		"technicalSupport": "Soporte técnico"
+	},
+	"activities": {
+		"sunday": "Domingo",
+		"monday": "Lunes",
+		"tuesday": "Martes",
+		"wednesday": "Miercoles",
+		"thursday": "Jueves",
+		"friday": "Viernes",
+		"saturday": "Sabado",
+		"schedule": "Horario"
+	},
+	"select": {
+		"title": "Añadir una actividad",
+		"sunday": "Domingo",
+		"monday": "Lunes",
+		"tuesday": "Martes",
+		"wednesday": "Miercoles",
+		"thursday": "Jueves",
+		"friday": "Viernes",
+		"saturday": "Sabado",
+		"add": "Añadir",
+		"activity_name": "Nombre de la Actividad",
+		"start_time": "Hora de inicio",
+		"end_time": "Hora de finalización",
+		"day_of_week": "Dia de la semana",
+		"activity": "Actividad",
+		"choose_time": "Seleccionar horario",
+		"choose_day": "Seleccionar dia",
+		"errors": {
+			"too_small": "Es requerido",
+			"too_big": "Es demasiado grande, máximo 30 caracteres",
+			"invalid_type": "Es requerido",
+			"invalid_times": "No puede ser mayor o coincidir con la hora final"
+		}
+	},
+	"search": {
+		"dni": "Ingresa un DNI",
+		"cuit": "Ingresa un Cuit"
+	},
+	"new": {
+		"headquarters": "Agregar sede",
+		"member": "Agregar usuario"
+	},
+	"create_complex": {
+		"header": "Añadir una sede",
+		"title": "Nombre de la sede",
+		"SSN": "CUIT",
+		"aperture_date": "Fecha de apertura",
+		"phone_number": "Teléfono",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"save": "Guardar"
+	},
+	"complex_detail": {
+		"title": "Detalle de la sede",
+		"SSN": "CUIT",
+		"aperture_date": "Fecha de apertura",
+		"phone_number": "Teléfono",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"save": "Guardar",
+		"edit_confirm": "Confirmar cambios"
+	},
+	"create_employee": {
+		"start_date": "Fecha de inicio",
+		"select_staff": "Cargo",
+		"save": "Guardar",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Teléfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"salary": "Salario",
+		"title": "Añadir personal",
+		"COACH": "Entrenador",
+		"CLEANING_STAFF": "Personal de limpieza",
+		"RECEPTIONIST": "Recepcionista"
+	},
+	"employee_detail": {
+		"title": "Detalle del personal",
+		"start_date": "Fecha de inicio",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Teléfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"salary": "Salario",
+		"edit_confirm": "Confirmar cambios",
+		"COACH": "Entrenador",
+		"CLEANING_STAFF": "Personal de limpieza",
+		"RECEPTIONIST": "Recepcionista"
+	},
+	"create_customer": {
+		"start_date": "Fecha de inicio",
+		"save": "Guardar",
+		"first_name": "Nombre",
+		"last_name": "Apellido",
+		"email": "Email",
+		"phone_number": "Telféfono",
+		"dni": "DNI",
+		"birth_date": "Fecha de nacimiento",
+		"address": "Dirección",
+		"city": "Ciudad",
+		"postal_code": "Código postal",
+		"street": "Calle",
+		"title": "Añadir cliente",
+		"discount": "Descuento",
+		"membership": "Membresia",
+		"sport": "Actividad",
+		"payment_method": "Metodo de pago",
+		"select_complex": "Seleccionar sede",
+		"cash": "Efectivo",
+		"credit_card": "Tarjeta de credito",
+		"debit_card": "Tarjeta de debito",
+		"transfer": "Transferencia",
+		"complex": "Sede"
+	},
+	"customer_detail": {
+		"title": "Detalle del cliente",
+		"select_activity": "Seleccionar actividad"
+	}
+}
