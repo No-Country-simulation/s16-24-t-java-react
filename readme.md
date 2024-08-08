@@ -1,5 +1,5 @@
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](client/public/image/Logo.png)
 
 ## Índice
 - [Descripción](#descripción)
@@ -39,4 +39,4 @@ Backend               | ![backend](https://skillicons.dev/icons?i=java,spring,my
 
 
 ## Demostración 
-[Ver video](https://www.youtube.com/watch?v=-qK87ymjLrQ&ab_channel=CumbiadelRecuerdo)
+[Ver video demostración](https://drive.google.com/file/d/1c7fQhgeCyqkuZBjfphjF04Gux_QijrX0/view?usp=sharing)
