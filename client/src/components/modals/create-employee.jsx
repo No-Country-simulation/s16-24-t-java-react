@@ -6,10 +6,12 @@ import axios from "axios";
 import InputCreateModal from "../accesories/input-create-modal";
 import { EMPLOYEES_DATA, STAFF_CATEGORIES } from "../../lib/const";
 import { EmployeeScheme } from "../../lib/zod-schemas";
+import LoadingSpinner from "../login/loading-spinner";
 
 function CreateEmployee({ handleCreateModal, handleRefresh }) {
   const [errors, setErrors] = useState([]);
   const [employee, setEmployee] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -26,6 +28,7 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(!loading);
     const newEmployee = {
       ...employee,
       status: true
@@ -46,6 +49,7 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
         });
         if (response.data) {
           handleRefresh();
+          setLoading(!loading);
           handleCreateModal();
         }
       }
@@ -90,7 +94,7 @@ function CreateEmployee({ handleCreateModal, handleRefresh }) {
             ))}
           </div>
           <div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
+            <button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{loading ? <LoadingSpinner size={20} classNameContainer={"flex justify-center items-center gap-5"} text="cargando..." classNameText={"text-xl"} /> : t("create_employee.save")}</button>
           </div>
         </form>
       </div>

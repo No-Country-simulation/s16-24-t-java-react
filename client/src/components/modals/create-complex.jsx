@@ -7,10 +7,12 @@ import { ComplexContext } from "../../contexts/complex-context";
 import InputCreateModal from "../accesories/input-create-modal";
 import { COMPLEX_DATA } from "../../lib/const";
 import { ComplexSchema } from "../../lib/zod-schemas";
+import LoadingSpinner from "../login/loading-spinner";
 
 function CreateComplex({ handleCreateModal }) {
   const [errors, setErrors] = useState([]);
   const [complex, setComplex] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
   const { handleRefresh } = useContext(ComplexContext);
@@ -25,7 +27,7 @@ function CreateComplex({ handleCreateModal }) {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(!loading);
     const { success, data, error } = ComplexSchema.safeParse(complex);
     if (error) {
       setErrors(error.issues);
@@ -41,9 +43,10 @@ function CreateComplex({ handleCreateModal }) {
         });
         if (response.data) {
           handleRefresh();
+          setLoading(!loading);
           handleCreateModal();
         }
-      } 
+      }
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +79,7 @@ function CreateComplex({ handleCreateModal }) {
             ))}
           </div>
           <div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_complex.save")}</button>
+            <button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{loading ? <LoadingSpinner size={20} classNameContainer={"flex justify-center items-center gap-5"} text="cargando..." classNameText={"text-xl"} /> : t("create_complex.save")}</button>
           </div>
         </form>
       </div>

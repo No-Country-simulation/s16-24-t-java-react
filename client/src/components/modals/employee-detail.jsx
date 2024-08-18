@@ -15,7 +15,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   const [editable, setEditable] = useState(true);
 
   const { t } = useTranslation();
- 
+
   useEffect(() => {
     if (employeeToEdit) {
       setEmployee(employeeToEdit);
@@ -67,14 +67,13 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   }
 
   const handleDelete = async () => {
-    const employeeToDown = {
-      dni: employee.personalInfo.dni
-    }
     try {
-      const response = await axios.patch(`/api/v1/employees/toggle-status?dni=${employee.personalInfo.dni}`,{
+      const response = await axios.patch(`/api/v1/employees/toggle-status`, null, {
+        params: {
+          dni: employee.personalInfo.dni
+        },
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
-          "Content-Type": "Application/json"
         }
       });
       if (response.data) {
@@ -89,7 +88,7 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
   return (
     <Modal>
       <div className="relative flex bg-gradient-to-b from-primary-80 via-20% via-white  to-secondary-80  w-[1100px] min-h-[450px] rounded-xl drop-shadow-2xl shadow-2xl shadow-black/60 flex-col p-10 items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
-      <div className="absolute top-4 right-4 flex gap-4">
+        <div className="absolute top-4 right-4 flex gap-4">
           <button className={`${editable ? "" : "hidden"}`} onClick={handleEdit}><Icon iconName="pencil" /></button>
           <button className="" onClick={handleEditModal}><Icon iconName="x" /></button>
         </div>
@@ -120,8 +119,8 @@ function EmployeeDetail({ handleEditModal, handleRefresh, employeeToEdit }) {
             ))}
           </div>
           <div className="col-span-2 mt-4 flex gap-10 justify-center absolute bottom-0 right-5">
-            <button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("create_complex.save")}</button>
-            <button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("employee_detail.edit_confirm")}</button>
+            <button onClick={handleEdit} className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("create_complex.save")}</button>
+            <button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("employee_detail.edit_confirm")}</button>
           </div>
           <button onClick={handleDelete} className="bg-secondarydark-40 absolute left-10 bottom-0 border-secondary-30 border rounded-full shadow-md text-xl shadow-secondary-10 text-white px-6 py-2 active:shadow-none" type="button">Dar de baja</button>
         </form>

@@ -10,13 +10,15 @@ import { ActivitiySchema } from "../../lib/zod-schemas";
 import { capitalize } from "../../lib/helpers";
 import { DaysColumns, Hours } from "../../lib/const";
 import { ComplexContext } from "../../contexts/complex-context";
+import LoadingSpinner from "../login/loading-spinner";
 
 function CreateActivity({ handleAddModal, cuit }) {
   const [bgColor, setBgColor] = useState("#CCF5D1");
   const [activity, setActivity] = useState({});
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const {handleRefresh} = useContext(ComplexContext);
+  const { handleRefresh } = useContext(ComplexContext);
   const { t } = useTranslation();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +27,8 @@ function CreateActivity({ handleAddModal, cuit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { activityName, startTime, endTime} = activity;
+    setLoading(!loading)
+    const { activityName, startTime, endTime } = activity;
     setErrors([]);
     const newActivity = {
       ...activity,
@@ -47,15 +50,16 @@ function CreateActivity({ handleAddModal, cuit }) {
         setErrors(error.issues);
         return
       }
-      const response = await axios.post("/api/v1/WorkoutSessions/create", data , {
+      const response = await axios.post("/api/v1/WorkoutSessions/create", data, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
           "Content-Type": "Application/json"
         }
-      });
-
+      }   
+    );
       if (response.data.statusCode === "201") {
         setErrors([]);
+        setLoading(!loading)
         handleRefresh();
         handleAddModal();
       }
@@ -73,8 +77,8 @@ function CreateActivity({ handleAddModal, cuit }) {
     <Modal>
       <div className="relative flex bg-gray-100 w-[800px] min-h-[450px] rounded-xl shadow-2xl flex-col p-10  items-center text-primary-0" onClick={(e) => e.stopPropagation()} >
         <button className="absolute top-4 right-4" onClick={handleAddModal}><Icon iconName="x" /></button>
-        <h2 className="text-center text-2xl mb-10">{t("select.title")}</h2>
-        <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-4 [&>div>label]:font-bold">
+        <h2 className="text-center text-2xl mb-10 font-bold">{t("select.title")}</h2>
+        <form onSubmit={handleSubmit} action="" className="grid grid-cols-2 w-full gap-4 [&>div>label]:font-bold relative">
           <div className="w-full grid grid-cols-2 col-span-2 gap-10 ">
             <label className="col-span-1 bg-secondary-30 text-center place-content-center" htmlFor="activityName">{t("select.activity_name")}</label>
             <div className="w-full flex items-center col-span-1">
@@ -92,8 +96,9 @@ function CreateActivity({ handleAddModal, cuit }) {
             ))}
           </div>
           <div className="col-span-2 mt-4 flex justify-center">
-            <button className="bg-primary-0 text-secondary-0 px-6 py-2 " type="submit">{t("select.add")}</button>
+            <button className="bg-secondary-0 border border-secondary-30 hover:bg-secondary-10 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-8 py-2 active:shadow-none" type="submit">{loading ? <LoadingSpinner size={20} classNameContainer={"flex justify-center items-center gap-5"} text="cargando..." classNameText={"text-xl"}/> : t("select.add")}</button>
           </div>
+          
         </form>
       </div>
     </Modal>

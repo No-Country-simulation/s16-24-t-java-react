@@ -9,12 +9,14 @@ import Icon from "../accesories/icon.jsx";
 import { ComplexContext } from "../../contexts/complex-context.jsx";
 import { addDaysToDate } from "../../lib/helpers.js";
 import { CustomerScheme } from "../../lib/zod-schemas.js";
+import LoadingSpinner from "../login/loading-spinner.jsx";
 
 
 const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 	const [customer, setCustomer] = useState({});
 	const [selectedComplex, setSelectedComplex] = useState(null);
 	const [activities, setActivities] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
 
 	const { rawComplexes } = useContext(ComplexContext);
@@ -45,11 +47,11 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 	const handleSelectedComplex = (e) => {
 		const { value } = e.target;
 		const [selectedcomplex] = rawComplexes.filter((complex) => complex.cuit === value);
-		console.log("selected complex", selectedcomplex);
 		setSelectedComplex(selectedcomplex);
 	}
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(!loading);
 		const newCustomer = {
 			...customer,
 			status: true,
@@ -58,12 +60,9 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 				endDate: addDaysToDate(customer.personalInfoDTO.startDate, 30)
 			}
 		}
-
-		console.log("nuevo cliente", newCustomer);
 		const { success, data, error } = CustomerScheme.safeParse(newCustomer);
-		console.log('schema', success, data, error);
 		if (error) {
-			console.log(error.issues);
+			console.log(error);
 			setErrors(error.issues);
 			return
 		}
@@ -75,9 +74,9 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 						"Content-Type": "Application/json"
 					}
 				});
-				console.log("Estos datos devuelve el backend:", response.data);
 				if (response.data) {
 					handleRefresh();
+					setLoading(!loading);
 					handleCreateModal();
 				}
 			}
@@ -161,7 +160,7 @@ const CreateCustomer = ({ handleCreateModal, handleRefresh }) => {
 						))}
 					</div>
 					<div className="col-span-2 mt-4 flex justify-center absolute bottom-0 right-5">
-						<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{t("create_employee.save")}</button>
+						<button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none" type="submit">{loading ? <LoadingSpinner size={20} classNameContainer={"flex justify-center items-center gap-5"} text="cargando..." classNameText={"text-xl"} /> : t("create_employee.save")}</button>
 					</div>
 				</form>
 			</div >

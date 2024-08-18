@@ -22,7 +22,6 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 
 	useEffect(() => {
 		if (customerToEdit) {
-			console.log("customer to edit", customerToEdit);
 			setCustomer(customerToEdit);
 		}
 		if (selectedComplex) {
@@ -53,12 +52,9 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 	}
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		console.log("nuevo cliente", customer);
 		const { success, data, error } = CustomerScheme.safeParse(customer);
-		console.log('schema', success, data, error);
 		if (error) {
-			console.log(error.issues);
+			console.log(error);
 			setErrors(error.issues);
 			return
 		}
@@ -70,7 +66,6 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 						"Content-Type": "Application/json"
 					}
 				});
-				console.log("Estos datos devuelve el backend:", response.data);
 				if (response.data) {
 					handleRefresh();
 					handleEditModal();
@@ -87,7 +82,7 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 
 	const handleDelete = async () => {
 		try {
-			const response = await axios.delete(`/api/v1/customers/${customer.personalInfoDTO.dni}`, {
+			const response = await axios.delete(`/api/v1/customers/delete/${customer.personalInfoDTO.dni}`, {
 				headers: {
 					"Authorization": `Bearer ${localStorage.getItem("sportify_jwt_access")}`,
 					"Content-Type": "Application/json"
@@ -172,8 +167,8 @@ const CustomerDetail = ({ handleEditModal, handleRefresh, customerToEdit }) => {
 						))}
 					</div>
 					<div className="col-span-2 mt-4 flex gap-10 justify-center absolute bottom-0 right-5">
-						<button onClick={handleEdit} className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("complex_detail.save")}</button>
-						<button className="bg-secondary-0 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("complex_detail.edit_confirm")}</button>
+						<button onClick={handleEdit} className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="button" disabled={editable}>{t("complex_detail.save")}</button>
+						<button className="bg-secondary-0 hover:bg-secondary-10 border border-secondary-30 rounded-full shadow-md text-xl shadow-secondary-10 text-white px-16 py-2 active:shadow-none disabled:bg-gray-400 disabled:shadow-none disabled:text-black" type="submit" disabled={!editable}>{t("complex_detail.edit_confirm")}</button>
 					</div>
 					<button onClick={handleDelete} className="bg-secondarydark-40 absolute left-10 bottom-0 border-secondary-30 border rounded-full shadow-md text-xl shadow-secondary-10 text-white px-6 py-2 active:shadow-none" type="button">Dar de baja</button>
 				</form>
