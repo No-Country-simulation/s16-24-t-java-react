@@ -184,18 +184,6 @@ const handleClick = () => {
 }
 
 
-const handleClick = () => {
-  setIsClicked(!isClicked)
-}
-
-  const openLogoutModal = () =>{ 
-      setLogoutModal(true)
-  }
-
-  const closeLogoutModal = () =>{ 
-    setLogoutModal(false)
-}
-
 
   const chooseCreteModal = (pathname) => {
     if (pathname === PATHS.HEADQUARTERS) {
